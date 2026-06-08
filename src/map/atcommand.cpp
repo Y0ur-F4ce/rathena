@@ -2104,8 +2104,8 @@ ACMD_FUNC(go)
 		char map[MAP_NAME_LENGTH];
 		int32 x, y;
 	} data[] = {
-		{ MAP_PRONTERA,    156, 191 }, //  0=Prontera
-		{ MAP_MORROC,      156,  186 }, //  1=Morroc
+		{ MAP_PRONTERA,    156, 186 }, //  0=Prontera
+		{ MAP_MORROC,      156,  93 }, //  1=Morroc
 		{ MAP_GEFFEN,      119,  59 }, //  2=Geffen
 		{ MAP_PAYON,       175, 100 }, //  3=Payon
 		{ MAP_ALBERTA,     29, 235 }, //  4=Alberta
@@ -2114,15 +2114,15 @@ ACMD_FUNC(go)
 #else
 		{ MAP_IZLUDE,      128, 114 }, //  5=Izlude
 #endif
-		{ MAP_ALDEBARAN,   140, 131 }, //  6=Al de Baran
-		{ MAP_LUTIE,       147, 134 }, //  7=Lutie
-		{ MAP_COMODO,      209, 143 }, //  8=Comodo
-		{ MAP_YUNO,        157,  51 }, //  9=Yuno
-		{ MAP_AMATSU,      198,  84 }, // 10=Amatsu
-		{ MAP_GONRYUN,     160, 120 }, // 11=Gonryun
-		{ MAP_UMBALA,       89, 157 }, // 12=Umbala
-		{ MAP_NIFLHEIM,     21, 153 }, // 13=Niflheim
-		{ MAP_LOUYANG,     217,  40 }, // 14=Louyang
+		{ MAP_ALDEBARAN,   140, 115 }, //  6=Al de Baran
+		{ MAP_LUTIE,       148, 130 }, //  7=Lutie
+		{ MAP_COMODO,      190, 148 }, //  8=Comodo
+		{ MAP_YUNO,        158, 181 }, //  9=Yuno
+		{ MAP_AMATSU,      115,  151 }, // 10=Amatsu
+		{ MAP_GONRYUN,     161, 112 }, // 11=Gonryun
+		{ MAP_UMBALA,       95, 154 }, // 12=Umbala
+		{ MAP_NIFLHEIM,     202, 174 }, // 13=Niflheim
+		{ MAP_LOUYANG,     217,  106 }, // 14=Louyang
 /*
 #ifdef RENEWAL
 		{ MAP_NOVICE,       18, 26  }, // 15=Training Grounds (Renewal)
