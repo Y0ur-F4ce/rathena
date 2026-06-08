@@ -423,7 +423,7 @@ rachel,1,1,0	script	Festival Manager#gq_fes2	891,{
 	}
 }
 
-rachel,132,117,3	script	Rhehe Ravies#gq_fes03	891,{
+rachel,120,104,4	script	Rhehe Ravies#gq_fes03	891,{
 	if (countitem(7840) > 0) {
 		mes "[Rhehe Ravies]";
 		mes "A flower!!";

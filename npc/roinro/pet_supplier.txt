@@ -1,0 +1,26 @@
+// Pet Supplies by Roin, last modified 5/7/2025
+
+//Old pet groomer
+prontera,218,211,4	script	Former Pet Groomer#prt	125,{
+	mes "[Former Pet Groomer]";
+	mes "I used to be the best pet supplier in Prontera; everyone came to me for all their pet-needs.";
+	next;
+	emotion ET_CRY;
+	mes "[Former Pet Groomer]";
+	mes "But ever since that girl came into town just ^4d4dffnortheast of the city center^000000, no one's ever come back to me.";
+	next;
+	mes "[Former Pet Groomer]";
+	mes "I've had to start eating my own supplies...";
+	close;
+}
+
+prontera,170,226,4	script	Pet Supplier#prt	91,{
+	cutin "pet_supplier1",2;
+	mes "[Pet Supplier]";
+	mes "Hiii!~";
+	mes "I'm selling a bunch of pet supplies! How can I help you?";
+	close2;
+	callshop "RoinROPetSupplies";
+}
+
+-	shop	RoinROPetSupplies	HIDDEN_NPC,537:-1,25377:-1,643:-1,10013:-1,10014:-1,554:-1,6114:-1,6113:-1,6110:-1,6115:-1,6100:-1,6098:-1,6112:-1,6104:-1,6108:-1,6111:-1,6095:-1,6099:-1,6096:-1,6097:-1,6094:-1,7822:1500,7823:1500,6107:1500,7766:1500,6105:1500,7821:1500,25232:1500,534:1500,6106:1500,25231:1500,11616:1500,6109:1500,25233:1500,7824:1500,532:1500,1000889:1500

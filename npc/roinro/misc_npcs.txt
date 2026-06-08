@@ -1,0 +1,7 @@
+// Main Office
+m_office,68,19,3	script	Assassin#sitting_Assassin	698,{
+	mes "[Assassin]";
+	mes "This place sure is snug.";
+	mes "I don't think whoever built this place realized how many people would have to be crammed in here...";
+	close;
+}

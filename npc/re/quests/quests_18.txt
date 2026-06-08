@@ -7866,7 +7866,7 @@ wolfvill,180,204,3	script	Amira#ep18	4_F_DESERT,{
 		mes "[Amira]";
 		mes "...So, um, what was the name? I don't remember well, but anyway, the important thing is...";
 		completequest 16556;
-		if (isbegin_quest(1655) == 2 && isbegin_quest(16557) == 2) {
+		if (isbegin_quest(16555) == 2 && isbegin_quest(16557) == 2) {
 			unittalk getcharid(3), "" + strcharinfo(0) + " : I've written down all three stories. Let's return to Gudra.", bc_self;
 			setquest 16558;
 		}

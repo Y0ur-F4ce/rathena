@@ -1,0 +1,400 @@
+/* This script consists of:
+- NPC who starts the instance
+- NPC at the starting warp point of the 1@whackapor map that uses OnTouch_ to start the Whack-a-poring process
+- NPC Instance starter script that uses OnInstanceInit to set up some variables used in the mini game. For some reason, I could not get OnInstanceInit to carry a RID, so I separated this NPC from the one above.
+- 8 Poring/Bombring NPCs that start disabled in the instance
+- a function to randomly spawn in a Poring/Bombring
+- mapflags for the 1@whackapor map
+*/
+
+// @reloadnpcfile npc/roinro/instances/whack-a-poring.txt
+
+//--------------Disable some NPCs until OnInstanceInit--------------
+-	script	Disable Whack-a-Poring on start	-1,{
+OnInit:
+	disablenpc "start whack-a-poring";
+	for(.@i = 0; .@i < 8 ; .@i++) {
+		disablenpc "Poring#whackposition" + .@i;
+		disablenpc "Bombring#whackposition" + .@i;
+	}
+}
+
+//--------------Main talking NPC--------------
+prontera,156,178,4,	script	Whack-a-Poring#Prontera	109,{
+	// Check if it's been at least 45 minutes (2700s) since talking to this NPC. If it has been, reset #whackapor playcount
+	if(gettimetick(2) - #whackapor_countdown > 2700) {
+		#whackapor_playcount = 0;
+	}
+	#whackapor_countdown = gettimetick(2);
+	mes "[Whack-a-poring]";
+	mes "Step right up! Step right up, folks! Test your reflexes and win Roin Coins!";
+	mes "Would you like to enter Whack-a-Poring?";
+	.@remaining_attempts$ = 3-#whackapor_playcount;
+	mes "Remaining attempts: " + .@remaining_attempts$;
+	next;
+	.@user_choice = 3;
+	while(.@user_choice == 3) {
+		.@user_choice = select("Yes","No","What's this?");
+		switch(.@user_choice) {
+			case 1:
+				if(#whackapor_playcount < 3) {
+					if(!checkweight(250000,1)) {
+						clear;
+						mes "[Whack-a-poring]";
+						mes "Hold up there " + (Sex?"son":"miss") + ", I'm afraid you're just carrying way too much stuff, and that's a safety hazard. Come back when you're carrying less items.";
+						close;
+					}
+					if (instance_create("Whack-a-poring!", IM_CHAR) < 0) {
+						clear;
+						mes "[Whack-a-poring]";
+						mes "Unable to create Instance!";
+						close;
+					};
+					if (instance_enter("Whack-a-poring!",-1,-1,getcharid(0),instance_id(IM_CHAR)) == IE_OK) {
+						end;
+					} else {
+						clear;
+						mes "[Whack-a-poring]";
+						mes "An unknown error occurred!";
+						close;
+					}
+				} else {
+					clear;
+					mes "[Whack-a-poring]";
+					mes "Sorry buddy, you only get 3 go-arounds. Come back next time Whack-a-Poring's in town!";
+					close;
+				}
+				break;
+			case 2:
+				clear;
+				mes "[Whack-a-poring]";
+				mes "Oh.";
+				close;
+				break;
+			case 3:
+				clear;
+				mes "[Whack-a-poring]";
+				mes "Click the Porings as soon as they pop up to earn points, but don't click the Bomb Porings!", "The more points you earn, the more Roin Coins you win!";
+				next;
+				mes "[Whack-a-poring]";
+				mes "So how about it? Want to enter Whack-a-Poring?";
+				mes "Remaining attempts: " + .@remaining_attempts$;
+				next;
+				break;
+		}
+	}
+OnInit:
+	hideonnpc strnpcinfo(3);
+	end;
+}
+//--------------Controller--------------
+1@whackapor,51,46,0	script	start whack-a-poring	-1,1,1,{
+OnTouch_:
+	'player_points = 0;
+	'map1$ = instance_mapname("1@whackapor",instance_id(IM_CHAR));
+	mapannounce 'map1$, "Welcome to Whack-a-Poring!", bc_map, 0xFFCC, FW_NORMAL, 18;
+	sleep2 5000;
+	mapannounce 'map1$, "You have 4 rounds to smash as many Porings as you can.", bc_map, 0xFFCC, FW_NORMAL, 18;
+	sleep2 3500;
+	mapannounce 'map1$, "But don't click on the Bomb Porings!", bc_map, 0xFFCC, FW_NORMAL, 18;
+	sleep2 3500;
+	mapannounce 'map1$, "Starting in: 5!", bc_map, 0xFFCC, FW_NORMAL, 18;
+	sleep2 1000;
+	mapannounce 'map1$, "Starting in: 4!", bc_map, 0xFFCC, FW_NORMAL, 19;
+	sleep2 1000;
+	mapannounce 'map1$, "Starting in: 3!", bc_map, 0xFFCC, FW_NORMAL, 24;
+	sleep2 1000;
+	mapannounce 'map1$, "Starting in: 2!", bc_map, 0xFFCC, FW_NORMAL, 25;
+	sleep2 1000;
+	mapannounce 'map1$, "Starting in: 1!", bc_map, 0xFFCC, FW_NORMAL, 26;
+	sleep2 1000;
+	mapannounce 'map1$, "BEGIN FIRST ROUND!", bc_map, 0xFFCC, FW_BOLD, 32;
+	#whackapor_playcount += 1;
+	for(.@i = 0; .@i < 10; .@i ++) {
+		.@rand_sleep = rand(500,2000);
+		callfunc "spawnRandomPosition";
+		sleep2 .@rand_sleep;
+	}
+	sleep2 2000;
+	mapannounce 'map1$, "ROUND 2!", bc_map, 0xFFCC, FW_BOLD, 32;
+	for(.@i = 0; .@i < 10; .@i ++) {
+		.@rand_sleep = rand(500,2000);
+		callfunc "spawnRandomPosition";
+		callfunc "spawnRandomPosition";
+		sleep2 .@rand_sleep;
+	}
+	sleep2 2000;
+	mapannounce 'map1$, "ROUND 3!", bc_map, 0xFFCC, FW_BOLD, 32;
+	for(.@i = 0; .@i < 12; .@i ++) {
+		.@rand_sleep = rand(400,1250);
+		callfunc "spawnRandomPosition";
+		callfunc "spawnRandomPosition";
+		sleep2 .@rand_sleep;
+	}
+	sleep2 2000;
+	mapannounce 'map1$, "ROUND 4, LAST ROUND!", bc_map, 0xFFCC, FW_BOLD, 32;
+	for(.@i = 0; .@i < 15; .@i ++) {
+		.@rand_sleep = rand(400,1250);
+		.@fourth_spawn = rand(0,1);
+		if(.@fourth_spawn) {callfunc "spawnRandomPosition";};
+		callfunc "spawnRandomPosition";
+		callfunc "spawnRandomPosition";
+		callfunc "spawnRandomPosition";
+		sleep2 .@rand_sleep;
+	}
+	mapannounce 'map1$, "FINISH!", bc_map, 0xFFCC, FW_BOLD, 32;
+	for(.@i = 0; .@i < 8; .@i++) {
+		disablenpc instance_npcname("Poring#whackposition" + .@i);
+		disablenpc instance_npcname("Bombring#whackposition" + .@i);
+	}
+	sleep2 5000;
+	if('player_points < 6) {
+		mapannounce 'map1$, "Congratu-- well er, uh, you actually didn't really score that well...", bc_map, 0xFFCC, FW_NORMAL, 18;
+		sleep2 2500;
+		mapannounce 'map1$, "But I mean... I guess it's not about the points?", bc_map, 0xFFCC, FW_NORMAL, 18;
+		sleep2 2500;
+		mapannounce 'map1$, "Uh...", bc_map, 0xFFCC, FW_NORMAL, 18;
+		sleep2 1500;
+		mapannounce 'map1$, "Have a Roin Coin. Thanks for coming.", bc_map, 0xFFCC, FW_NORMAL, 18;
+		sleep2 1500;
+		getitem 250000, 1;
+		sleep2 1000;
+	} else {
+		mapannounce 'map1$, "Congratulations, you scored " + 'player_points + " points!", bc_map, 0xFFCC, FW_NORMAL, 18;
+		sleep2 2500;
+		mapannounce 'map1$, "That means you earn " + ceil('player_points/4, 1) + " Roin Coins!", bc_map, 0xFFCC, FW_NORMAL, 18;
+		sleep2 1500;
+		getitem 250000, ceil('player_points/4, 1);
+		sleep2 1000;
+		mapannounce 'map1$, "Thanks for playing!", bc_map, 0xFFCC, FW_NORMAL, 18;
+		sleep2 2500;
+	}
+	warp "prontera",155,185;
+	instance_destroy;
+	end;
+}
+
+//--------------Starter--------------
+1@whackapor,1,1,0	script	Whack-a-poring starter	-1,{
+OnInstanceInit:
+	setarray 'open_positions[0],
+		true,	true,	true,
+		true,			true,
+		true,	true,	true;
+	for(.@i = 0; .@i < 8 ; .@i++) {
+		disablenpc instance_npcname("Poring#whackposition" + .@i);
+		disablenpc instance_npcname("Bombring#whackposition" + .@i);
+	}
+	enablenpc instance_npcname("start whack-a-poring");
+	end;
+}
+//--------------Poring+Bombring NPCs--------------
+1@whackapor,51,53,4	script	Poring#whackposition0	1002,{
+	'player_points += 1;
+	specialeffect 18;
+	message strcharinfo(0),""+'player_points;
+	monster 'map1$,51,53, "Poring", 1725, 1, strnpcinfo(3) + "::OnPosition0Die";
+	setunitdata $@mobid[0],UMOB_LOOKDIR,4;
+	killmonster 'map1$, strnpcinfo(3) + "::OnPosition0Die";
+OnPosition0Die:
+	disablenpc(strnpcinfo(3));
+	'open_positions[0] = true;
+	end;
+}
+1@whackapor,51,53,4	script	Bombring#whackposition0	1904,{
+	'player_points -= 3;
+	specialeffect 183;
+	message strcharinfo(0),""+'player_points;
+OnPosition0Die:
+	disablenpc(strnpcinfo(3));
+	'open_positions[0] = true;
+	end;
+}
+
+1@whackapor,44,53,4	script	Poring#whackposition1	1002,{
+	'player_points += 1;
+	specialeffect 18;
+	message strcharinfo(0),""+'player_points;
+	monster 'map1$,44,53, "Poring", 1725, 1, strnpcinfo(3) + "::OnPosition1Die";
+	setunitdata $@mobid[0],UMOB_LOOKDIR,4;
+	killmonster 'map1$, strnpcinfo(3) + "::OnPosition1Die";
+OnPosition1Die:
+	disablenpc(strnpcinfo(3));
+	'open_positions[1] = true;
+	end;
+}
+1@whackapor,44,53,4	script	Bombring#whackposition1	1904,{
+	'player_points -= 3;
+	specialeffect 183;
+	message strcharinfo(0),""+'player_points;
+OnPosition1Die:
+	disablenpc(strnpcinfo(3));
+	'open_positions[1] = true;
+	end;
+}
+
+1@whackapor,44,46,4	script	Poring#whackposition2	1002,{
+	'player_points += 1;
+	specialeffect 18;
+	message strcharinfo(0),""+'player_points;
+	monster 'map1$,44,46, "Poring", 1725, 1, strnpcinfo(3) + "::OnPosition2Die";
+	setunitdata $@mobid[0],UMOB_LOOKDIR,4;
+	killmonster 'map1$, strnpcinfo(3) + "::OnPosition2Die";
+OnPosition2Die:
+	disablenpc(strnpcinfo(3));
+	'open_positions[2] = true;
+	end;
+}
+1@whackapor,44,46,4	script	Bombring#whackposition2	1904,{
+	'player_points -= 3;
+	specialeffect 183;
+	message strcharinfo(0),""+'player_points;
+OnPosition2Die:
+	disablenpc(strnpcinfo(3));
+	'open_positions[2] = true;
+	end;
+}
+
+1@whackapor,44,39,4	script	Poring#whackposition3	1002,{
+	'player_points += 1;
+	specialeffect 18;
+	message strcharinfo(0),""+'player_points;
+	monster 'map1$,44,39, "Poring", 1725, 1, strnpcinfo(3) + "::OnPosition3Die";
+	setunitdata $@mobid[0],UMOB_LOOKDIR,4;
+	killmonster 'map1$, strnpcinfo(3) + "::OnPosition3Die";
+OnPosition3Die:
+	disablenpc(strnpcinfo(3));
+	'open_positions[3] = true;
+	end;
+}
+1@whackapor,44,39,4	script	Bombring#whackposition3	1904,{
+	'player_points -= 3;
+	specialeffect 183;
+	message strcharinfo(0),""+'player_points;
+OnPosition3Die:
+	disablenpc(strnpcinfo(3));
+	'open_positions[3] = true;
+	end;
+}
+
+1@whackapor,51,39,4	script	Poring#whackposition4	1002,{
+	'player_points += 1;
+	specialeffect 18;
+	message strcharinfo(0),""+'player_points;
+	monster 'map1$,51,39, "Poring", 1725, 1, strnpcinfo(3) + "::OnPosition4Die";
+	setunitdata $@mobid[0],UMOB_LOOKDIR,4;
+	killmonster 'map1$, strnpcinfo(3) + "::OnPosition4Die";
+OnPosition4Die:
+	disablenpc(strnpcinfo(3));
+	'open_positions[4] = true;
+	end;
+}
+1@whackapor,51,39,4	script	Bombring#whackposition4	1904,{
+	'player_points -= 3;
+	specialeffect 183;
+	message strcharinfo(0),""+'player_points;
+OnPosition4Die:
+	disablenpc(strnpcinfo(3));
+	'open_positions[4] = true;
+	end;
+}
+
+1@whackapor,58,39,4	script	Poring#whackposition5	1002,{
+	'player_points += 1;
+	specialeffect 18;
+	message strcharinfo(0),""+'player_points;
+	monster 'map1$,58,39, "Poring", 1725, 1, strnpcinfo(3) + "::OnPosition5Die";
+	setunitdata $@mobid[0],UMOB_LOOKDIR,4;
+	killmonster 'map1$, strnpcinfo(3) + "::OnPosition5Die";
+OnPosition5Die:
+	disablenpc(strnpcinfo(3));
+	'open_positions[5] = true;
+	end;
+}
+1@whackapor,58,39,4	script	Bombring#whackposition5	1904,{
+	'player_points -= 3;
+	specialeffect 183;
+	message strcharinfo(0),""+'player_points;
+OnPosition5Die:
+	disablenpc(strnpcinfo(3));
+	'open_positions[5] = true;
+	end;
+}
+
+1@whackapor,58,46,4	script	Poring#whackposition6	1002,{
+	'player_points += 1;
+	specialeffect 18;
+	message strcharinfo(0),""+'player_points;
+	monster 'map1$,58,46, "Poring", 1725, 1, strnpcinfo(3) + "::OnPosition6Die";
+	setunitdata $@mobid[0],UMOB_LOOKDIR,4;
+	killmonster 'map1$, strnpcinfo(3) + "::OnPosition6Die";
+OnPosition6Die:
+	disablenpc(strnpcinfo(3));
+	'open_positions[6] = true;
+	end;
+}
+1@whackapor,58,46,4	script	Bombring#whackposition6	1904,{
+	'player_points -= 3;
+	specialeffect 183;
+	message strcharinfo(0),""+'player_points;
+OnPosition6Die:
+	disablenpc(strnpcinfo(3));
+	'open_positions[6] = true;
+	end;
+}
+
+1@whackapor,58,53,4	script	Poring#whackposition7	1002,{
+	'player_points += 1;
+	specialeffect 18;
+	message strcharinfo(0),""+'player_points;
+	monster 'map1$,58,53, "Poring", 1725, 1, strnpcinfo(3) + "::OnPosition7Die";
+	setunitdata $@mobid[0],UMOB_LOOKDIR,4;
+	killmonster 'map1$, strnpcinfo(3) + "::OnPosition7Die";
+OnPosition7Die:
+	disablenpc(strnpcinfo(3));
+	'open_positions[7] = true;
+	end;
+}
+1@whackapor,58,53,4	script	Bombring#whackposition7	1904,{
+	'player_points -= 3;
+	specialeffect 183;
+	message strcharinfo(0),""+'player_points;
+OnPosition7Die:
+	disablenpc(strnpcinfo(3));
+	'open_positions[7] = true;
+	//debugmes "'open_positions[7] = " + 'open_positions[7] + " (TRUE)";
+	end;
+}
+
+//--------------Spawn Poring/Bombring at one of 8 positions--------------
+function	script	spawnRandomPosition	{
+	.@bomb_or_poring = rand(1,4);
+	.@sanity_check = 0;
+	.@rand = rand(0,7);
+	while('open_positions[.@rand] == false && .@sanity_check < 51) {
+		.@rand = rand(0,7);
+		.@sanity_check++;
+	}
+	if(.@sanity_check >= 50) {
+		// No open positions were found after 50 tries, so this round is getting skipped
+		return;
+	}
+	enablenpc(instance_npcname((.@bomb_or_poring == 4 ? "Bombring" : "Poring") + "#whackposition" + .@rand));
+	addtimer 1000, instance_npcname((.@bomb_or_poring == 4 ? "Bombring" : "Poring") + "#whackposition" + .@rand) + "::OnPosition" + .@rand + "Die"; // Death time
+	'open_positions[.@rand] = false;
+	.@sanity_check = 0;
+	return;
+}
+
+//--------------Mapflags--------------
+1@whackapor	mapflag	NOBRANCH
+1@whackapor	mapflag	NOCOMMAND	99
+1@whackapor	mapflag	NODROP
+1@whackapor	mapflag	NOICEWALL
+1@whackapor	mapflag	NOMEMO
+1@whackapor	mapflag	NOSAVE
+1@whackapor	mapflag	NOSKILL
+1@whackapor	mapflag	NOTELEPORT
+1@whackapor	mapflag	NOVENDING
+1@whackapor	mapflag	NOWARP
+1@whackapor	mapflag	NOWARPTO

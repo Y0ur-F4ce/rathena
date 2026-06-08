@@ -1,0 +1,84 @@
+// New Wave Sunglasses quest, based off NovaRO
+
+verus04,62,227,5	script	Futuristic Inventor	851,{
+	mes "[Futuristic Inventor]";
+	mes "I can see it now! A new age of sunglasses is upon us!";
+	if (checkquest(13186) != 2) {
+		mes "Unfortunately, I'll need someone's help who's completed the Charleston Crisis instance.";
+		mes "Come back when you've completed that, and I'll share with you my idea for some";
+		mes mesitemlink(18813, false, "New Wave Sunglasses [0]") + ".";
+	}
+	mes "I can craft you a pair of " + mesitemlink(18813, false, "New Wave Sunglasses [0]") + ", but you'll need to gather some supplies for me.";
+	switch(select("Count me in!","No thanks")) {
+		clear;
+		mes "[Futuristic Inventor]";
+		case 1: // Yes
+			mes "Wonderful! I'll need you to supply:";
+			mes "1 " + mesitemlink(23277);
+			mes "1 " + mesitemlink(20733);
+			mes "1 " + mesitemlink(2139);
+			mes "1 " + mesitemlink(5288);
+			mes "2 " + mesitemlink(1971);
+			mes "3 " + mesitemlink(6752);
+			mes "5 " + mesitemlink(7353);
+			mes "10 " + mesitemlink(6750);
+			mes "50 " + mesitemlink(6216);
+			mes "50 " + mesitemlink(7094);
+			mes "80 " + mesitemlink(7319);
+			mes "175 " + mesitemlink(250000);
+			mes "300 " + mesitemlink(999);
+			mes "and 1,000,000 zeny.";
+			setarray .@items[0],
+				23277, 20733, 2139, 5288, 1971, 6752, 7353, 6750, 6216, 7094, 7319, 250000, 999;
+			setarray .@item_reqs[0],
+				1, 1, 1, 1, 2, 3, 5, 10, 50, 50, 80, 175, 300;
+			.@req_zeny = 1000000;
+			set .@has_items$, "I gathered all the items!";
+			for( .@i = 0 ; .@i < getarraysize(.@items) ; .@i++) {
+				if(countitem(.@items[.@i]) < .@item_reqs[.@i]) {
+					set .@has_items$, "";
+				}
+			}
+			switch(select(.@has_items$, "I'll go get those items.")) {
+				clear;
+				mes "[Futuristic Inventor]";
+				case 1: // Has items
+					if (Zeny < .@req_zeny) { // But not enough zeny
+						mes "Well sure, you collected all the items, but you're missing the 1,000,000z that's also required.";
+						mes "I can't do this for free!";
+						close;
+					}
+					mes "Fantastic! I'll go ahead and take those of your hands, okay?";
+					switch(select("Create glasses","Never mind")) {
+						clear;
+						mes "[Futuristic Inventor]";
+						case 1: // Create glasses
+							if(!checkweight(18813,1)) {
+								mes "Unfortunately, you're carrying too many items. Get rid of some stuff and come back to see me.";
+								close;
+							}
+							getitem 18813, 1;
+							for (.@i = 0; .@i < getarraysize(.@items); .@i++) {
+								delitem .@items[.@i], .@item_reqs[.@i];
+							}
+							Zeny -= .@req_zeny;
+							specialeffect2 EF_REPAIRWEAPON;
+							mes "It is finished! Enjoy the new era of sunglasses!";
+							emotion ET_BEST;
+							close;
+							break;
+						case 2: // Never mind
+							mes "Don't miss out on this newest era!";
+							close;
+							break;
+					}
+				case 2: // Close dialogue (I'll get the items)
+					mes "I'll await your swift return!";
+					close;
+			}
+			break;
+		case 2: // No
+			mes "You're going to miss out...";
+			close;
+	}
+}

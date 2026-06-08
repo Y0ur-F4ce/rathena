@@ -5466,7 +5466,7 @@ mosk_in,221,43,0	script	#bowl	HIDDEN_NPC,{
 //----------------------------------------------------------------------------
 // Center of Town
 //----------------------------------------------------------------------------
-moscovia,224,190,0	script	#nowinterplz	CLEAR_NPC,{
+moscovia,225,195,0	script	#nowinterplz	CLEAR_NPC,{
 	if (mos_nowinter != 19) end;
 	if (countitem(7765)) {// Yaga_Secret_Medicine
 		mes "["+strcharinfo(0)+"]";
@@ -10655,15 +10655,15 @@ mosk_dun02,57,220,0	script	House Ghost Jar#rus43	HIDDEN_NPC,{
 			cutin "",255;
 			switch( .@rucard_game01 ) {
 			case 1:
-				cutin "포링카드",4; // Poring Card
+				cutin "    카  ",4; // Poring Card
 				.@win_string$ = "You are good. Can you do it next time?";
 				break;
 			case 2:
-				cutin "엔젤링카드",4; // Angeling Card
+				cutin "      카  ",4; // Angeling Card
 				.@win_string$ = "You are pretty good at this. Ok, but can you do it again?";
 				break;
 			case 3:
-				cutin "고스트링카드",4; // Ghostring Card
+				cutin "   트  카  ",4; // Ghostring Card
 				.@win_string$ = "You are pretty good at this. Ok, but can you do it again?";
 				break;
 			}

@@ -1,0 +1,49 @@
+// RoinRO tool dealer for all towns
+
+-	shop	RoinROToolDealer	10079,11520:4500,610:-1,717:-1,523:500,601:-1,23288:-1,501:-1,502:-1,503:-1,504:-1,506:-1,645:-1,656:-1,657:-1,713:-1,1771:-1,1065:-1,611:-1,1750:-1
+
+
+//duplicates
+prontera,160,193,4	script	Tool Dealer#pronteraRoin	10079,{callshop "RoinROToolDealer";}
+morocc,162,97,4	script	Tool Dealer#moroccRoin	10079,{callshop "RoinROToolDealer";}
+moc_para01,24,17,6	script	Tool Dealer#moc_para01Roin	10079,{callshop "RoinROToolDealer";}
+geffen,112,68,6	script	Tool Dealer#geffenRoin	10079,{callshop "RoinROToolDealer";}
+payon,166,106,6	script	Tool Dealer#payonRoin	10079,{callshop "RoinROToolDealer";}
+alberta,31,240,4	script	Tool Dealer#albertaRoin	10079,{callshop "RoinROToolDealer";}
+izlude,131,148,4	script	Tool Dealer#izludeRoin	10079,{callshop "RoinROToolDealer";}
+aldebaran,146,114,4	script	Tool Dealer#aldebaranRoin	10079,{callshop "RoinROToolDealer";}
+xmas,154,139,4	script	Tool Dealer#xmasRoin	10079,{callshop "RoinROToolDealer";}
+comodo,184,158,6	script	Tool Dealer#comodoRoin	10079,{callshop "RoinROToolDealer";}
+yuno,149,187,6	script	Tool Dealer#yunoRoin	10079,{callshop "RoinROToolDealer";}
+amatsu,107,154,6	script	Tool Dealer#amatsuRoin	10079,{callshop "RoinROToolDealer";}
+gonryun,165,121,4	script	Tool Dealer#gonryun	10079,{callshop "RoinROToolDealer";}
+umbala,95,161,6	script	Tool Dealer#umbalaRoin	10079,{callshop "RoinROToolDealer";}
+niflheim,207,167,2	script	Tool Dealer#niflheimRoin	10079,{callshop "RoinROToolDealer";}
+louyang,228,102,4	script	Tool Dealer#louyangRoin	10079,{callshop "RoinROToolDealer";}
+ayothaya,205,169,4	script	Tool Dealer#ayothayaRoin	10079,{callshop "RoinROToolDealer";}
+einbroch,242,193,3	script	Tool Dealer#einbrochRoin	10079,{callshop "RoinROToolDealer";}
+lighthalzen,152,100,6	script	Tool Dealer#lighthalzenRoin	10079,{callshop "RoinROToolDealer";}
+einbech,191,123,4	script	Tool Dealer#einbechRoin	10079,{callshop "RoinROToolDealer";}
+hugel,98,166,4	script	Tool Dealer#hugelRoin	10079,{callshop "RoinROToolDealer";}
+rachel,134,117,4	script	Tool Dealer#rachelRoin	10079,{callshop "RoinROToolDealer";}
+veins,193,122,6	script	Tool Dealer#veinsRoin	10079,{callshop "RoinROToolDealer";}
+moscovia,217,186,6	script	Tool Dealer#moscoviaRoin	10079,{callshop "RoinROToolDealer";}
+mid_camp,200,288,6	script	Tool Dealer#mid_campRoin	10079,{callshop "RoinROToolDealer";}
+manuk,290,141,4	script	Tool Dealer#manukRoin	10079,{callshop "RoinROToolDealer";}
+splendide,208,152,4	script	Tool Dealer#splendideRoin	10079,{callshop "RoinROToolDealer";}
+brasilis,191,222,6	script	Tool Dealer#brasilisRoin	10079,{callshop "RoinROToolDealer";}
+dicastes01,198,195,4	script	Tool Dealer#dicastes01Roin	10079,{callshop "RoinROToolDealer";}
+mora,59,149,4	script	Tool Dealer#moraRoin	10079,{callshop "RoinROToolDealer";}
+dewata,196,186,4	script	Tool Dealer#dewataRoin	10079,{callshop "RoinROToolDealer";}
+malaya,227,195,0	script	Tool Dealer#malayaRoin	10079,{callshop "RoinROToolDealer";}
+ecl_in01,45,60,6	script	Tool Dealer#ecl_in01Roin	10079,{callshop "RoinROToolDealer";}
+lasagna,201,187,4	script	Tool Dealer#lasagnaRoin	10079,{callshop "RoinROToolDealer";}
+verus04,114,256,6	script	Tool Dealer#verus04Roin	10079,{callshop "RoinROToolDealer";}
+harboro1,291,199,6	script	Tool Dealer#harboro1Roin	10079,{callshop "RoinROToolDealer";}
+sp_cor,152,125,6	script	Tool Dealer#sp_corRoin	10079,{callshop "RoinROToolDealer";}
+ba_maison,63,159,6	script	Tool Dealer#ba_maisonRoin	10079,{callshop "RoinROToolDealer";}
+thor_camp,241,74,6	script	Tool Dealer#thor_campRoin	10079,{callshop "RoinROToolDealer";}
+icecastle,181,217,6	script	Tool Dealer#icecastleRoin	10079,{callshop "RoinROToolDealer";}
+wolfvill,140,149,6	script	Tool Dealer#wolfvillRoin	10079,{callshop "RoinROToolDealer";}
+prt_monk,174,209,5	script	Tool Dealer#capitolinaRoin	10079,{callshop "RoinROToolDealer";}
+tra_fild,86,171,5	script	Tool Dealer#dummies	10079,{callshop "RoinROToolDealer";}

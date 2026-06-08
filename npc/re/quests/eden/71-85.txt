@@ -39,11 +39,7 @@ moc_para01,44,38,3	script	Mission [71 - 85]	857,{
 	}
 
 	if (BaseLevel < 71) {
-		mes "- Only members of the -";
-		mes "- right level can read -";
-		mes "- this bulletin board. -";
-		mes "- Try to find a board -";
-		mes "- that suits your level. -";
+		mes "Only members of the right level can read this bulletin board. Try to find a board that suits your level.";
 		close;
 	} else if (BaseLevel > 85) {
 		// Quest IDs: 10107-10123, 5055-5057
@@ -52,7 +48,9 @@ moc_para01,44,38,3	script	Mission [71 - 85]	857,{
 			10110,10111,10112,10113,
 			10114,10115,10116,10117,
 			10118,10119,10120,
-			10121,10122,10123,5055,5056;
+			10121,10122,10123,5055,5056,
+			// NEW QUEST IDS
+			62603,62605,62606,62607,62608;
 		for(set .@i,0; .@i<getarraysize(.@quests); set .@i,.@i+1) {
 			if (checkquest(.@quests[.@i],HUNTING) == 2)
 				set .@complete[getarraysize(.@complete)], .@quests[.@i];
@@ -79,7 +77,7 @@ moc_para01,44,38,3	script	Mission [71 - 85]	857,{
 	mes "- Choose where you -";
 	mes "- would like to hunt. -";
 	next;
-	switch(select("Sphinx Dungeon:Glast Heim:Juno Area:Clock Tower:Localized Islands")) {
+	switch(select("Sphinx Dungeon:Glast Heim:Juno Area:Clock Tower:Localized Islands:Umbala Area")) {
 	case 1:
 		mes "- There are several requests -";
 		mes "- related to the Sphinx Dungeon -";
@@ -88,9 +86,9 @@ moc_para01,44,38,3	script	Mission [71 - 85]	857,{
 		set .@str1$,"The villagers of Morocc are worried by the increasing number of monsters in the Sphinx Dungeon. ";
 		set .@str2$,"- Meidi from Morocc -";
 		switch(select("Hunt Requiem:Hunt Marduk:Hunt Pasana")) {
-			case 1: callsub L_Quest,10107,.@str1$+"Hunt 10 Requiems.",.@str2$;
-			case 2: callsub L_Quest,10108,.@str1$+"Hunt 10 Marduks.",.@str2$;
-			case 3: callsub L_Quest,10109,.@str1$+"Hunt 10 Pasanas.",.@str2$;
+			case 1: callsub L_Quest,10107,.@str1$+"Hunt 10 ^4d4dffRequiems^000000.",.@str2$;
+			case 2: callsub L_Quest,10108,.@str1$+"Hunt 10 ^4d4dffMarduks^000000.",.@str2$;
+			case 3: callsub L_Quest,10109,.@str1$+"Hunt 10 ^4d4dffPasanas^000000.",.@str2$;
 		}
 	case 2:
 		mes "- There are several requests -";
@@ -100,10 +98,10 @@ moc_para01,44,38,3	script	Mission [71 - 85]	857,{
 		set .@str1$,"I am very afraid that the monsters from Glast Heim will attack us. ";
 		set .@str2$,"- Ancellia from Geffen -";
 		switch(select("Hunt Dark Frame:Hunt Evil Druid:Hunt Wraith:Hunt Raydric Archer")) {
-			case 1: callsub L_Quest,10110,.@str1$+"Hunt 10 Dark Frames.",.@str2$;
-			case 2: callsub L_Quest,10111,.@str1$+"Hunt 10 Evil Druids.",.@str2$;
-			case 3: callsub L_Quest,10112,.@str1$+"Hunt 10 Wraiths.",.@str2$;
-			case 4: callsub L_Quest,10113,.@str1$+"Hunt 10 Raydric Archers.",.@str2$;
+			case 1: callsub L_Quest,10110,.@str1$+"Hunt 10 ^4d4dffDark Frames^000000.",.@str2$;
+			case 2: callsub L_Quest,10111,.@str1$+"Hunt 10 ^4d4dffEvil Druids^000000.",.@str2$;
+			case 3: callsub L_Quest,10112,.@str1$+"Hunt 10 ^4d4dffWraiths^000000.",.@str2$;
+			case 4: callsub L_Quest,10113,.@str1$+"Hunt 10 ^4d4dffRaydric Archers^000000.",.@str2$;
 		}
 	case 3:
 		mes "- There are several requests -";
@@ -113,10 +111,10 @@ moc_para01,44,38,3	script	Mission [71 - 85]	857,{
 		set .@str1$,"Those who can't fight, like me, find it much more difficult to travel due to the large number of monsters. ";
 		set .@str2$,"- Jeanbai, traveler -";
 		switch(select("Hunt Grand Peco:Hunt Sleeper:Hunt Goat:Hunt Harpy")) {
-			case 1: callsub L_Quest,10114,.@str1$+"Hunt 20 Grand Pecos.",.@str2$;
-			case 2: callsub L_Quest,10115,.@str1$+"Hunt 20 Sleepers.",.@str2$;
-			case 3: callsub L_Quest,10116,.@str1$+"Hunt 20 Goats.",.@str2$;
-			case 4: callsub L_Quest,10117,.@str1$+"Hunt 20 Harpies.",.@str2$;
+			case 1: callsub L_Quest,10114,.@str1$+"Hunt 20 ^4d4dffGrand Pecos^000000.",.@str2$;
+			case 2: callsub L_Quest,10115,.@str1$+"Hunt 20 ^4d4dffSleepers^000000.",.@str2$;
+			case 3: callsub L_Quest,10116,.@str1$+"Hunt 20 ^4d4dffGoats^000000.",.@str2$;
+			case 4: callsub L_Quest,10117,.@str1$+"Hunt 20 ^4d4dffHarpies^000000.",.@str2$;
 		}
 	case 4:
 		mes "- There are several requests -";
@@ -126,24 +124,31 @@ moc_para01,44,38,3	script	Mission [71 - 85]	857,{
 		set .@str1$,"I used to love listening to the sweet melody of the Al De Baran Clock Tower but I can't hear anything anymore because of all the noises the monsters are making. ";
 		set .@str2$,"- Rizingsetter, President of the Love Clock community -";
 		switch(select("Hunt Clock:Hunt Punk:Hunt Rideword")) {
-			case 1: callsub L_Quest,10118,.@str1$+"Hunt 15 Clocks before it breaks.",.@str2$;
-			case 2: callsub L_Quest,10119,.@str1$+"Hunt 15 Punks before it breaks.",.@str2$;
-			case 3: callsub L_Quest,10120,.@str1$+"Hunt 15 Ridewords before it breaks.",.@str2$;
+			case 1: callsub L_Quest,10118,.@str1$+"Hunt 15 ^4d4dffClocks^000000.",.@str2$;
+			case 2: callsub L_Quest,10119,.@str1$+"Hunt 15 ^4d4dffPunks^000000.",.@str2$;
+			case 3: callsub L_Quest,10120,.@str1$+"Hunt 15 ^4d4dffRidewords^000000.",.@str2$;
 		}
-	case 5:
+	case 5: // "Localized Islands" selected
 		mes "- There are several requests -";
 		mes "- related to the Localized Islands -";
 		mes "- on this mission Board. -";
 		next;
 		set .@str1$,"I want to go on an adventure but there are so many things I have to deal with. If I can't, then others can't either! ";
 		set .@str2$,"- Funfy, who wants to go on an adventure -";
-		switch(select("Hunt Kikimora:Hunt Miyabi Doll:Hunt Mi Gao:Hunt Headless Mule:Hunt Tamruan:Gather Festival Masks for the Festival")) {
-			case 1: callsub L_Quest,10121,.@str1$+"Hunt 15 Kikimoras in Moscovia!",.@str2$;
-			case 2: callsub L_Quest,10122,.@str1$+"Hunt 15 Miyabi Dolls in Amatsu!",.@str2$;
-			case 3: callsub L_Quest,10123,.@str1$+"Hunt 15 Mi Gaos in Luoyang!",.@str2$;
-			case 4: callsub L_Quest,5055,"I know there are many terrifying monsters outside the city, but what terrifies me are these Headless Mules lurking around. I hope they will never venture into town. Hunt 15 Headless Mules!","- Mariana from Brasilis -";
-			case 5: callsub L_Quest,5056,"Tamruans make a lot of noise. I don't mind in the morning but they keep me from falling asleep at night. I want to sleep. Hunt 15 Tamruans!","- Shaman Pumo from Ayothaya -";
-			case 6: callsub L_Quest,5057,"The Dumpling Childs stole all the masks that I had prepared for the festival. Try to get a hold of 30 masks! I'll owe you~","- SaYumMoon Chief of Kunlun -";
+		switch(select("Hunt Kikimora:Hunt Miyabi Doll:Hunt Mi Gao:Hunt Headless Mule:Hunt Tamruan:Hunt Curupira:Hunt Jaguar:Hunt Toucan:Hunt Piranha:Hunt Iara:Gather Festival Masks")) {
+			case 1: callsub L_Quest,10121,.@str1$+"Hunt 15 ^4d4dffKikimoras^000000.",.@str2$;
+			case 2: callsub L_Quest,10122,.@str1$+"Hunt 15 ^4d4dffMiyabi Dolls^000000.",.@str2$;
+			case 3: callsub L_Quest,10123,.@str1$+"Hunt 15 ^4d4dffMi Gaos^000000.",.@str2$;
+			case 4: callsub L_Quest,5055,"Hunt 15 ^4d4dffHeadless Mules^000000.","- Mariana from Brasilis -";
+			case 5: callsub L_Quest,5056,"Hunt 15 ^4d4dffTamruans^000000.","- Shaman Pumo from Ayothaya -";
+			// NEW QUESTS PARTLY
+			case 6: callsub L_Quest,62603,"Hunt 15 ^4d4dffCurupiras^000000.","- Mariana from Brasilis -";
+			case 7: callsub L_Quest,62605,"Hunt 15 ^4d4dffJaguars^000000.","- Mariana from Brasilis -";
+			case 8: callsub L_Quest,62606,"Hunt 15 ^4d4dffToucans^000000.","- Mariana from Brasilis -";
+			case 9: callsub L_Quest,62607,"Hunt 15 ^4d4dffPiranhas^000000.","- Mariana from Brasilis -";
+			case 10: callsub L_Quest,62608,"Hunt 15 ^4d4dffIara^000000.","- Mariana from Brasilis -";
+			// (END NEW QUESTS)
+			case 11: callsub L_Quest,5057,"Gather 30 ^4d4dffFestival Masks^000000 dropped by Dumpling Child","- SaYumMoon Chief of Kunlun -";
 		}
 	}
 	end;
@@ -171,7 +176,13 @@ L_Quest:
 		case 10123: set .@name$,"Hunt Mi Gao"; set .@exp,30000; break;
 		case 5055: set .@name$,"Hunt Headless Mule"; set .@exp,30000; break;
 		case 5056: set .@name$,"Hunt Tamruan"; set .@exp,30000; break;
-		case 5057: set .@name$,"Gather Festival Masks for the Festival"; set .@exp,30000; break;
+		case 5057: set .@name$,"Gather Festival Masks"; set .@exp,30000; break;
+		// NEW QUESTS
+		case 62603: set .@name$,"Hunt Curupiras"; set .@exp,30000; break;
+		case 62605: set .@name$,"Hunt Jaguars"; set .@exp,30000; break;
+		case 62606: set .@name$,"Hunt Toucans"; set .@exp,30000; break;
+		case 62607: set .@name$,"Hunt Piranhas"; set .@exp,30000; break;
+		case 62608: set .@name$,"Hunt Iara"; set .@exp,30000; break;
 	}
 	if (getargcount() == 1) {
 		mes "'"+.@name$+"' completed. Do you want to turn it in and receive your reward?";
@@ -179,7 +190,7 @@ L_Quest:
 		if(select("Turn in quest.:Cancel.") == 1) {
 			if (.@quest == 5057) delitem 7187,30; //Festival_Mask
 			erasequest .@quest;
-			getexp .@exp,0;
+			getexp .@exp,.@exp;
 			mes "You've received EXP for finishing the quest.";
 			next;
 			return;
@@ -205,7 +216,7 @@ L_Quest:
 			if(select("Turn in quest.:Cancel.") == 1) {
 				if (.@quest == 5057) delitem 7187,30; //Festival_Mask
 				erasequest .@quest;
-				getexp .@exp,0;
+				getexp .@exp,.@exp;
 				mes "You've received EXP for finishing the quest.";
 			}
 		}/* else if (.@hunting == 3) {
@@ -224,5 +235,14 @@ L_Quest:
 			}
 		}
 		close;
+	}
+	OnInit: {
+		setarray .all_quest_ids[0], //used for quest deletion
+			10107,10108,10109,
+			10110,10111,10112,10113,
+			10114,10115,10116,10117,
+			10118,10119,10120,
+			10121,10122,10123,5055,5056,5057,
+			62603,62605,62606,62607,62608;
 	}
 }

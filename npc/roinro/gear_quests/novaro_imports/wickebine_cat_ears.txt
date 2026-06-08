@@ -1,0 +1,69 @@
+// Wickebine's Black Cat Ears based off NovaRO
+
+veins,188,107,5	script	Ms. Kitty Ears	725,{
+	mes "[Ms. Kitty Ears]";
+	mes "Hi!~";
+	mes "I'm guessing you wanna get some of these cat ears like mine?";
+	next;
+	mes "[Ms. Kitty Ears]";
+	mes "I can create a pair of";
+	mes mesitemlink(5360, false, "Wickebine's Black Cat Ears [0]");
+	mes "for you, if you first gather some materials!";
+	switch(select("Sure thing!","Nah that's weird")) {
+		clear;
+		mes "[Ms. Kitty Ears]";
+		case 1: // Yes
+			mes "Awesome! I'll need you to get me:";
+			mes "500 " + mesitemlink(7206);
+			mes "100 " + mesitemlink(7345);
+			mes "1 " + mesitemlink(1223);
+			mes "1 " + mesitemlink(5057);
+			setarray .@items[0],
+				7206, 7345, 1223, 5057;
+			setarray .@item_reqs[0],
+				500, 100, 1, 1;
+			set .@has_items$, "I gathered all the items!";
+			for( .@i = 0 ; .@i < getarraysize(.@items) ; .@i++) {
+				if(countitem(.@items[.@i]) < .@item_reqs[.@i]) {
+					set .@has_items$, "";
+				}
+			}
+			switch(select(.@has_items$, "I'll go get those items.")) {
+				clear;
+				mes "[Ms. Kitty Ears]";
+				case 1: // Has items
+					mes "Fantastic! I'll go ahead and take those from you then, okay?~";
+					switch(select("Create ears","Never mind")) {
+						clear;
+						mes "[Ms. Kitty Ears]";
+						case 1: // Create ears
+							if(!checkweight(5360,1)) {
+								mes "Ugh, you're carrying too much junk! Get rid of some items and come back to me.";
+								close;
+							}
+							getitem 5360, 1;
+							delitem 7206, 500;
+							delitem 7345, 100;
+							delitem 1223, 1;
+							delitem 5057, 1;
+							specialeffect2 EF_REPAIRWEAPON;
+							mes "There you go! Go out there and be cute with those ears!~";
+							emotion ET_BEST;
+							close;
+							break;
+						case 2: // Never mind
+							mes "Okay, come back when you want some of these ears!~";
+							close;
+							break;
+					}
+				case 2: // Close dialogue (I'll get the items)
+					mes "I'll be here!~";
+					close;
+			}
+			break;
+		case 2: // No
+			mes "Well geez, no need to be rude about it.";
+			emotion ET_STARE;
+			close;
+	}
+}

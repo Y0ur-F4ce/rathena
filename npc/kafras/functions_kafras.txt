@@ -124,22 +124,22 @@ function	script	F_Kafra	{
 			// Storage only
 			case 2:	setarray .@K_Menu0$[0],"Use Storage","Cancel"; break;
 			// No Teleport (Common)
-			case 3: setarray .@K_Menu0$[0],"Save","Use Storage","Rent a Pushcart","Check Other Information","Cancel"; break;
+			case 3: setarray .@K_Menu0$[0],"Save","Use Storage","Rent a Pushcart","Identify Items","Cancel"; break;
 			// Case 4 is Einbroch no tele message.
 			// No save, or teleport. (Common)
-			case 5:	setarray .@K_Menu0$[0],"Use Storage","Rent a Pushcart","Check Other Information","Cancel"; break;
-			// Storage and Check Other Information only.
-			case 6:	setarray .@K_Menu0$[0],"Use Storage","Check Other Information","Cancel"; break;
+			case 5:	setarray .@K_Menu0$[0],"Use Storage","Identify Items","Rent a Pushcart","Cancel"; break;
+			// Storage and Identify only.
+			case 6:	setarray .@K_Menu0$[0],"Use Storage","Identify Items","Cancel"; break;
 			// Save, Storage, and Pushcart only (Kafra Warehouse)
 			case 7:	setarray .@K_Menu0$[0],"Save","Use Storage","Rent a Pushcart","Cancel"; break;
-			// Save, Storage, Other Check information. (Turbo track)
-			case 8: setarray .@K_Menu0$[0],"Save","Use Storage","Check Other Information","Cancel"; break;
+			// Save, Storage, Identify. (Turbo track)
+			case 8: setarray .@K_Menu0$[0],"Save","Use Storage","Identify Items","Cancel"; break;
 			// No Save (Rune Knight)
-			case 9: setarray .@K_Menu0$[0],"Use Storage","Rent a Pushcart","Use Teleport Service","Check Other Information","Cancel"; break;
+			case 9: setarray .@K_Menu0$[0],"Use Storage","Identify Items","Rent a Pushcart","Use Teleport Service","Cancel"; break;
 			// Storage, Save, and Pushcart (Dewata, reorder of case 7)
 			case 10: setarray .@K_Menu0$[0],"Use Storage","Save","Rent a Pushcart","Cancel"; break;
 			// Default message (obsolete)
-			default: setarray .@K_Menu0$[0],"Save","Use Storage","Use Teleport Service","Rent a Pushcart","Check Other Information","Cancel"; break;
+			default: setarray .@K_Menu0$[0],"Save","Use Storage","Identify Items","Repair Items","Use Teleport Service","Rent a Pushcart","Cancel"; break;
 		}
 	}
 	.@menu$ = implode(.@K_Menu0$,":");
@@ -177,8 +177,12 @@ function	script	F_Kafra	{
 			if (callfunc("F_KafCart",.@welcome,getarg(4)) == 1)
 				next;
 		}
-		else if (.@K_Menu0$[.@j] == "Check Other Information") {
-			callfunc "F_KafInfo",getarg(2);
+		else if (.@K_Menu0$[.@j] == "Identify Items") {
+			callfunc "F_KafIdentify";//,getarg(2);
+			next;
+		}
+		else if (.@K_Menu0$[.@j] == "Repair Items") {
+			callfunc "F_KafRepair";
 			next;
 		}
 		else if (.@K_Menu0$[.@j] == "Cancel") {
@@ -227,6 +231,7 @@ function	script	F_KafStor	{
 		mes "use the Storage Service.";
 		return;
 	}
+	/* Skipping the below section to avoid fees
 	// Accessing Normal Storage (Skipped if accessing Storage from Guild castle)
 	if (.@type != 2) {
 		// Consume "Free Ticket for Kafra Storage" if available.
@@ -255,8 +260,9 @@ function	script	F_KafStor	{
 			RESRVPTS += (.@fee/5);
 		}
 	}
+	Skipping the above section*/
 
-	// Surpress the "End" message if in guild castle.
+	// Suppress the "End" message if in guild castle.
 	if (.@type != 2) {
 		// Niflheim specific Message
 		if (getarg(2) == 1) {
@@ -266,17 +272,42 @@ function	script	F_KafStor	{
 				mes "^666666Thank you.. for... using...^000000";
 		}
 		// Normal message
-		else {
+		else {/*
 			mes "[Kafra Employee]";
 			mes "Here, let me open";
 			mes "your Storage for you.";
 			mes "Thank you for using";
 			mes "the Kafra Service.";
-		}
+		*/}
 	}
 	callfunc("F_CheckKafCode");	//check your storage password, if set
+	mes "[Kafra Employee]";
+	mes "Which storage would you like to open?";
+	next;
+	switch(select("Storage 1:Storage 2:Cancel")) {
+		case 1:
+			close2;
+			//openstorage2 0,STOR_MODE_GET|STOR_MODE_PUT;
+			openstorage;
+			cutin "", 255;
+			end;			
+			break;
+		case 2:
+			close2;
+			openstorage2 1,STOR_MODE_GET|STOR_MODE_PUT;
+			cutin "", 255;
+			end;			
+			break;
+			
+		default:
+			mes "[Kafra Employee]";
+			mes "Alright, maybe next time!";
+			cutin "", 255;
+			end;
+	}
+	//close;
 	close2;
-	openstorage;
+	//openstorage;
 	cutin "", 255;
 	end;
 }
@@ -670,4 +701,63 @@ function	script	F_KafSet	{
 		@wrpC$[.@i] = @wrpD$[.@i] + " -> " + @wrpP[.@i] + " z";
 	@wrpC$[ .@warp_size ] = "Cancel";
 	return;
+}
+
+// RoinRO Identify Items Function
+function	script	F_KafIdentify	{
+	mes "[Kafra Employee]";
+	mes "I can identify all items in your inventory for 1,000 zeny!";
+	set .@yesno,(select("Yes please!:Cancel"));
+	if(.@yesno == 1){
+		set .@Price, 1000;	// Zeny per identify session
+		if (Zeny < .@Price) {
+				dispbottom "Not enough zeny";
+				mes "";
+				mes "I'm sorry, you don't have enough zeny."; close2; cutin "",255; end; }
+		getinventorylist;
+		for(set .@i,0; .@i<@inventorylist_count; set .@i,.@i+1) {
+			if (@inventorylist_identify[.@i]) continue;
+			//delitem2 @inventorylist_id[.@i],1,0,0,0,0,0,0,0;
+			//getitem @inventorylist_id[.@i],1;
+			setarray .@Total[0], .@Total[0]+1, .@Total[1]+.@Price; }
+		if (!.@Total[0]) {
+			message strcharinfo(0),"No items identified."; close2; cutin "",255; end; }
+		identifyall(true);
+		set Zeny, Zeny-.@Price;
+		specialeffect2 103;
+		//message strcharinfo(0),"Identified "+.@Total[0]+" items"+((.@Total[1])?" for "+.@Total[1]+" Zeny":"")+".";
+		close2;
+		cutin "",255;
+		end;
+	}
+	if(.@yesno == 2) {close2; cutin "",255; end;};
+}
+
+//RoinRO Repair Items Function
+function	script	F_KafRepair	{
+	mes "I can repair all items in your inventory for 7,500 zeny!";
+	set .@yesno,(select("Yes please!:Cancel"));
+	if(.@yesno == 1){
+		set .@Price, 7500;	// Zeny per repair session
+		if (Zeny < .@Price) {
+				mes "";
+				mes "I'm sorry, you don't have enough zeny."; close2; cutin "",255; end;
+				dispbottom "Not enough zeny"; close2; cutin "",255; end; }
+		getinventorylist;
+		while( .@i < @inventorylist_count ){
+			if( @inventorylist_attribute[.@i] ) 
+				set .@broken,.@broken + 1;
+			set .@i,.@i + 1;
+		}
+		if(.@broken < 1) {message strcharinfo(0),"No items repaired."; close2; cutin "",255; end; }
+		repairall;
+		set Zeny, Zeny-.@Price;
+		specialeffect2 101;
+		mes "";
+		mes "All done! Thank you for using Kafra services!";
+		close2;
+		cutin "",255;
+		end;
+	}
+	if(.@yesno == 2) {close2; cutin "",255; end;};
 }

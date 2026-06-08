@@ -54,6 +54,16 @@
 #define MAP_LASAGNA "lasagna"
 #define MAP_GLASTHEIM "glast_01"
 #define MAP_THANATOS "hu_fild01"
+#define MAP_EDEN "moc_para01"
+#define MAP_ICECASTLE "icecastle"
+#define MAP_ROCKRIDGE "harboro1"
+#define MAP_COR "sp_cor"
+#define MAP_THOR_CAMP "thor_camp"
+#define MAP_MANSION "ba_maison"
+#define MAP_VERUS "verus04"
+#define MAP_WOLFVILLAGE "wolfvill"
+#define MAP_MAIN_OFFICE "m_office"
+#define MAP_ST_CAPITOLINA "prt_monk"
 
 const char* mapindex_getmapname(const char* string, char* output);
 const char* mapindex_getmapname_ext(const char* string, char* output);

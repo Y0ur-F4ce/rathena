@@ -1,0 +1,129 @@
+//===== rAthena Script =======================================
+//= Stylist
+//===== By: ==================================================
+//= Euphy
+//===== Current Version: =====================================
+//= 1.1
+//===== Compatible With: =====================================
+//= rAthena Project
+//===== Description: =========================================
+//= Changes your hair style, hair color, and cloth color.
+//===== Additional Comments: =================================
+//= 1.0 Initial script.
+//= 1.1 Switched to 'getbattleflag', credits to Saithis. [Euphy]
+//============================================================
+// Modified by Roin using ChatGPT
+
+prontera,148,194,4	script	Stylist#custom_stylist	625,{
+	cutin "nines02",2;
+	// Setup max styles and look types
+	setarray .@Styles[1],
+		getbattleflag("max_cloth_color"),
+		getbattleflag("max_hair_style"),
+		getbattleflag("max_hair_color");
+	setarray .@Look[1],
+		LOOK_CLOTHES_COLOR,
+		LOOK_HAIR,
+		LOOK_HAIR_COLOR;
+	setarray .@Names$[1],
+		"cloth color", "hairstyle", "hair color";
+	if ((eaclass()&EAJ_BASEMASK) == EAJ_SUMMONER) {
+		setarray .@Styles[2],
+			10,
+			8;
+	}
+	mes "[Stylist]";
+	mes "What would you like to change today?";
+	next;
+
+	set .@s, select(" ~ Cloth color: ~ Hairstyle: ~ Hair color");
+
+	// Save original style globally for reversion
+	setarray @stylist_look_type, .@Look[.@s];
+	setarray @stylist_look_original, getlook(.@Look[.@s]);
+	set @stylist_confirmed, 0;
+
+	// Attach cleanup in case of unexpected exit
+	addtimer 100, "Stylist#custom_stylist::OnCheckRevert";
+
+	set .@Style, @stylist_look_original;
+
+	// Initial message — only shows once
+	mes "[Stylist]";
+	mes "Current "+.@Names$[.@s]+": #"+.@Style;
+	next;
+
+	while (true) {
+		setlook @stylist_look_type, .@Style;
+		showscript "Previewing "+.@Names$[.@s]+" #"+.@Style, getcharid(3);
+
+		// Dynamic menu building
+		if (@stylist_direction == 1) { // Last was Previous
+			set @select_result, select(
+				"Previous (^0055FF"+((.@Style > 1) ? .@Style-1 : .@Styles[.@s])+"^000000)",
+				"Next (^0055FF"+((.@Style < .@Styles[.@s]) ? .@Style+1 : 1)+"^000000)",
+				"Jump to...",
+				"Okay, I want this "+.@Names$[.@s]+" (^0055FF"+.@Style+"^000000)"
+			) | 0;
+		} else { // Default / Last was Next
+			set @select_result, select(
+				"Next (^0055FF"+((.@Style < .@Styles[.@s]) ? .@Style+1 : 1)+"^000000)",
+				"Previous (^0055FF"+((.@Style > 1) ? .@Style-1 : .@Styles[.@s])+"^000000)",
+				"Jump to...",
+				"Okay, I want this "+.@Names$[.@s]+" (^0055FF"+.@Style+"^000000)"
+			) | 0;
+		}
+
+		if (!@select_result) close;
+
+		// Adjust selection based on current menu orientation
+		switch (@stylist_direction == 1 ? @select_result : @select_result) {
+			case 1:
+				if (@stylist_direction == 1) {
+					// Previous was first
+					set .@Style, ((.@Style > 1) ? .@Style-1 : .@Styles[.@s]);
+					set @stylist_direction, 1;
+				} else {
+					// Next was first
+					set .@Style, ((.@Style < .@Styles[.@s]) ? .@Style+1 : 1);
+					set @stylist_direction, 0;
+				}
+				break;
+			case 2:
+				if (@stylist_direction == 1) {
+					// Previous was first, so this is Next
+					set .@Style, ((.@Style < .@Styles[.@s]) ? .@Style+1 : 1);
+					set @stylist_direction, 0;
+				} else {
+					// Next was first, so this is Previous
+					set .@Style, ((.@Style > 1) ? .@Style-1 : .@Styles[.@s]);
+					set @stylist_direction, 1;
+				}
+				break;
+			case 3:
+				mes "[Stylist]";
+				mes "Enter a "+.@Names$[.@s]+" number between 1 and "+.@Styles[.@s]+".";
+				input .@tmp, 1, .@Styles[.@s];
+				set .@Style, .@tmp;
+				break;
+			case 4:
+				set @stylist_confirmed, 1;
+				mes "[Stylist]";
+				mes "Great! Your "+.@Names$[.@s]+" has been updated.";
+				close;
+		}
+	}
+	cutin "",255;
+	end;
+
+OnCheckRevert:
+	// Only revert if not confirmed
+	if (!@stylist_confirmed) {
+		setlook @stylist_look_type, @stylist_look_original;
+	}
+	cutin "",255;
+	end;
+}
+
+//Main office duplicate
+m_office,56,30,5	duplicate(Stylist#custom_stylist)	Stylist#office	625

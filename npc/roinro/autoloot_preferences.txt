@@ -1,0 +1,62 @@
+// Last modified 5/5/2025
+
+// This event triggers on player login
+-	script	AutoLootLogin	-1,{
+	OnPCLoginEvent:
+		if (#autoLootPref) {
+			atcommand "@autoloot";
+		}
+		end;
+}
+
+m_office,58,32,5	script	Autoloot Johnson#Office	10211,{
+	cutin "rock_worp",2;
+	mes "[Autoloot Johnson]";
+	mes "Dontcha just HATE when ya forget to turn on that there @autoloot after loggin' in?";
+	mes "Well you're in luck-";
+	next;
+	mes "[Autoloot Johnson]";
+	mes "I'm the lootinest tootinest cowboy in the, wild wild west!";
+	next;
+	mes "[Autoloot Johnson]";
+	mes "I can modify your preferences so @autoloot is automatically turned on when ya log in!";
+	next;
+	mes "[Autoloot Johnson]";
+	if (#autoLootPref) {
+		mes "Yer @autoloot is currently ^00A500ENABLED^000000 on login, as it should be.";
+		mes "...What, you actually wanna DISABLE it?";
+		if (select("Yessir:No way!") == 1) {
+			#autoLootPref = 0;
+			clear;
+			mes "[Autoloot Johnson]";
+			mes "(Autoloot preference ^DB0000disabled^000000)";
+			mes "Well I never... You gon' come crawlin back here in no time, ain't no doubt about it.";
+			close3;
+		} else {
+			clear;
+			mes "[Autoloot Johnson]";
+			mes "Yeah that's what I figured! I mean only gosh darn LOSERS would wanna disable @autoloot.";
+			close3;
+		}
+	} else {
+		mes "Hmm, yer autoloot is currently ^DB0000DISABLED^000000 on login.";
+		mes "You want me to ENABLE that for ya, right?";
+		if (select("Yessir:No") == 1) {
+			#autoLootPref = 1;
+			clear;
+			mes "[Autoloot Johnson]";
+			mes "(Autoloot preference ^00A500enabled^000000)";
+			mes "There ya go, @autoloot'll be turned on whener ya login!";
+			close3;
+			//atcommand "@autoloot"; // Optional: enable immediately
+		} else {
+			clear;
+			emotion ET_HUK;
+			mes "[Autoloot Johnson]";
+			mes "What do ya mean, 'No'??";
+			mes "Do ya hate loot or somethin?";
+			close3;
+		}
+	}
+	close;
+}

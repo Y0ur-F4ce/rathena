@@ -90,7 +90,7 @@ gefg_cas05,69,66,4	duplicate(InsideFlagsG5)	Mersetzdeitz#10	722
 
 // Guild Flag (Town)
 //============================================================
-geffen,131,123,6	duplicate(InsideFlagsG5)	Mersetzdeitz#11	722
+//geffen,131,123,6	duplicate(InsideFlagsG5)	Mersetzdeitz#11	722
 
 // Kafra Employee
 //============================================================

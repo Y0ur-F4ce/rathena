@@ -1,0 +1,24 @@
+-	shop	Alchemy Supplies#discount	121,1092:-1,1093:-1,7134:11,7140:-1,7141:-1,7143:-1
+-	shop	Alchemy Supplies#nodiscount	121,no,7144:-1,7133:-1,7127:-1,7128:-1,7129:-1,7130:-1,7131:-1,7132:-1
+
+prontera,166,230,4	script	Alchemy Merchant#prontera	121,{
+	mes "[Mr. White]";
+	mes "With my formulas and ingredients, I can help you make the purest product.";
+	next;
+	switch(select("Ingredients:Handbooks:Cancel")) {
+		case 1:
+			close2;
+			callshop "Alchemy Supplies#discount",1;
+			break;
+		case 2:
+			close2;
+			callshop "Alchemy Supplies#nodiscount",1;
+			break;
+		case 3:
+			clear;
+			mes "[Mr. White]";
+			mes "You will NEVER be able to cook as well as ME.";
+			close2;
+			break;
+	}
+}

@@ -247,6 +247,22 @@ OnTouch_:
 		mes "Follow the leftward hallway, and remember that only you can protect yourself.";
 		close3;
 	}
+	if (getgmlevel() == 99 || charleston_complete == 1) {
+		mes "(Dialogue)";
+		switch(select("Proceed:Skip")) {
+			case 1:
+				clear;
+				break;
+			case 2:
+				specialeffect EF_BASH;
+				npctalk "Dr. Ve can tell you everything. Hurry!";
+				emotion 19;
+				'ep15_1_mcd01 = 1;
+				monster 'map_name$,24,275, "Security Robot", 3127,1, instance_npcname("Charleston 1#0") + "::OnMyMobDead";	// KICK_STEP
+				close3;
+				end;
+		}
+	}
 	mes "[Charleston 1]";
 	mes "Finally, you're here! I've been waiting for you.";
 	npctalk "Finally, you're here! I've been waiting for you.";
@@ -330,6 +346,37 @@ OnTouch_:
 		close;
 	}
 	if ('ep15_1_mcd01 == 1) {
+		if (getgmlevel() == 99 || charleston_complete == 1) {
+			mes "(Dialogue)";
+			switch(select("Proceed:Skip")) {
+				case 1:
+					clear;
+					break;
+				case 2:
+					specialeffect EF_BASH;
+					specialeffect EF_BASH, instance_npcname("Charleston 1#1");
+					'ep15_1_mcd01 = 4;
+					.@label$ = instance_npcname("Charleston 1#1") + "::OnMyMobDead";
+					monster 'map_name$, 84,226, "Lockstep", 3126,1, .@label$;	// ROCK_STEP
+					monster 'map_name$,126, 84, "Lockstep", 3126,1, .@label$;
+					monster 'map_name$,111, 68, "Lockstep", 3126,1, .@label$;
+					monster 'map_name$,210,181, "Lockstep", 3126,1, .@label$;
+					monster 'map_name$,183,192, "Lockstep", 3126,1, .@label$;
+					monster 'map_name$,130,124, "Lockstep", 3126,1, .@label$;
+					monster 'map_name$, 54,108, "Lockstep", 3126,1, .@label$;
+					viewpoint 1,84,226,1,0xFF00FF;
+					viewpoint 1,126,84,2,0xFF00FF;
+					viewpoint 1,111,68,3,0xFF00FF;
+					viewpoint 1,210,181,4,0xFF00FF;
+					viewpoint 1,183,192,5,0xFF00FF;
+					viewpoint 1,130,124,6,0xFF00FF;
+					viewpoint 1,54,108,7,0xFF00FF;
+					close2;
+					disablenpc instance_npcname("5gate#1");
+					cutin "",255;
+					end;
+			}
+		}
 		.@charleston_1$ = instance_npcname("Charleston 1#1");
 		mes "[Dr. Ve]";
 		mes "Charleston 1. Charleston 2 has been forcibly connected to a part of the main computer, and I can't control her.";
@@ -530,6 +577,30 @@ OnTimer300:
 	}
 	if ('ep15_1_mcd01 == 4) {
 		cutin "dalle01.bmp",2;
+		if (getgmlevel() == 99 || charleston_complete == 1) {
+			mes "(Dialogue)";
+			switch(select("Proceed:Skip")) {
+				case 1:
+					clear;
+					break;
+				case 2:
+					specialeffect EF_BASH;
+					viewpoint 1,86,231,8,0xFF00FF;
+					viewpoint 1,172,196,9,0xFF00FF;
+					viewpoint 1,126,84,10,0xFF00FF;
+					enablenpc instance_npcname("Backup Generator#1");
+					enablenpc instance_npcname("Backup Generator#2");
+					enablenpc instance_npcname("Backup Generator#3");
+					monster 'map_name$, 86,231, "Security Robot", 3127,1;	// KICK_STEP
+					monster 'map_name$,172,196, "Security Robot", 3127,1;
+					monster 'map_name$,126, 84, "Security Robot", 3127,1;
+					monster 'map_name$, 97,149, "Security Robot", 3127,1;
+					monster 'map_name$,160,151, "Security Robot", 3127,1;
+					'ep15_1_mcd01 = 5;
+					close3;
+					end;
+			}
+		}
 		mes "[Charleston 1]";
 		mes "Whew, things seem to be settled for now. Let me disarm the alert mode and reactivate Charleston 2.";
 		npctalk "Charleston 1: Whew, things seem to be settled for now. Let me disarm the alert mode and reactivate Charleston 2.";
@@ -579,7 +650,27 @@ OnTimer300:
 	}
 	if ('ep15_1_mcd01 > 11)
 		end;
+	cutin "dalle01.bmp",2;
 	if ('ep15_1_mcd01 == 8) {
+		if (getgmlevel() == 99 || charleston_complete == 1) {
+			mes "(Dialogue)";
+			switch(select("Proceed:Skip")) {
+				case 1:
+					clear;
+					break;
+				case 2:
+					specialeffect EF_BASH;
+					.@npc2$ = instance_npcname("Charleston 2#0");
+					.@npc5$ = instance_npcname("Dr. Ve#1");
+					disablenpc .@npc2$;
+					enablenpc instance_npcname("Charleston 1#4");
+					enablenpc instance_npcname("Charleston 2#1");
+					disablenpc instance_npcname("Charleston 1#3");
+					close2;
+					cutin "",255;
+					end;
+			}
+		}
 		.@npc2$ = instance_npcname("Charleston 2#0");
 		.@npc5$ = instance_npcname("Dr. Ve#1");
 		cutin "dalle01.bmp",2;
@@ -737,6 +828,22 @@ OnTimer300:
 		end;
 	if ('ep15_1_mcd01 == 8) {
 		cutin "nale03.bmp",0;
+		if (getgmlevel() == 99 || charleston_complete == 1) {
+			mes "(Dialogue)";
+			switch(select("Proceed:Skip")) {
+				case 1:
+					clear;
+					break;
+				case 2:
+					specialeffect EF_BASH;
+					'ep15_1_mcd01 = 9;
+					donpcevent instance_npcname("battle#1") + "::OnStart";
+					disablenpc instance_npcname("6gate#1");
+					disablenpc instance_npcname("7gate#1");
+					close3;
+					end;
+			}
+		}
 		mes "[Charleston 2]";
 		mes "Stop following! I'm going to destroy the whole factory!";
 		npctalk "Charleston 2: Stop following! I'm going to destroy the whole factory!";
@@ -864,6 +971,29 @@ OnTimer300:
 	if ('ep15_1_mcd01 > 20)
 		end;
 	if ('ep15_1_mcd01 == 9) {
+		cutin "dalle01.bmp",2;
+		if (getgmlevel() == 99 || charleston_complete == 1) {
+			mes "(Dialogue)";
+			switch(select("Proceed:Skip")) {
+				case 1:
+					clear;
+					break;
+				case 2:
+					specialeffect EF_BASH;
+					.@npc1$ = instance_npcname("Charleston 1#5");
+					.@npc5$ = instance_npcname("Dr. Ve#2");
+					'ep15_1_mcd01 = 10;
+					disablenpc instance_npcname("Charleston 2#2");
+					disablenpc .@npc1$;
+					enablenpc instance_npcname("Charleston 2#3");
+					enablenpc instance_npcname("Charleston 1#6");
+					enablenpc instance_npcname("6gate#1");
+					enablenpc instance_npcname("7gate#1");
+					close2;
+					cutin "",255;
+					end;
+			}
+		}
 		.@npc1$ = instance_npcname("Charleston 1#5");
 		.@npc5$ = instance_npcname("Dr. Ve#2");
 		cutin "dalle01.bmp",2;
@@ -1003,6 +1133,31 @@ OnTimer300:
 		}
 		.@npc2$ = instance_npcname("Charleston 2#31");
 		cutin "dalle01.bmp",2;
+		if (getgmlevel() == 99 || charleston_complete == 1) {
+			mes "(Dialogue)";
+			switch(select("Proceed:Skip")) {
+				case 1:
+					clear;
+					break;
+				case 2:
+					specialeffect EF_BASH;
+					.@npc2$ = instance_npcname("Charleston 2#31");
+					delitem 6213,1;	// Explosive_Powder
+					specialeffect EF_LORD, AREA, instance_npcname("8gate#1");
+					close2;
+					cutin "",255;
+					if (isnpccloaked( instance_npcname("8gate#1") ) == true) {
+						disablenpc instance_npcname("Charleston 1#61");
+						disablenpc .@npc2$;
+						cloakoffnpc instance_npcname("8gate#1");
+						enablenpc instance_npcname("Charleston 3#0");
+						enablenpc instance_npcname("Charleston 2#4");
+						enablenpc instance_npcname("Charleston 1#7");
+					}
+					end;
+			}
+		}
+		.@npc2$ = instance_npcname("Charleston 2#31");
 		delitem 6213,1;	// Explosive_Powder
 		mes "[Charleston 1]";
 		mes "Oh, thank you. With this,I'll be able to access the Core.";
@@ -1059,6 +1214,43 @@ OnTimer300:
 	close3;
 OnTouch_:
 	if ('ep15_1_mcd01 == 10) {
+		if (getgmlevel() == 99 || charleston_complete == 1) {
+			mes "(Dialogue)";
+			switch(select("Proceed:Skip")) {
+				case 1:
+					clear;
+					break;
+				case 2:
+					specialeffect EF_BASH;
+					'ep15_1_mcd01 = 11;
+					.@npc1$ = instance_npcname("Charleston 1#6");
+					.@npc2$ = instance_npcname("Charleston 2#3");
+					disablenpc .@npc1$;
+					disablenpc .@npc2$;
+					enablenpc instance_npcname("Charleston 1#61");
+					enablenpc instance_npcname("Charleston 2#31");
+					if (countitem(6213) < 1) {
+						cutin "dalle01.bmp",2;
+						mes "[Charleston 1]";
+						mes "Could you bring 1 Explosive Powder? I'm stuck to the access device, as you can see.";
+						close3;
+					}
+					.@npc2$ = instance_npcname("Charleston 2#31");
+					delitem 6213,1;	// Explosive_Powder
+					specialeffect EF_LORD, AREA, instance_npcname("8gate#1");
+					close2;
+					cutin "",255;
+					if (isnpccloaked( instance_npcname("8gate#1") ) == true) {
+						disablenpc instance_npcname("Charleston 1#61");
+						disablenpc .@npc2$;
+						cloakoffnpc instance_npcname("8gate#1");
+						enablenpc instance_npcname("Charleston 3#0");
+						enablenpc instance_npcname("Charleston 2#4");
+						enablenpc instance_npcname("Charleston 1#7");
+					}
+					end;
+			}
+		}
 		donpcevent instance_npcname("CoreDialog#3") + "::OnStart";
 		'ep15_1_mcd01 = 11;
 	}
@@ -1129,6 +1321,32 @@ OnStart:
 	if ('ep15_1_mcd01 > 12)
 		end;
 	if ('ep15_1_mcd01 == 11) {
+		if (getgmlevel() == 99 || charleston_complete == 1) {
+			mes "(Dialogue)";
+			switch(select("Proceed:Skip")) {
+				case 1:
+					clear;
+					break;
+				case 2:
+					specialeffect EF_BASH;
+					close2;
+					sleep2 1500;
+					.@npc1$ = instance_npcname("Charleston 1#7");
+					.@npc2$ = instance_npcname("Charleston 2#4");
+					.@npc3$ = instance_npcname("Charleston 3#0");
+					.@npc4$ = instance_npcname("Charleston 1#8");
+					'ep15_1_mcd01 = 12;
+					disablenpc .@npc1$;
+					enablenpc .@npc4$;
+					disablenpc .@npc2$;
+					disablenpc instance_npcname("boss#1");
+					donpcevent instance_npcname("boss#2") + "::OnStart";
+					disablenpc instance_npcname("Charleston 3#0");
+					disablenpc instance_npcname("Charleston 1#8");
+					'boss_status = 1;
+					end;
+			}
+		}
 		'ep15_1_mcd01 = 12;
 		donpcevent instance_npcname("boss#1") + "::OnStart";
 	}
@@ -1321,6 +1539,27 @@ OnMyMobDead:
 	if ('ep15_1_mcd01 > 13)
 		end;
 	if ('ep15_1_mcd01 == 12) {
+		if (getgmlevel() == 99 || charleston_complete == 1) {
+			mes "(Dialogue)";
+			switch(select("Proceed:Skip")) {
+				case 1:
+					clear;
+					break;
+				case 2:
+					specialeffect EF_BASH;
+					'ep15_1_mcd01 = 13;
+					disablenpc instance_npcname("Charleston 2#5");
+					enablenpc instance_npcname("Charleston 2#6");
+					donpcevent instance_npcname("boss#2") + "::OnStop";
+					'ep15_1_mcd01 = 14;
+					enablenpc instance_npcname("Charleston 2#7");
+					enablenpc instance_npcname("Dr. Ve#3");
+					enablenpc instance_npcname("9gate#1");
+					disablenpc instance_npcname("Charleston 2#6");
+					disablenpc instance_npcname("Dr. Ve#2");
+					end;
+			}
+		}
 		'ep15_1_mcd01 = 13;
 		donpcevent instance_npcname("boss#3") + "::OnStart";
 	}
@@ -1455,6 +1694,24 @@ OnStop:
 	if ('ep15_1_mcd01 > 15)
 		end;
 	if ('ep15_1_mcd01 == 14) {
+		if (getgmlevel() == 99 || charleston_complete == 1) {
+			mes "(Dialogue)";
+			switch(select("Proceed:Skip")) {
+				case 1:
+					clear;
+					break;
+				case 2:
+					specialeffect EF_BASH;
+					'ep15_1_mcd01 = 17;
+					disablenpc instance_npcname("end#1");
+					disablenpc instance_npcname("Charleston 2#7");
+					disablenpc instance_npcname("Dr. Ve#3");
+					enablenpc instance_npcname("Charleston 2#8");
+					enablenpc instance_npcname("Dr. Ve#4");
+					
+					end;
+			}
+		}
 		'ep15_1_mcd01 = 15;
 		donpcevent instance_npcname("end#1") + "::OnStart";
 	}
@@ -1622,7 +1879,7 @@ OnTimer300:
 	case 1:
 		if ('ep15_1_mcd01 == 17) {
 			mes "[Shalosh]";
-			mes "After break;ing up with Newoz in a nightmare and thinking about wandering around, I was born of demons but lost my goal.";
+			mes "After breaking up with Newoz in a nightmare and thinking about wandering around, I was born of demons but lost my goal.";
 			next;
 			mes "[Shalosh]";
 			mes "I didn't do anything, I just talked to Charleston 2.";
@@ -1687,6 +1944,7 @@ OnTimer300:
 			mes "[Shalosh]";
 			mes "Maybe I too should leave for new noises and stories.";
 			completequest 13184;
+			charleston_complete = 1;
 			if (isbegin_quest(13186) == 0) {
 				setquest 13186;
 				completequest 13186;

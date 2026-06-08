@@ -11,24 +11,30 @@
 -	script	#over_arrow	HIDDEN_NPC,{
 	mes "[Arrow Merchant]";
 	mes "Hi!";
-	mes "Do you want to buy arrows or exchange the quiver?";
+	mes "Do you want to buy arrows or exchange for quivers?";
 	next;
 	switch ( select( "Buy Arrows", "Quiver Exchange", "Sell Items", "Cancel" )) {
 	case 1:
-		close2;	// !Fix me: official server uses "callshop" then "close"
+		mes "[Arrow Merchant]";
+		mes "Alright then, I'll get out the arrows.";
+		close2;
 		callshop "Arrow_Archer", 1;
 		break;
 	case 2:
-		close2;	// !Fix me: official server uses "callshop" then "close"
+		mes "[Arrow Merchant]";
+		mes "Alright then, I'll get out some quivers.";
+		close2;
 		callshop "Quiver_Archer", 1;
 		break;
 	case 3:
-		close2;	// !Fix me: official server uses "callshop" then "close"
+		mes "[Arrow Merchant]";
+		mes "What would you like to sell?";
+		close2;
 		callshop "Selling_Items", 2;
 		break;
 	case 4:
 		mes "[Arrow Merchant]";
-		mes "You can take a look at other things more calmly.";
+		mes "See you around!";
 		close;
 	}
 	end;
@@ -48,7 +54,7 @@ OnInit:
 	switch ( select( "Buy Weapons", "Buy Ammunition", "Cartridge Exchange", "Sell Items", "Cancel" )) {
 	case 1:
 		mes "[Ammunition Merchant]";
-		mes "I will prepare the weapon.";
+		mes "I will prepare the weapons.";
 		close2;
 		callshop "Weapons_Gunslinger", 1;
 		break;
@@ -72,7 +78,7 @@ OnInit:
 		break;
 	case 5:
 		mes "[Ammunition Merchant]";
-		mes "You can take a look at other things more calmly.";
+		mes "Come back any time.";
 		close;
 	}
 	end;
@@ -86,23 +92,31 @@ OnInit:
 //============================================================
 -	script	#over_kunai	HIDDEN_NPC,{
 	mes "[Ninja Tool Merchant]";
-	mes "Hi, what can I do to help you?";
+	mes "...?";
 	next;
 	switch ( select( "Buy Ninjutsu Tool", "Parchment Exchange", "Sell Items", "Cancel" )) {
 	case 1:
-		close2;	// !Fix me: official server uses "callshop" then "close"
+		mes "[Ninja Tool Merchant]";
+		mes "...";
+		close2;
 		callshop "Weapons_Ninja", 1;
 		break;
 	case 2:
-		close2;	// !Fix me: official server uses "callshop" then "close"
+		mes "[Ninja Tool Merchant]";
+		mes "...";
+		close2;
 		callshop "Box_Exchange_Ninja", 1;
 		break;
 	case 3:
-		close2;	// !Fix me: official server uses "callshop" then "close"
+		mes "[Ninja Tool Merchant]";
+		mes "...";
+		close2;
 		callshop "Selling_Items", 2;
 		break;
 	case 4:
-		break;
+		mes "[Ninja Tool Merchant]";
+		mes "...";
+		close;
 	}
 	end;
 	
@@ -115,20 +129,19 @@ OnInit:
 //============================================================
 -	script	#over_madogear	HIDDEN_NPC,{
 	mes "[Mado Gear Merchant]";
-	mes "Hi!";
-	mes "Here you will find equipment for Madogear, except those that cannot be sold!";
+	mes "I'm selling some equipment for Madogear!";
 	mes "How can I help you?";
 	next;
-	switch ( select( "Buy Component", "Consumables and Cooling Device", "Box Exchange", "Sell Items", "Cancel" )) {
+	switch ( select( "Buy Mado Components", "Consumables and Cooling Device", "Box Exchange", "Sell Items", "Cancel" )) {
 	case 1:
 		mes "[Mado Gear Merchant]";
-		mes "I will start preparing the Madogear pieces.";
+		mes "I think you'll like what components you see!";
 		close2;
 		callshop "Weapons_Mechanic", 1;
 		break;
 	case 2:
 		mes "[Mado Gear Merchant]";
-		mes "I will start preparing the consumables used by Madogear.";
+		mes "Very well, I'll bring out some other stuff you can take a look at.";
 		close2;
 		callshop "Ammunition_Mechanic", 1;
 		break;
@@ -146,7 +159,7 @@ OnInit:
 		break;
 	case 5:
 		mes "[Mado Gear Merchant]";
-		mes "You can take a look at other things more calmly.";
+		mes "I'm always happy to take your money!";
 		close;
 	}
 	end;
@@ -191,7 +204,7 @@ OnInit:
 //============================================================
 
 //= Archer
--	marketshop	Arrow_Archer	HIDDEN_NPC,1750:-1:-1,1770:-1:-1,1751:-1:-1,1752:-1:-1,1754:-1:-1,1755:-1:-1,1756:-1:-1,1757:-1:-1,1767:-1:-1,1762:-1:-1,1065:-1:-1,7940:-1:-1
+-	marketshop	Arrow_Archer	HIDDEN_NPC,1750:-1:-1,1770:-1:-1,1751:-1:-1,1752:-1:-1,1754:-1:-1,1755:-1:-1,1756:-1:-1,1757:-1:-1,1767:-1:-1,1762:-1:-1,1773:-1:-1,1774:-1:-1,1065:-1:-1,7940:-1:-1
 
 //= Gunslinger
 -	shop	Weapons_Gunslinger	-1,13120:-1,13122:-1,13189:-1,13195:-1,13192:-1,13193:-1,13194:-1,13197:-1,13198:-1,28200:-1,28201:-1
@@ -214,6 +227,14 @@ OnInit:
 
 //= Duplicate of Prontera
 //============================================================
+
+//Start RoinRO-exlcusive locations
+prontera,143,229,5	duplicate(#over_arrow)	Arrow Merchant#over_arrow_27	4_M_ARCHER
+prontera,141,227,5	duplicate(#over_bullet)	Ammunition Merchant#over_bullet_27	4_F_GUNSLINGER
+prontera,139,225,5	duplicate(#over_kunai)	Ninja Tool Merchant#over_kunai_27	4_M_NINJA_RED
+prontera,145,231,5	duplicate(#over_madogear)	Mado Gear Merchant#over_madogear_27	4_TOWER_17
+prontera,147,233,5	duplicate(#over_talisman)	Talisman Merchant#over_talisman_27	4_M_POORSCHOLAR
+//End RoinRO-exlucsive locations
 
 prt_in,162,135,5	duplicate(#over_arrow)	Arrow Merchant#over_arrow_0	4_M_ARCHER
 prt_in,162,137,5	duplicate(#over_bullet)	Ammunition Merchant#over_bullet_0	4_F_GUNSLINGER

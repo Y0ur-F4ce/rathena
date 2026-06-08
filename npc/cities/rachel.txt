@@ -541,7 +541,7 @@ ra_fild12,283,208,3	script	Apprentice Priestess	914,{
 	close;
 }
 
-rachel,127,117,4	script	Child Follower#2	914,{
+rachel,117,104,6	script	Child Follower#2	914,{
 	mes "[Deno]";
 	mes "Although we pray to";
 	mes "the goddess Freya and";

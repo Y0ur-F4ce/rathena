@@ -486,7 +486,7 @@ tra_fild03	mapflag	nomemo
 oz_dun01	mapflag	nomemo
 oz_dun02	mapflag	nomemo
 que_thr	mapflag	nomemo
-wolfvill	mapflag	nomemo
+//wolfvill	mapflag	nomemo
 
 //============================================================
 // Sunken Tower

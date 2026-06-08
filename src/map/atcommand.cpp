@@ -2105,10 +2105,10 @@ ACMD_FUNC(go)
 		int32 x, y;
 	} data[] = {
 		{ MAP_PRONTERA,    156, 191 }, //  0=Prontera
-		{ MAP_MORROC,      156,  93 }, //  1=Morroc
+		{ MAP_MORROC,      156,  186 }, //  1=Morroc
 		{ MAP_GEFFEN,      119,  59 }, //  2=Geffen
-		{ MAP_PAYON,       162, 233 }, //  3=Payon
-		{ MAP_ALBERTA,     192, 147 }, //  4=Alberta
+		{ MAP_PAYON,       175, 100 }, //  3=Payon
+		{ MAP_ALBERTA,     29, 235 }, //  4=Alberta
 #ifdef RENEWAL
 		{ MAP_IZLUDE,      128, 146 }, //  5=Izlude (Renewal)
 #else
@@ -2123,32 +2123,45 @@ ACMD_FUNC(go)
 		{ MAP_UMBALA,       89, 157 }, // 12=Umbala
 		{ MAP_NIFLHEIM,     21, 153 }, // 13=Niflheim
 		{ MAP_LOUYANG,     217,  40 }, // 14=Louyang
+/*
 #ifdef RENEWAL
 		{ MAP_NOVICE,       18, 26  }, // 15=Training Grounds (Renewal)
 #else
 		{ MAP_NOVICE,       53, 111 }, // 15=Training Grounds
 #endif
+
 		{ MAP_JAIL,         23,  61 }, // 16=Prison
-		{ MAP_JAWAII,      249, 127 }, // 17=Jawaii
-		{ MAP_AYOTHAYA,    151, 117 }, // 18=Ayothaya
-		{ MAP_EINBROCH,     64, 200 }, // 19=Einbroch
-		{ MAP_LIGHTHALZEN, 158,  92 }, // 20=Lighthalzen
-		{ MAP_EINBECH,      70,  95 }, // 21=Einbech
-		{ MAP_HUGEL,        96, 145 }, // 22=Hugel
+*/
+		{ MAP_MAIN_OFFICE, 49, 9 }, // 15=Main Office
+		{ MAP_ST_CAPITOLINA, 181, 209 }, // 16=St. Capitolina Abbey
+		{ MAP_JAWAII,      251, 132 }, // 17=Jawaii
+		{ MAP_AYOTHAYA,    218, 175 }, // 18=Ayothaya
+		{ MAP_EINBROCH,    232, 190 }, // 19=Einbroch
+		{ MAP_LIGHTHALZEN, 159,  96 }, // 20=Lighthalzen
+		{ MAP_EINBECH,     178, 121 }, // 21=Einbech
+		{ MAP_HUGEL,        97, 160 }, // 22=Hugel
 		{ MAP_RACHEL,      130, 110 }, // 23=Rachel
-		{ MAP_VEINS,       216, 123 }, // 24=Veins
+		{ MAP_VEINS,       205, 123 }, // 24=Veins
 		{ MAP_MOSCOVIA,    223, 184 }, // 25=Moscovia
-		{ MAP_MIDCAMP,     180, 240 }, // 26=Midgard Camp
+		{ MAP_MIDCAMP,     210, 288 }, // 26=Midgard Camp
 		{ MAP_MANUK,       282, 138 }, // 27=Manuk
 		{ MAP_SPLENDIDE,   201, 147 }, // 28=Splendide
-		{ MAP_BRASILIS,    182, 239 }, // 29=Brasilis
+		{ MAP_BRASILIS,    196, 215 }, // 29=Brasilis
 		{ MAP_DICASTES,    198, 187 }, // 30=El Dicastes
-		{ MAP_MORA,         44, 151 }, // 31=Mora
+		{ MAP_MORA,         55, 146 }, // 31=Mora
 		{ MAP_DEWATA,      200, 180 }, // 32=Dewata
 		{ MAP_MALANGDO,    140, 114 }, // 33=Malangdo Island
-		{ MAP_MALAYA,      242, 211 }, // 34=Malaya Port
-		{ MAP_ECLAGE,      110,  39 }, // 35=Eclage
-		{ MAP_LASAGNA,     193, 182 }, // 36=Lasagna
+		{ MAP_MALAYA,      231, 199 }, // 34=Malaya Port
+		{ MAP_ECLAGE_IN,    48,  53 }, // 35=Eclage_indoors
+		{ MAP_EDEN,          31, 14 }, // 36=Eden Group
+		{ MAP_LASAGNA,     193, 182 }, // 37=Lasagna
+		{ MAP_VERUS,       121, 251 }, // 38=Verus
+		{ MAP_ROCKRIDGE,   288, 190 }, // 39=Rock Ridge
+		{ MAP_COR,         159, 121 }, // 40=Cor
+		{ MAP_MANSION,      68, 153 }, // 41=Varmundt's Mansion
+		{ MAP_THOR_CAMP,    246, 68 }, // 42=Thor Camp
+		{ MAP_ICECASTLE,   186, 212 }, // 43=Ice Castle
+		{ MAP_WOLFVILLAGE, 144, 144 }, // 44=Wolf Village
 	};
 
 	nullpo_retr(-1, sd);
@@ -2222,13 +2235,12 @@ ACMD_FUNC(go)
 		town = 13;
 	} else if (strncmp(map_name, "louyang", 3) == 0) {
 		town = 14;
-	} else if (strncmp(map_name, "new_1-1", 3) == 0 ||
-	           strncmp(map_name, "startpoint", 3) == 0 ||
-	           strncmp(map_name, "beginning", 3) == 0) {
+	} else if (strncmp(map_name, "main office", 4) == 0 ||
+			   strncmp(map_name, "office", 4) == 0) {
 		town = 15;
-	} else if (strncmp(map_name, "sec_pri", 3) == 0 ||
-	           strncmp(map_name, "prison", 3) == 0 ||
-	           strncmp(map_name, "jail", 3) == 0) {
+	} else if (strncmp(map_name, "capitolina", 3) == 0 ||
+	           strncmp(map_name, "st._capitolina", 4) == 0 ||
+	           strncmp(map_name, "st_capitolina", 4) == 0) {
 		town = 16;
 	} else if (strncmp(map_name, "jawaii", 3) == 0) {
 		town = 17;
@@ -2268,8 +2280,26 @@ ACMD_FUNC(go)
 		town = 34;
 	} else if (strncmp(map_name, "eclage", 3) == 0) {
 		town = 35;
-	} else if (strncmp(map_name, "lasagna", 2) == 0) {
+	} else if (strncmp(map_name, "eden", 3) == 0) {
 		town = 36;
+	} else if (strncmp(map_name, "lasagna", 2) == 0) {
+		town = 37;
+	} else if (strncmp(map_name, "verus", 3) == 0) {
+		town = 38;
+	} else if (strncmp(map_name, "rockridge", 4) == 0) {
+		town = 39;
+	} else if (strncmp(map_name, "cor", 3) == 0) {
+		town = 40;
+	} else if (strncmp(map_name, "varmundt", 3) == 0 ||
+			   strncmp(map_name, "barmundt", 4) == 0 ||
+	           strncmp(map_name, "mansion", 4) == 0) {
+		town = 41;
+	} else if (strncmp(map_name, "thor_camp", 4) == 0) {
+		town = 42;
+	} else if (strncmp(map_name, "ice_castle", 3) == 0) {
+		town = 43;
+	} else if (strncmp(map_name, "wolf_village", 4) == 0) {
+		town = 44;
 	}
 
 	if (town >= 0 && town < ARRAYLENGTH(data))
@@ -8727,6 +8757,86 @@ ACMD_FUNC(whodrops)
 					dropchance += (dropchance * battle_config.vip_drop_increase) / 100;
 				sprintf(atcmd_output, "- %s (%d): %02.02f%%", mob->jname.c_str(), id->mob[j].id, dropchance/100.);
 				clif_displaymessage(fd, atcmd_output);
+			}
+		}
+		// RoinRO addition: show Map drops
+		extern MapDropDatabase map_drop_db;
+		extern InstanceDatabase instance_db;
+
+		sprintf(atcmd_output, "Map drops:");
+		clif_displaymessage(fd, atcmd_output);
+
+		std::map<std::pair<uint16, double>, std::vector<std::string>> map_drop_groups;
+		bool found_map_drops = false;
+
+		for (const auto& map_entry : map_drop_db) {
+			std::shared_ptr<s_map_drops> mapdrops = map_entry.second;
+			std::string map_name = map_mapid2mapname(map_entry.first);
+			std::string display_name = map_name;
+
+			if (map_name.find("@") != std::string::npos) {
+				for (const auto& instance_entry : instance_db) {
+					std::shared_ptr<s_instance_db> instance = instance_entry.second;
+					if (strcmp(map_mapid2mapname(instance->enter.map), map_name.c_str()) == 0) {
+						display_name = instance->name;
+						break;
+					}
+					for (const auto& additional_map : instance->maplist) {
+						if (strcmp(map_mapid2mapname(additional_map), map_name.c_str()) == 0) {
+							display_name = instance->name;
+							break;
+						}
+					}
+					if (display_name != map_name) break;
+				}
+			}
+
+			for (const auto& global_drop : mapdrops->globals) {
+				if (global_drop.second->nameid == id->nameid) {
+					double rate_percent = (global_drop.second->rate * 100.0) / 100000.0;
+					std::pair<uint16, double> key = std::make_pair(0, rate_percent);
+					map_drop_groups[key].push_back(display_name);
+					found_map_drops = true;
+				}
+			}
+
+			for (const auto& specific_entry : mapdrops->specific) {
+				uint16 mob_id = specific_entry.first;
+				for (const auto& drop : specific_entry.second) {
+					if (drop.second->nameid == id->nameid) {
+						double rate_percent = (drop.second->rate * 100.0) / 100000.0;
+						std::pair<uint16, double> key = std::make_pair(mob_id, rate_percent);
+						map_drop_groups[key].push_back(display_name);
+						found_map_drops = true;
+					}
+				}
+			}
+		}
+
+		if (!found_map_drops) {
+			sprintf(atcmd_output, " - Item is not dropped by map-specific drops.");
+			clif_displaymessage(fd, atcmd_output);
+		} else {
+			for (const auto& group : map_drop_groups) {
+				uint16 mob_id = group.first.first;
+				double rate = group.first.second;
+				const std::vector<std::string>& maps = group.second;
+
+				std::string map_list = "";
+				for (size_t i = 0; i < maps.size(); ++i) {
+					if (i > 0) map_list += ", ";
+					map_list += maps[i];
+				}
+
+				if (mob_id == 0) {
+					sprintf(atcmd_output, "- All monsters: %.2f%% - (%s)", rate, map_list.c_str());
+				} else {
+					std::shared_ptr<s_mob_db> mob = mob_db.find(mob_id);
+					if (mob) {
+						sprintf(atcmd_output, "- %s (%d): %.2f%% - (%s)", mob->jname.c_str(), mob_id, rate, map_list.c_str());
+					}
+				} 
+				clif_displaymessage(fd, atcmd_output);  
 			}
 		}
 	}

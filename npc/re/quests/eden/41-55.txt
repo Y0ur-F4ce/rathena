@@ -21,71 +21,111 @@ moc_para01,40,38,3	script	Mission [41 - 55]	857,{
 		mes "You are not an Eden group member. You are not qualified to access the bulletin board.";
 		close;
 	}
+	/*
 	if (checkweight(1201,1) == 0 || (MaxWeight - Weight) < 1000) {
 		mes "^008800Wait a sec!!";
 		mes "You cannot receive any more items because you're carrying too many items. Please try again after you lighten up.^000000";
 		close;
 	}
+	*/
+	setarray .@quest_name$[0],
+		"Thara Frog Hunting","Cruiser Hunting","Kukre Hunting","Orc Baby Hunting",
+		"Orc Warrior Hunting","Vadon Hunting","Megalodon Hunting","Marse Hunting",
+		"Cornutus Hunting","Myst Hunting","Shellfish Hunting","Marine Sphere Hunting",
+		"Phen Hunting","Orc Skeleton Hunting","Zenorc Hunting","Mummy Hunting",
+		// NEW QUEST NAMES
+		"Archer Skeleton Hunting","Greatest General Hunting","Sea Otter Hunting",
+		"Seal Hunting","Raggler Hunting","Grove Hunting";
+	
+	setarray .@Exp[0],
+	9600,7200,15750,7875,
+	11100,8550,17100,9000,
+	12300,9900,20250,10350,
+	13800,11025,22500,11250,
+	// NEW QUEST EXP
+	11025,22500,11100,
+	11100,11100,22500;
+	for(set .@i,0; .@i<getarraysize(.all_quest_ids); set .@i,.@i+1)
+		if (checkquest(.all_quest_ids[.@i],HUNTING) == 2) {
+			mes "[Mission Board]";
+			mes "You have completed the ^4d4dff"+.@quest_name$[.@i]+" ^000000mission.";
+			//mes "Here is your reward.";
+			mes "Would you like to turn it in now?";
+				if (select("Heck yeah!:Not yet") == 2) {close;}
+			if (checkquest(12088)) {erasequest 12088;};
+			erasequest .all_quest_ids[.@i];
+			specialeffect2 EF_STEAL;
+			getexp .@Exp[.@i],.@Exp[.@i];
+			next;
+		}
+		
 	if (checkquest(12088) == -1) {
 		if (BaseLevel < 41 || BaseLevel > 55) {
 			mes "Mission bulletin board for Lv41~55 adventurers.";
 			close;
 		}
 		mes "[Mission Board]";
-		mes "Mission bulletin board.";
+		mes "A bunch of hunting missions are listed on the board.";
 		next;
-		if(select("Check the Missions.:Cancel.") == 2) {
+		if(select("Check the Missions:Cancel") == 2) {
 			mes "^000077Ok. Let's check the missions next time.^000000.";
 			close;
 		}
-		switch(select("Thara Frog Hunting:Cruiser Hunting:Kukre Hunting:Orc Baby Hunting:Orc Warrior Hunting:Vadon Hunting:Megalodon Hunting:Marse Hunting:Cornutus Hunting:Myst Hunting:Shellfish Hunting:Marine Sphere Hunting")) {
-			case 1: callsub L_Quest,12072,"Have you seen a red frog? It is called Thara Frog and it's very rare. We are trying to verify where it inhabits. So please hunt 20 Thara Frogs.";
-			case 2: callsub L_Quest,12073,"I heard of some toys attacking people. It is ridiculous! Let's show them our power! We have to hunt 15 Cruisers!";
-			case 3: callsub L_Quest,12074,"Someone got robbed near the beach! The possible suspect is a criminal monster called Kukre. Please hunt 30 Kukre.";
-			case 4: callsub L_Quest,12075,"Orc Babies are getting more violent these days. Please hunt 15 Orc Babies.";
-			case 5: callsub L_Quest,12076,"Orc Warriors are increasing their aggression. Please hunt 20 Orc Warriors.";
-			case 6: callsub L_Quest,12077,"Have you seen crabs with thick shells? They are Vadons. Please hunt 15 Vadons.";
-			case 7: callsub L_Quest,12078,"Dead fish are all around the beach and it is getting worse. Please hunt 30 Megalodon.";
-			case 8: callsub L_Quest,12079,"Can you hunt Marse? I need 15 Marse for my study. Please help me.";
-			case 9: callsub L_Quest,12080,"An idiot Cornutus bit the Mayor's foot. The Mayor is upset so we need to hunt 20 Cornutus to make him happy!";
-			case 10: callsub L_Quest,12081,"People are freaking out because of Myst. It looks like a ghost so, it scares people. Please hunt 15 Myst.";
-			case 11: callsub L_Quest,12082,"Don't ask why, but please hunt 30 Shellfish. It is a secret mission!";
-			case 12: callsub L_Quest,12083,"Marine Sphere? Do you know what a Marine Sphere is? I got a mission for you to hunt 15 Marine Sphere, so please do so.";
-			case 13: callsub L_Quest,12084,"The mayor wants to eat a delicious fish dish. Phen will be the perfect ingredient for it. Please hunt 20 Phen!";
-			case 14: callsub L_Quest,12085,"Dead Orc monsters got back to our town and they've revived as Orc Skeletons. We are in chaos! Please hunt 15 Orc Skeleton.";
-			case 15: callsub L_Quest,12086,"Some weird monsters called Zenorc are attacking us. Please hunt 30 Zenorc.";
-			case 16: callsub L_Quest,12087,"Be prepared! It is a cruel mission! Hunt 15 Mummies!! I tried once, but I couldn't succeed. It is too scary!";
+		switch(select("Thara Frog Hunting:Cruiser Hunting:Kukre Hunting:Orc Baby Hunting:Orc Warrior Hunting:Vadon Hunting:Megalodon Hunting:Marse Hunting:Cornutus Hunting:Myst Hunting:Shellfish Hunting:Marine Sphere Hunting:Phen Hunting:Orc Skeleton Hunting:Zenorc Hunting:Mummy Hunting:Archer Skeleton Hunting:Greatest General Hunting")) {
+			case 1: callsub L_Quest,12072,"Hunt 20 ^4d4dffThara Frogs^000000:";
+			case 2: callsub L_Quest,12073,"Hunt 15 ^4d4dffCruisers^000000:";
+			case 3: callsub L_Quest,12074,"Hunt 30 ^4d4dffKukre^000000:";
+			case 4: callsub L_Quest,12075,"Hunt 15 ^4d4dffOrc Babies^000000:";
+			case 5: callsub L_Quest,12076,"Hunt 20 ^4d4dffOrc Warriors^000000:";
+			case 6: callsub L_Quest,12077,"Hunt 15 ^4d4dffVadons^000000:";
+			case 7: callsub L_Quest,12078,"Hunt 30 ^4d4dffMegalodon^000000:";
+			case 8: callsub L_Quest,12079,"Hunt 15 ^4d4dffMarse^000000:";
+			case 9: callsub L_Quest,12080,"Hunt 20 ^4d4dffCornutus^000000:";
+			case 10: callsub L_Quest,12081,"Hunt 15 ^4d4dffMyst^000000:";
+			case 11: callsub L_Quest,12082,"Hunt 30 ^4d4dffShellfish^000000:";
+			case 12: callsub L_Quest,12083,"Hunt 15 ^4d4dff^4d4dffMarine Sphere:^000000";
+			case 13: callsub L_Quest,12084,"Hunt 20 ^4d4dffPhen^000000:";
+			case 14: callsub L_Quest,12085,"Hunt 15 ^4d4dffOrc Skeletons^000000:";
+			case 15: callsub L_Quest,12086,"Hunt 30 ^4d4dffZenorc^000000:";
+			case 16: callsub L_Quest,12087,"Hunt 15 ^4d4dffMummies^000000:";
+			// NEW QUESTS
+			case 17: callsub L_Quest,62562,"Hunt 15 ^4d4dffArcher Skeletons^000000:";
+			case 18: callsub L_Quest,62569,"Hunt 15 ^4d4dffGreatest Generals^000000:";
+			case 19: callsub L_Quest,62618,"Hunt 15 ^4d4dffSea Otters^000000:";
+			case 20: callsub L_Quest,62619,"Hunt 15 ^4d4dffSeals^000000:";
+			case 21: callsub L_Quest,62620,"Hunt 15 ^4d4dffRagglers^000000:";
+			case 22: callsub L_Quest,62621,"Hunt 15 ^4d4dffGrove^000000:";
 		}
 		end;
 	}
-	setarray .@Exp[0],9600,7200,15750,7875,11100,8550,17100,9000,12300,9900,20250,10350,13800,11025,22500,11250;
-	for(set .@i,0; .@i<16; set .@i,.@i+1)
-		if (checkquest(12072+.@i,HUNTING) == 2) {
-			mes "[Mission Board]";
-			mes "You have completed the mission.";
-			mes "Here is your reward.";
-			erasequest 12088;
-			erasequest 12072+.@i;
-			specialeffect2 EF_STEAL;
-			getexp .@Exp[.@i],0;
-			close;
-		}
+	/*
 	if ((checkquest(12072,HUNTING) == 0) && (checkquest(12073,HUNTING) == 0) && (checkquest(12074,HUNTING) == 0) && (checkquest(12075,HUNTING) == 0) && (checkquest(12076,HUNTING) == 0) && (checkquest(12077,HUNTING) == 0) && (checkquest(12078,HUNTING) == 0) && (checkquest(12079,HUNTING) == 0) && (checkquest(12080,HUNTING) == 0) && (checkquest(12081,HUNTING) == 0) && (checkquest(12082,HUNTING) == 0) && (checkquest(12083,HUNTING) == 0) && (checkquest(12084,HUNTING) == 0) && (checkquest(12085,HUNTING) == 0) && (checkquest(12086,HUNTING) == 0) && (checkquest(12087,HUNTING) == 0)) {
 		mes "You may now view the bulletin board.";
 		erasequest 12088;
 		close;
-	}
+	}*/
 	mes "There is nothing special to do.";
 	close;
 L_Quest:
-	mes "[Mission Board Memo]";
+	clear;
+	mes "[Mission Board]";
 	mes getarg(1);
 	next;
-	if(select("Accept the mission.:Cancel.") == 1) {
+	if(select("Accept the mission:Cancel") == 1) {
+		if (checkquest(getarg(0)) > -1) {mes "You are already signed up for this mission!"; close;};
 		mes "[Mission Board]";
 		mes "You have accepted the mission. For more details, please press 'alt + u' keys, you can get information from the Quest Window.";
-		setquest 12088;
+		//setquest 12088; // Commenting this out to allow taking multiple quests
 		setquest getarg(0);
 	}
 	close;
+	OnInit: {
+		setarray .all_quest_ids[0], //used for quest deletion
+			12072,12073,12074,12075,
+			12076,12077,12078,12079,
+			12080,12081,12082,12083,
+			12084,12085,12086,12087,
+			62562,62569,62618,
+			62619,62620,62621;
+	}
 }

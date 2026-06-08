@@ -1,0 +1,6 @@
+// Run this command from a terminal in a directory where you want to install all .sql files (like the 'upgrades' folder). Keep in mind that bc my server doesn't have mod_db/mod_db2/item_db/item_db2 (bc I use the _re versions), I will have to modify those upgrade files to not include those, otherwise those upgrades will not complete. Also keep in mind I'll need to enter my MySQL password for roinro every time, which is: oi0P7TBE5xmGJDmzmTT6
+
+for file in *.sql; do
+    echo "Running $file"
+    mysql -u roinadmin -p roinro < "$file"
+done

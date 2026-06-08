@@ -1,0 +1,74 @@
+# This file is a part of rAthena.
+#   Copyright(C) 2017 rAthena Development Team
+#   https://rathena.org - https://github.com/rathena
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+###########################################################################
+# Atcommand Database
+###########################################################################
+#
+# Atcommand Settings
+#
+###########################################################################
+# - Command                  Command name.
+#   Aliases:                 Aliases for the command. (Optional)
+#     - <AliasName>
+#   Help                     Help message for the command. (Optional)
+###########################################################################
+
+Header:
+  Type: ATCOMMAND_DB
+  Version: 1
+
+Body:
+  - Command: go
+    Help: |
+      Params: <city name|number>
+      Warps you to a city.
+      -3: (Memo point 2)  14: louyang           31: mora
+      -2: (Memo point 1)  15: main office      32: dewata
+      -1: (Memo point 0)  16: st. capitolina       33: malangdo island
+       0: prontera           17: jawaii            34: malaya port
+       1: morocc             18: ayothaya          35: eclage
+       2: geffen             19: einbroch          36: eden group
+       3: payon              20: lighthalzen       37: lasagna
+       4: alberta            21: einbech           38: verus
+       5: izlude             22: hugel             39: rock ridge
+       6: aldebaran          23: rachel            40: cor
+       7: xmas (lutie)       24: veins             41: varmundt's mansion
+       8: comodo             25: moscovia          42: thor camp
+       9: yuno                26: midgard camp      43: ice castle
+      10: amatsu             27: manuk             44: wolf village
+      11: gonryun            28: splendide
+      12: umbala             29: brasilis
+      13: niflheim           30: el dicastes
+  - Command: autoloot
+    Aliases:
+      - al
+    Help: |
+      Params: <on|off|#>
+      Makes items go straight into your inventory.
+  - Command: whereis
+    Aliases:
+      - wi
+    Help: |
+      Params: <monster name/ID>
+      Displays the maps in which monster <monster name/ID> normally spawns.
+  - Command: whodrops
+    Aliases:
+      - wd
+    Help: |
+      Params: <item name|ID>
+      Shows who drops an item (monster with highest drop rates).

@@ -1,0 +1,211 @@
+//---------------Start with controller script disabled---------------
+-	script	disable poring ranch on start	-1,{
+OnInit:
+	disablenpc "por ranch controller";
+}
+
+//---------------Prontera NPC---------------
+prontera,156,178,4	script	Poring Rancher#Prontera	570,{
+	// Check if it's been at least 45 minutes (2700s) since talking to this NPC. If it has been, reset #poring_rancher_playcount playcount
+	if(gettimetick(2) - #poring_rancher_countdown > 2700) {
+		#poring_rancher_playcount = 0;
+	}
+	#poring_rancher_countdown = gettimetick(2);
+	mes "[Poring Rancher]";
+	mes "Howdy! Yall wanna play Poring Rancher?";
+	.@remaining_attempts = 3-#poring_rancher_playcount;
+	mes "Remaining attempts: " + .@remaining_attempts;
+	next;
+	.@user_choice = 3;
+	while(.@user_choice == 3) {
+		.@user_choice = select("Yes","No","What's this?");
+		switch(.@user_choice) {
+			case 1:
+				if(#poring_rancher_playcount < 3) {
+					if(!checkweight(250000,1)) {
+						clear;
+						mes "[Poring Rancher]";
+						mes "Woah there partner, you're carrying WAY too many things. I'm afraid that's a safety hazard. Come back when you're carrying less items.";
+						close;
+					}
+					if (instance_create("Poring Rancher", IM_CHAR) < 0) {
+						clear;
+						mes "[Poring Rancher]";
+						mes "Unable to create Instance!";
+						close;
+					};
+					if (instance_enter("Poring Rancher",-1,-1,getcharid(0),instance_id(IM_CHAR)) == IE_OK) {
+						end;
+					} else {
+						clear;
+						mes "[Whack-a-poring]";
+						mes "An unknown error occurred!";
+						close;
+					}
+				} else {
+					clear;
+					mes "[Poring Rancher]";
+					mes "Sorry partner, you only get 3 tries. Come back next time Poring Rancher's in town!";
+					close;
+				}
+				break;
+			case 2:
+				clear;
+				mes "[Poring Rancher]";
+				mes "Come back when you're itchin' to earn some Roin Coins!";
+				close;
+				break;
+			case 3:
+				clear;
+				mes "[Poring Rancher]";
+				mes "Count how many of each Poring-type monster there are in 30 seconds.", "The closer you are to the actual amounts, the more Roin Coins you'll win!";
+				next;
+				mes "[Poring Rancher]";
+				mes "So then, you wanna go to the Poring Ranch?";
+				mes "Remaining attempts: " + .@remaining_attempts;
+				next;
+				break;
+		}
+	}
+OnInit:
+	hideonnpc strnpcinfo(3);
+	end;
+}
+
+//---------------Starter---------------
+1@por_count,1,1,0	script	poring rancher starter	-1,{
+OnInstanceInit:
+	'poring_count = rand(8,20);
+	'poporing_count = rand(8,20);
+	'marin_count = rand(8,20);
+	enablenpc instance_npcname("por ranch controller");
+	end;
+}
+
+//---------------Controller---------------
+1@por_count,89,85,0	script	por ranch controller	69,12,12,{
+function check_unrealistic;
+OnTouch_:
+	hideonnpc strnpcinfo(3);
+	sc_start SC_STONE, 60000, 0;
+	'map1$ = instance_mapname("1@por_count",instance_id(IM_CHAR));
+	mapannounce 'map1$, "Welcome to Poring Rancher!", bc_map, 0xFFCC;
+	sleep2 3000;
+	mapannounce 'map1$, "You'll have 30 seconds to determine how many Porings, Poporings, and Marins spawn into this pen.", bc_map, 0xFFCC;
+	sleep2 5000;
+	mapannounce 'map1$, "The closer you are to the actual amounts, the more Roin Coins you'll earn!", bc_map, 0xFFCC;
+	sleep2 4000;
+	mapannounce 'map1$, "Starting in: 5!", bc_map, 0xFFCC;
+	sleep2 1000;
+	mapannounce 'map1$, "Starting in: 4!", bc_map, 0xFFCC;
+	sleep2 1000;
+	mapannounce 'map1$, "Starting in: 3!", bc_map, 0xFFCC;
+	sleep2 1000;
+	mapannounce 'map1$, "Starting in: 2!", bc_map, 0xFFCC;
+	sleep2 1000;
+	mapannounce 'map1$, "Starting in: 1!", bc_map, 0xFFCC;
+	sleep2 1000;
+	mapannounce 'map1$, "BEGIN!", bc_map, 0xFFCC;
+	areamonster 'map1$, 78,95, 99,74, "Poring", 2401, 'poring_count, strnpcinfo(3)+"::OnRanchPoringDie";
+	for(.@i = 0; .@i < 'poring_count; .@i++) {
+		setunitdata $@mobid[.@i],UMOB_LOOKDIR,rand(0,7);
+	}
+	areamonster 'map1$, 78,95, 99,74, "Poporing", 1031, 'poporing_count, strnpcinfo(3)+"::OnRanchPoringDie";
+	for(.@i = 0; .@i < 'poporing_count; .@i++) {
+		setunitdata $@mobid[.@i],UMOB_LOOKDIR,rand(0,7);
+	}
+	areamonster 'map1$, 78,95, 99,74, "Marin", 1595, 'marin_count, strnpcinfo(3)+"::OnRanchPoringDie";
+	for(.@i = 0; .@i < 'marin_count; .@i++) {
+		setunitdata $@mobid[.@i],UMOB_LOOKDIR,rand(0,7);
+	}
+	#poring_rancher_playcount += 1;
+	sleep2 25000;
+	mapannounce 'map1$, "Ending in: 5", bc_map, 0xFFCC;
+	sleep2 1000;
+	mapannounce 'map1$, "Ending in: 4", bc_map, 0xFFCC;
+	sleep2 1000;
+	mapannounce 'map1$, "Ending in: 3", bc_map, 0xFFCC;
+	sleep2 1000;
+	mapannounce 'map1$, "Ending in: 2", bc_map, 0xFFCC;
+	sleep2 1000;
+	mapannounce 'map1$, "Ending in: 1", bc_map, 0xFFCC;
+	sleep2 1000;
+	mapannounce 'map1$, "FINISHED!", bc_map, 0xFFCC;
+	killmonsterall 'map1$;
+	sc_end SC_STONE;
+	mes "[Poring Rancher]";
+	mes "FINISHED!";
+	next;
+	mes "[Poring Rancher]";
+	mes "How many ^FF32BBPorings^000000 were in this pen?";
+	next;
+	input .@user_poring;
+	clear;
+	check_unrealistic(.@user_poring);
+	mes "[Poring Rancher]";
+	mes "Very well. How many ^12B500Poporings^000000 were in this pen?";
+	input .@user_poporing;
+	clear;
+	check_unrealistic(.@user_poporing);
+	mes "[Poring Rancher]";
+	mes "Hmm I see, and how many ^1A00C6Marins^000000 were in this pen?";
+	input .@user_marin;
+	clear;
+	check_unrealistic(.@user_marin);
+	.@poring_difference = min((max('poring_count,.@user_poring) - min('poring_count,.@user_poring)), 7);
+	if(.@poring_difference == 0) {.@accuracy_bonus += 2;} else if(.@poring_difference == 1) {.@accuracy_bonus += 1;};
+	.@poporing_difference = min((max('poporing_count,.@user_poporing) - min('poporing_count,.@user_poporing)), 7);
+	if(.@poporing_difference == 0) {.@accuracy_bonus += 2;} else if(.@poporing_difference == 1) {.@accuracy_bonus += 1;};
+	.@marin_difference = min((max('marin_count,.@user_marin) - min('marin_count,.@user_marin)), 7);
+	if(.@marin_difference == 0) {.@accuracy_bonus += 2;} else if(.@marin_difference == 1) {.@accuracy_bonus += 1;};
+	.@reward = 10 - .@poring_difference - .@poporing_difference - .@marin_difference + .@accuracy_bonus;
+	mes "[Poring Rancher]";
+	mes "Alright! Here are the results:";
+	mes "Porings: " + 'poring_count + "       ||     Your guess: " + .@user_poring;
+	mes "Poporings: " + 'poporing_count + "   ||     Your guess: " + .@user_poporing;
+	mes "Marins: " + 'marin_count + "        ||     Your guess: " + .@user_marin;
+	sleep2 1000;
+	next;
+	mes "[Poring Rancher]";
+	if(.@reward < 2) {
+		mes "I don't know what to tell you, but you were pretty off this time.";
+		next;
+		mes "[Poring Rancher]";
+		mes "You can have a participation Roin Coin. Thanks for coming.";
+		getitem 250000, 1;
+		sleep2 1000;
+		next;
+	} else {
+		mes "Your reward is " + .@reward + " Roin Coins! Thanks for playing.";
+		getitem 250000, .@reward;
+		sleep2 1000;
+		next;
+	}
+	warp "prontera",156,185;
+	instance_destroy;
+	end;
+
+function check_unrealistic {
+	while(getarg(0) > 99 || getarg(0) < 2) {
+		mes "[Poring Rancher]";
+		mes "I'm just gonna tell you right now, " + getarg(0) + " is way off.", "Please choose a more realistic guess:";
+		//@first_guess_off = 1;
+		next;
+		input getarg(0);
+		clear;
+		}
+	}
+}
+
+//---------------Mapflags---------------
+1@whackapor	mapflag	NOBRANCH
+1@whackapor	mapflag	NOCOMMAND	99
+1@whackapor	mapflag	NODROP
+1@whackapor	mapflag	NOICEWALL
+1@whackapor	mapflag	NOMEMO
+1@whackapor	mapflag	NOSAVE
+1@whackapor	mapflag	NOSKILL
+1@whackapor	mapflag	NOTELEPORT
+1@whackapor	mapflag	NOVENDING
+1@whackapor	mapflag	NOWARP
+1@whackapor	mapflag	NOWARPTO
