@@ -490,8 +490,10 @@ ein_in01,38,29,0	script	Paul Spanner	63,{
 				close;
 			}
 			else {
-				delitem 756,5; //Oridecon_Stone
-				getitem 984,1; //Oridecon
+				.@rough_ori = countitem(756);
+				.@total_ori_get = .@rough_ori/5;
+				delitem 756,.@total_ori_get*5; //Oridecon_Stone
+				getitem 984,.@total_ori_get; //Oridecon
 				mes "[Paul Spanner]";
 				mes "There you go. Thank you for using my service.";
 				close;
@@ -503,8 +505,10 @@ ein_in01,38,29,0	script	Paul Spanner	63,{
 				close;
 			}
 			else {
-				delitem 757,5; //Elunium_Stone
-				getitem 985,1; //Elunium
+				.@rough_elu = countitem(757);
+				.@total_elu_get = .@rough_elu/5;
+				delitem 757,.@total_elu_get*5; //Elunium_Stone
+				getitem 985,.@total_elu_get; //Elunium
 				mes "[Paul Spanner]";
 				mes "There you go. Thank you for using my service.";
 				close;
@@ -520,6 +524,7 @@ ein_in01,38,29,0	script	Paul Spanner	63,{
 		close;
 	}
 }
+prontera,164,232,3	duplicate(Paul Spanner)	Blacksmith Supplier#prt	63
 
 // Weapon/Armor Refiners
 //============================================================

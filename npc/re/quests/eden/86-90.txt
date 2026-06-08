@@ -72,16 +72,21 @@ moc_para01,48,175,3	script	86-90 Mission Board	857,{
 			"Dragon Tail","Spring Rabbit","Pest",
 			"Bathory","Alarm",
 			"Baba Yaga","Yao Jun","Firelock Soldier","Zipper Bear",
-			"Ground Petite","Rafflesia","Venomous","Pitman","Yellow Novus";
+			"Ground Petite","Flying Petite"/*new*/,"Rafflesia","Venomous","Metaling"/*new*/,"Pitman",
+			"Yellow Novus","Red Novus"/*new*/,"Stem Worm"/*new*/,"Breeze"/*new*/;
 		setarray .@exp[0],
 			76000,82000,82000,
 			72000,76000,
 			72000,78000,82000,80000,
-			72000,72000,72000,86000,80000;
+			72000,69000,72000,72000,72000,86000,
+			// NEW QUEST EXP
+			82000,82000,72000,86000;
 		mes "You must be within level 86-90 to accept these missions.";
-		for(set .@quest,4167; .@quest<=4180; set .@quest,.@quest+1) {
-			set .@hunting, checkquest(.@quest,HUNTING);
-			if (.@hunting == 0 || .@hunting == 1) {
+		//for(set .@quest,4167; .@quest<=4180; set .@quest,.@quest+1) {
+		for(set .@i,0; .@i<getarraysize(.all_quest_ids); set .@i,.@i+1) {
+			if (checkquest(.all_quest_ids[.@i],HUNTING) == 2) { // Check if the hunting part of the quest is completed
+			//set .@hunting, checkquest(.@quest,HUNTING);
+			/*if (.@hunting == 0 || .@hunting == 1) { //I freaking hate when my quests get deleted without my consent
 				next;
 				mes ":: You cannot proceed in";
 				mes ":: ^0000FF"+.@names$[.@quest-4167]+" Hunting^000000.";
@@ -89,17 +94,17 @@ moc_para01,48,175,3	script	86-90 Mission Board	857,{
 				mes ":: is cancelled.";
 				erasequest .@quest;
 				close;
-			} else if (.@hunting == 2) {
-				next;
-				mes ":: You added information";
-				mes ":: about the mission";
-				mes ":: ^0000FF"+.@names$[.@quest-4167]+" Hunting^000000";
-				mes ":: on the mission board.";
-				mes ":: You've got a";
-				mes ":: salutary experience.";
-				erasequest .@quest;
-				getexp .@exp[.@quest-4167],0;
-				close;
+			} elseif (.@hunting == 2) {*/ 
+			next;
+			mes ":: You added information";
+			mes ":: about the mission";
+			mes ":: ^0000FF"+.@names$[.@i]+" Hunting^000000";
+			mes ":: on the mission board.";
+			mes ":: You've got a";
+			mes ":: salutary experience.";
+			erasequest .all_quest_ids[.@i];
+			getexp .@exp[.@i],.@exp[.@i];
+			close;
 			}
 		}
 		close;
@@ -140,12 +145,18 @@ moc_para01,48,175,3	script	86-90 Mission Board	857,{
 		mes "Here is a list of random requests to hunt monsters in other regions of Midgard.";
 		mes "Which monster will you hunt or have you finished hunting?";
 		next;
-		switch(select("^0000FFGround Petite^000000:^0000FFRafflesia^000000:^0000FFVenomous^000000:^0000FFPitman^000000:^0000FFYellow Novus^000000")) {
+		switch(select("^0000FFGround Petite^000000:^0000FFFlying Petite^000000:^0000FFRafflesia^000000:^0000FFVenomous^000000:^0000FFMetaling^000000:^0000FFPitman^000000:^0000FFYellow Novus^000000:^0000FFRed Novus^000000:^0000FFStem Worm^000000:^0000FFBreeze^000000")) {
 			case 1: callsub L_Quest,4176,"Ground Petite",72000,"지상쁘띠카드","There are dragon type monsters swarming the western region of Geffen.";
-			case 2: callsub L_Quest,4177,"Rafflesia",72000,"라플레시아카드","There are plant type monsters infesting the fields of Lighthalzen.";
-			case 3: callsub L_Quest,4178,"Venomous",72000,"베노머스","There are formless monsters floating around the fields of Einbroch.";
-			case 4: callsub L_Quest,4179,"Pitman",86000,"핏맨","There are undead monsters pushing a cart around the fields and dungeons of Einbroch.";
-			case 5: callsub L_Quest,4180,"Yellow Novus",80000,"옐로우노버스","There are yellow dragon type monsters terrorizing the fields of Hugel.";
+			case 2: callsub L_Quest,62680,"Flying Petite",69000,"공중쁘띠카드","There are dragon type monsters swarming the western region of Geffen."; //NEW QUEST
+			case 3: callsub L_Quest,4177,"Rafflesia",72000,"라플레시아카드","There are plant type monsters infesting the fields of Lighthalzen.";
+			case 4: callsub L_Quest,4178,"Venomous",72000,"베노머스","There are formless monsters floating around the fields of Einbroch.";
+			case 5: callsub L_Quest,62745,"Metaling",72000,"메탈링","There are formless monsters going around the fields of Einbroch."; //NEW QUEST
+			case 6: callsub L_Quest,4179,"Pitman",86000,"핏맨","There are undead monsters pushing a cart around the fields and dungeons of Einbroch.";
+			case 7: callsub L_Quest,4180,"Yellow Novus",80000,"옐로우노버스","There are yellow dragon type monsters terrorizing the fields of Hugel.";
+			// ALSO NEW QUESTS
+			case 8: callsub L_Quest,62789,"Red Novus",80000,"레드노버스","There are red dragon type monsters terrorizing the fields of Hugel.";
+			case 9: callsub L_Quest,62747,"Stem Worm",86000,"스템웜카드","There are yellow plant monsters filling up the fields of Lighthalzen.";
+			case 10: callsub L_Quest,62748,"Breeze",86000,"산들바람","There are wind type monsters terrorizing the fields of Lighthalzen.";
 		}
 	}
 	end;
@@ -153,14 +164,14 @@ moc_para01,48,175,3	script	86-90 Mission Board	857,{
 //callsub L_Quest,<quest ID>,"<monster name>",<reward EXP>,"<cutin image>","<description>"{,"s"};
 L_Quest:
 	set .@quest1, getarg(0);
-	set .@quest2, .@quest1+31;
+	//set .@quest2, .@quest1+31;
 	.@cutin$ = getarg(3);
-	set .@playtime, checkquest(.@quest2,PLAYTIME);
+	/*set .@playtime, checkquest(.@quest2,PLAYTIME);
 	if (.@playtime == 0 || .@playtime == 1) {
 		mes "[86-90 Mission Board]";
 		mes "You need to wait 3 hours before you can take this mission again.";
 		close;
-	}
+	}*/
 	set .@hunting, checkquest(.@quest1,HUNTING);
 	if (.@hunting == 0 || .@hunting == 1) {
 		mes "[86-90 Mission Board]";
@@ -171,9 +182,9 @@ L_Quest:
 		mes "You have completed the hunting.";
 		mes "Please accept this reward as a compensation.";
 		erasequest .@quest1;
-		if (.@playtime > -1) erasequest .@quest2;
-		setquest .@quest2;
-		getexp getarg(2),0;
+		//if (.@playtime > -1) erasequest .@quest2;
+		//setquest .@quest2;
+		getexp getarg(2),getarg(2);
 		close;
 	}/* else if (.@hunting == 3) {
 //		recall_completequest .@quest1
@@ -197,5 +208,13 @@ L_Quest:
 			setquest .@quest1;
 		}
 		close;
+	}
+	OnInit: {
+		setarray .all_quest_ids[0], //used for quest deletion
+			4167,4168,4169,
+			4170,4171,
+			4172,4173,4174,4175,
+			4176,62680,4177,4178,62745,4179,
+			4180,62789,62747,62748;
 	}
 }

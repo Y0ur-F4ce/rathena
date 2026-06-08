@@ -1174,7 +1174,7 @@ OnTimer6000:
 		'airship_status = 11;
 		enablenpc instance_npcname("warp5a#air2");
 		cutin "",255;
-		getexp 100000,65000;
+		getexp 1000000,650000;
 	}
 	end;
 }

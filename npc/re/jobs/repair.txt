@@ -261,6 +261,7 @@ L_Third:
 	mes "^ff00ffValerie^000000";
 	close;
 }
+//m_office,37,34,3	duplicate(Valerie)	Status Removal#office	95
 in_moc_16,17,33,4	duplicate(Valerie#sign)	Valerie#asn	837
 ein_in01,13,28,4	duplicate(Valerie#sign)	Valerie#bls	837
 hu_in01,386,377,4	duplicate(Valerie#sign)	Valerie#hnt	837

@@ -1,0 +1,61 @@
+// Buffalo Horn quest, based off NovaRO
+
+yuno_fild04,243,214,4	script	Buffalo William	731,{
+	mes "[Buffalo William]";
+	mes "Would you like me to make you a " + mesitemlink(2874, false, "Buffalo Horn [1]") + "?";
+	mes "I could craft it real nice… smooth, polished… just the way you’d want it. Would you like that?";
+	switch(select("Yessir","No thanks")) {
+		clear;
+		mes "[Buffalo William]";
+		case 1: // Yes
+			mes "I'll need you to gather me this stuff:";
+			mes "1 " + mesitemlink(2702);
+			mes "1 " + mesitemlink(2245);
+			mes "300 " + mesitemlink(7106);
+			mes "300 " + mesitemlink(7107);
+			setarray .@items[0],
+				2702, 2245, 7106, 7107;
+			setarray .@item_reqs[0],
+				1, 1, 300, 300;
+			set .@has_items$, "I gathered all the items!";
+			for( .@i = 0 ; .@i < getarraysize(.@items) ; .@i++) {
+				if(countitem(.@items[.@i]) < .@item_reqs[.@i]) {
+					set .@has_items$, "";
+				}
+			}
+			switch(select(.@has_items$, "I'll go get those items.")) {
+				clear;
+				mes "[Buffalo William]";
+				case 1: // Has items
+					mes "You sure did! I'll go ahead and take those from you, alright?";
+					switch(select("Create equipment","Never mind")) {
+						clear;
+						mes "[Buffalo William]";
+						case 1: // Create equipment
+							if(!checkweight(2874,1)) {
+								mes "Hang on, you're carrying around too much stuff! Get rid of some items and then come back to me.";
+								close;
+							}
+							getitem 2874, 1;
+							for (.@i = 0; .@i < getarraysize(.@items); .@i++) {
+								delitem .@items[.@i], .@item_reqs[.@i];
+							}
+							specialeffect2 EF_REPAIRWEAPON;
+							mes "There you are! Carry on my legacy.";
+							close;
+							break;
+						case 2: // Never mind
+							mes "Hey now, what's the big idea!";
+							close;
+							break;
+					}
+				case 2: // Close dialogue (I'll get the items)
+					mes "I'll be here.";
+					close;
+			}
+			break;
+		case 2: // No
+			mes "See ya.";
+			close;
+	}
+}

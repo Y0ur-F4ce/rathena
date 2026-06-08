@@ -1,0 +1,37 @@
+m_office,29,22,6	script	Guy with Great Hair#invisible_costumes	878,{
+	mes "[Guy with Great Hair]";
+	mes "Isn't my hair fabulous? I don't like when I have to cover it up with a lousy hat for some stat bonuses.";
+	mes "I have a secret though- I'm actually wearing a hat right now!";
+	next;
+	mes "[Guy with Great Hair]";
+	mes "I'm giving out invisible costumes that will hide the gear you're wearing, so you can show off your hair like me!";
+	mes "Would you like one?";
+	switch(select("Upper Head:Middle Head:Lower Head:Garment:No thanks!")) {
+		clear;
+		mes "[Guy with Great Hair]";
+		case 1: {
+			getitem 19602,1;
+			mes "There you go! Come back if you need any more invisible costumes.";
+			close;
+		}
+		case 2: {
+			getitem 19603,1;
+			mes "There you go! Come back if you need any more invisible costumes.";
+			close;
+		}
+		case 3: {
+			getitem 19604,1;
+			mes "There you go! Come back if you need any more invisible costumes.";
+			close;
+		}
+		case 4: {
+			getitem 20506,1;
+			mes "There you go! Come back if you need any more invisible costumes.";
+			close;
+		}
+		case 5: {
+			mes "Okay, well you know where to find me and my luxurious hair!";
+			close;
+		}
+	}
+}

@@ -3648,6 +3648,8 @@ que_swat,145,57,3	script	Philopontess#ep162_04	4_M_PHILOFONTES,{
 		getitem 25155,10;	// Swz_Honor_Token
 		getexp 500000,500000;
 		terra_gloria_main = 25;
+		getitem 250006,1; // Multi-use Episode 16.1 skip voucher
+		done_with_ep_16_2 = 1;
 		questinfo_refresh();
 		close2;
 		cutin "",255;

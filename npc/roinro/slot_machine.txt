@@ -1,0 +1,409 @@
+prontera,156,178,4	script	Enigmatic Slot Machine	563,{
+
+	if( getgmlevel() == 99 ) {
+		mes "Welcome Administrator.","What would you like to do?";
+		menu "Play Game",-,"Change Slot Machine Mode",iMode;
+		next;
+		}
+switch( getd(".mode"+strnpcinfo(3)+"") ){
+	case 0: // Single Slot machine mode.
+		mes "Do you want to play a game?";
+		if( !.payment ) { mes "It costs: "+ .ssm_payment_message$[0] +" to play."; }
+			else if ( .payment == 1 ) { mes "It costs: "+ .ssm_payment_message$[1] +" to play."; }
+				else if ( .payment == 2 ) { mes "It costs: "+ .ssm_payment_message$[0] +" & "+ .payment_message$[1] +" to play."; }
+		if( select("YES:NO") == 2 || Zeny < .ssm_payment[0] && ( !.payment || .payment == 2 ) || countitem(.ssm_payment[1]) < .ssm_payment[2] && .payment ){ close; }
+		while( @menu == 1 ){
+			if( !.payment || .payment == 2 ) { Zeny -= .ssm_payment[0]; }
+			if( .payment ) { delitem( .ssm_payment[1], .ssm_payment[2] ); }
+			if( .soundeffects ) { soundeffect "se_cash_provider.wav",0; }
+			.@a = rand(1,100);
+			if( .@a < atoi(.ssm_animate$[0]) ){ .@a = 1; } else { .@a = 2; }
+			.@b = 1;
+			while( .@b < atoi(.ssm_animate$[.@a]) ) {
+				cutin .ssm_animate$[3] + .@b,4; sleep2 ( ( atoi(.ssm_animate$[4]) * 1000 ) / atoi(.ssm_animate$[.@a]) ); .@b++;
+				}
+			if( .@a == 1 ){ 
+				cutin .ssm_animate$[3] + atoi(.ssm_animate$[.@a]),4;
+				dispbottom "Failed";
+				} 
+			else {
+				cutin .ssm_animate$[3] + atoi(.ssm_animate$[.@a]),4;
+				switch(rand(15)) {
+				case 0:
+					getitem 603,5;
+					break;
+				case 1:
+					getitem 617,5;	
+					break;
+				case 2:
+					getitem 644,5;	
+					break;
+				case 3:
+					getitem 616,1;
+					break;
+				case 4:
+					getitem 31053,1;
+					break;
+				case 5:
+					getitem 18571,1;
+					break;
+				case 6:
+					getitem 7720,1000;
+					break;
+				case 7:
+					getitem 17271,1;
+					break;
+				case 8:
+					getitem 17272,1;
+					break;
+				case 9:
+					getitem 17273,1;
+					break;
+				case 10:
+					getitem 17274,1;
+					break;
+				case 11:
+					getitem 17275,1;
+					break;
+				case 12:
+					getitem 12208,5;
+					break;
+				case 13:
+					getitem 12103,2;
+					break;
+				case 14:
+					getitem 12259,1;
+					break;
+				}
+				}
+			if( select("Another Round:I'm done") == 2 || Zeny < .ssm_payment[0] && ( !.payment || .payment == 2 ) || countitem(.ssm_payment[1]) < .ssm_payment[2] && .payment ){ cutin "",255; close; }
+			}
+		end;
+	
+	case 1: // Triple Slot machine mode.
+		if(!checkweight(1231,1)) {
+			clear;
+			mes "(You're carrying too many items to play! Get rid of some of your inventory and try again.)";
+			close;
+		}
+		mes "[Enigmatic Slot Machine]";
+		mes "Would you like to pull the lever?";
+		if( !.payment ) { mes "It costs: "+ .tsm_payment_message$[0] +" to play."; }
+			else if ( .payment == 1 ) { mes "It costs: "+ .tsm_payment_message$[1] +" to play."; }
+				else if ( .payment == 2 ) { mes "It costs: "+ .tsm_payment_message$[0] +" & "+ .tsm_payment_message$[1] +" to play."; }
+		if( select("Yes:No") == 2 || Zeny < .tsm_payment[0] && ( !.payment || .payment == 2 ) || countitem(.tsm_payment[1]) < .tsm_payment[2] && .payment ){ close; }
+		while( @menu == 1 ){
+			if( !.payment || .payment == 2 ) { Zeny -= .tsm_payment[0]; }
+			if( .payment ) { delitem( .tsm_payment[1], .tsm_payment[2] ); }
+			if( .soundeffects ) { soundeffect "se_cash_provider.wav",0; }
+			// Slot 1 = 100% Chance for success. (Because I didn't make a fail animation for it.
+			.@2 = rand(1,100); //Rolls dice for Slot 2
+			.@3 = rand(1,100); //Rolls dice for Slot 3
+				if( .@2 <= atoi(.tsm_animate$[0]) && .@3 <= atoi(.tsm_animate$[1]) ){ .@a = 8; }
+				else if( .@2 <= atoi(.tsm_animate$[0]) && .@3 > atoi(.tsm_animate$[1]) ){ .@a = 6; }
+				else if( .@2 > atoi(.tsm_animate$[0]) && .@3 <= atoi(.tsm_animate$[1]) ){ .@a = 4; }
+				else { .@a = 2; }
+			.@b = 1;
+			while( .@b < atoi(.tsm_animate$[.@a+1]) ) {
+				cutin .tsm_animate$[.@a] + .@b,4; sleep2 ( ( atoi(.tsm_animate$[10]) * 1000 ) / atoi(.tsm_animate$[.@a+1]) ); .@b++;
+				}
+			cutin .tsm_animate$[.@a] + atoi(.tsm_animate$[.@a+1]),4;
+				if( .@a == 2 ){
+					switch(rand(45)) {
+				case 0:
+					getitem 603,5;		// Blue Box
+					break;
+				case 1:
+					getitem 617,5;		// Violet Box
+					break;
+				case 2:
+					getitem 644,5;		// Gift Box
+					break;
+				case 3:
+					getitem 616,1;		// Old Card Album
+					break;
+				case 4:
+					getitem 12215,3;	// Blessing Scroll x3
+					break;
+				case 5:
+					getitem 12216,5;	// Increase AGI Scroll x5
+					break;
+				case 6:
+					getitem 12202,1;	// STR Food (Steamed Tongue)
+					break;
+				case 7:
+					getitem 12203,1;	// AGI Food (Steamed Scorpion)
+					break;
+				case 8:
+					getitem 12204,1;	// INT Food (Dragon Breath Cocktail)
+					break;
+				case 9:
+					getitem 12205,1;	// DEX Food (Hwergelmir's Tonic)
+					break;
+				case 10:
+					getitem 12206,1;	// LUK Food (Cooked Nine Tail's Tails)
+					break;
+				case 11:
+					getitem 12207,1;	// VIT Food (Stew Of Immortality)
+					break;
+				case 12:
+					getitem 12103,1;	// Bloody Branch
+					break;
+				case 13:
+					getitem 12216,3;	// Increase AGI Scroll x3
+					break;
+				case 14:
+					getitem 250000,25;	// Roin Coin x 25
+					break;
+				case 15:
+					getitem 250000,10;	// Roin Coin x 10
+					break;
+				case 16:
+					getitem 250000,5;	// Roin Coin x 5
+					break;
+				case 17:
+					getitem 250000,2;	// Roin Coin x 2
+					break;
+				case 18:
+					getitem 250000,1;	// Roin Coin x 1
+					break;
+				case 19:
+					getitem 604,15;		// Dead Branch x 15
+					break;
+				case 20:
+					getitem 12208,1;	// Battle Manual
+					break;
+				case 21:
+					getitem 12210,1;	// Bubble Gum
+					break;
+				case 22:
+					getitem 12211,2;	// Kafra Card x2
+					break;
+				case 23:
+					getitem 7621,3;		// Token of Siegfried x3
+					break;
+				case 24:
+					getitem 12214,3;	// Convex Mirror x3
+					break;
+				case 25:
+					getitem 6225,1;		// HD Carnium
+					break;
+				case 26:
+					getitem 6226,1;		// HD Bradium
+					break;
+				case 27: // Episode-specific items, based on the player's quest progression
+					.@ep_array_index = 0; 
+					setarray .@ep_items[0],0;
+					if (ep18_main == 57) {
+						setarray .@ep_items[.@ep_array_index],1000405; // Complete Ep18 = Amethyst Shard
+						.@ep_array_index++;
+					}
+					if (done_with_ep_17_2 == 1) {
+						setarray .@ep_items[.@ep_array_index],1000103; // Complete Ep17.2 = Varmeal Ticket
+						.@ep_array_index++;
+					}
+					if (done_with_ep_17_1 == 1) {
+						setarray .@ep_items[.@ep_array_index],25723; // Complete Ep17.1 = Cor Core
+						.@ep_array_index++;
+						setarray .@ep_items[.@ep_array_index],25669; // Complete Ep17.1 = Mysterious Component
+						.@ep_array_index++;
+					}
+					else {
+						//setarray .@ep_items[.@ep_array_index],250000; // Nothing complete = Roin Coin
+						getitem 250000, 10;
+						break;
+					}
+					getitem .@ep_items[rand(getarraysize(.@ep_items))], 10;	// Get x10 of a random item from the list
+					break;
+				// Adding more fluff/duplicates
+				case 28:
+					getitem 12215,5;	// Blessing Scroll x5
+					break;
+				case 29:
+					getitem 12211,1;	// Kafra Card x1
+					break;
+				case 30:
+					getitem 25814,5;	// Dynite x5
+					break;
+				case 31:
+					getitem 1100004,3;	// Concentrated Blue Potion x3
+					break;
+				case 32:
+					getitem 12210,2;	// Bubble Gum x2
+					break;
+				case 33:
+					getitem 7621,2;		// Token of Siegfried x2
+					break;
+				case 34:
+					getitem 12373,2;	// Boy's Pure Heart x2
+					break;
+				case 35:
+					getitem 12370,2;	// Girl's Naivety x2
+					break;
+				case 36:
+					getitem 624,1;		// Rotten Fish
+					break;
+				case 37:
+					getitem 12218,3;	// Assumptio Scroll x3
+					break;
+				case 38:
+					getitem 14536,2;	// Abrasive x2
+					break;
+				case 39:
+					getitem 12114,5;	// Elemental Converter (Fire) x5
+					break;
+				case 40:
+					getitem 12115,5;	// Elemental Converter (Water) x5
+					break;
+				case 41:
+					getitem 12116,5;	// Elemental Converter (Earth) x5
+					break;
+				case 42:
+					getitem 12117,5;	// Elemental Converter (Wind) x5
+					break;
+				case 43:
+					getitem 14004,1;	// Poison Bottle x10
+					break;
+				case 44: // Extra rare items, putting behind another barrier to not make them too common
+					switch(rand(7)) {
+						case 0:
+							getitem 7620,2;		// Enriched Ori x2
+							break;
+						case 1:
+							getitem 7619,2;		// Enriched Elu x2
+							break;
+						case 2:
+							getitem 250000,50;	// Roin Coin x75
+							break;
+						case 3:
+							getitem 6635,1;		// Blacksmith's Blessing
+							break;
+						case 4:
+							getitem 7776,1;		// Gym Pass
+							break;
+						case 5:
+							getitem 12246,1;	// Mystical Card Album
+							break;
+						case 6:
+							getitem 12883,4;	// Almighty x4
+							break;
+					}
+					break;
+				}
+				clear;
+				mes "[Enigmatic Slot Machine]";
+				mes "You've won!";
+				if( !.payment ) { mes "It costs: "+ .tsm_payment_message$[0] +" to play."; }
+					else if ( .payment == 1 ) { mes "It costs: "+ .tsm_payment_message$[1] +" to play."; }
+						else if ( .payment == 2 ) { mes "It costs: "+ .tsm_payment_message$[0] +" & "+ .tsm_payment_message$[1] +" to play."; }
+				} else { 
+					if (rand(200) == 0) {
+						atcommand "@nuke "+strcharinfo(0);
+						message strcharinfo(0), "The machine exploded!";
+						atcommand "@refresh "+strcharinfo(0);
+						end;
+					}
+					clear;
+					mes "[Enigmatic Slot Machine]";
+					mes "You sure missed that one!";
+					if( !.payment ) { mes "It costs: "+ .tsm_payment_message$[0] +" to play."; }
+						else if ( .payment == 1 ) { mes "It costs: "+ .tsm_payment_message$[1] +" to play."; }
+							else if ( .payment == 2 ) { mes "It costs: "+ .tsm_payment_message$[0] +" & "+ .tsm_payment_message$[1] +" to play."; }
+					dispbottom ""; 
+				}
+			if( select("Try another!:I'm done") == 2 || .isclosed == 1 || Zeny < .tsm_payment[0] && ( !.payment || .payment == 2 ) || countitem(.tsm_payment[1]) < .tsm_payment[2] && .payment ){ cutin "",255; close; }
+			}
+		end;
+	}
+
+OnSingleSlot:
+setd ".mode"+strnpcinfo(3)+"",0;
+end;
+OnTripleSlot:
+setd ".mode"+strnpcinfo(3)+"",1;
+end;
+
+iMode:
+next;
+mes "Which did you want to do?";
+menu "Change THIS machine's mode:Change ALL machine's mode",-;
+if( @menu == 1 ) {
+	next;
+	mes "What mode would you like this machine to have?";
+	menu "Single Slot Machine Mode:Triple Slot Machine Mode",-;
+	if( @menu == 1 ) {
+		setd ".mode"+strnpcinfo(3)+"",0;
+		} else {
+			setd ".mode"+strnpcinfo(3)+"",1;
+			}
+	close;
+	} else {
+		next;
+		mes "What mode would you like to change all slot machines to?";
+		menu "Single Slot Machine Mode:Triple Slot Machine Mode",-;
+		if( @menu == 1 ) {
+			donpcevent "::OnSingleSlot";
+			} else {
+				donpcevent "::OnTripleSlot";
+				}
+		close;
+		}
+/* Unused, using minigame_announcements for this instead
+OnClock0400:
+OnClock0800:
+OnClock1200:
+OnClock1600:
+OnClock2000:
+OnClock0000:
+	announce "Slot Machine will begin in 1 minute.", bc_all;
+	sleep 60000;
+	announce "Come and Play slot machine at prontera", bc_all;
+	hideoffnpc strnpcinfo(3);
+	sleep 300000;
+	announce "Slot Machine already finished", bc_all;
+	hideonnpc strnpcinfo(3);
+	end;
+*/
+
+OnInit:
+.isclosed = 1;
+hideonnpc strnpcinfo(3);
+
+//[ 0 = Single Slot Machine Mode ]_[ 1 = Triple Slot Machine Mode ]
+setd ".mode"+strnpcinfo(3)+"",1;
+
+//[0] = Fail Rate
+//[1] = Fail (Do not change)
+//[2] = Success (Do not change)
+//[3] = File Name (Do not change)
+//[4] = Animation Time (Do not change, for best results :D)
+setarray .ssm_animate$[0],"30","29","33","slot_","3";
+.soundeffects = 1;
+
+//[0] = Fail Rate "Slot 2"
+//[1] = Fail Rate "Slot 3"
+//[2] = SSS (Do not change)
+//[3] = SSS_Count (Do not change)
+//[4] = SSF (Do not change)
+//[5] = SSF_Count (Do not change)
+//[6] = SFS (Do not change)
+//[7] = SFS_Count (Do not change)
+//[8] = SFF (Do not change)
+//[9] = SFF_Count (Do not change)
+//[10] = Animation Time (Do not change, for best results :D)
+setarray .tsm_animate$[0],"30","30","SSS_","41","SSF_","37","SFS_","41","SFF_","45","3";
+
+// Payment Settings
+// Payment Type
+// 0 = Zeny, 1 = Item, 2 = Zeny&Item
+.payment = 1;
+// [0] = Zeny, [1] = Item ID, [2] = Item Amount;
+setarray .ssm_payment[0],100000,250000,2; // Single Slot Machine Payment Price
+setarray .tsm_payment[0],100000,250000,2; // Triple Slot Machine Payment Price
+
+// DO NOT CHANGE BELOW
+// Payment Text Syntax
+setarray .ssm_payment_message$[0],""+ .ssm_payment[0] +" zeny",""+ getitemname(.ssm_payment[1]) +" x"+ .ssm_payment[2] +"";
+setarray .tsm_payment_message$[0],""+ .tsm_payment[0] +" zeny",""+ getitemname(.tsm_payment[1]) +" x"+ .tsm_payment[2] +"";
+end;
+}

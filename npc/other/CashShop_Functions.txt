@@ -35,14 +35,37 @@
 // - Open player's storage.
 // - No arguments.
 function	script	F_CashStore	{
-	cutin "kafra_01",2;
+	.@rand_kafra$ = rand(1,6) + "";
+	cutin "kafra_0"+.@rand_kafra$,2;
 	mes "[Kafra Employee]";
 	mes "Welcome to the Kafra Corporation.";
 	mes "Here, let me open your Storage for you.";
+	mes "Which storage would you like me to open?";
+	switch(select("Storage 1:Storage 2:Cancel")) {
+		case 1:
+			close2;
+			//openstorage2 0,STOR_MODE_GET|STOR_MODE_PUT;
+			openstorage;
+			cutin "", 255;
+			end;			
+			break;
+		case 2:
+			close2;
+			openstorage2 1,STOR_MODE_GET|STOR_MODE_PUT;
+			cutin "", 255;
+			end;			
+			break;
+			
+		default:
+			mes "[Kafra Employee]";
+			mes "Alright, maybe next time!";
+			cutin "", 255;
+			end;
 	close2;
 	openstorage;
 	cutin "",255;
 	return;
+	}
 }
 
 // Giant Fly Wing

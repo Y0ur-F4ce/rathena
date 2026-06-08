@@ -1,0 +1,67 @@
+// Red Glasses quest, based off NovaRO
+
+lighthalzen,96,125,4	script	Fashionable Lady	895,{
+	mes "[Fashionable Lady]";
+	mes "Hello! I can make you a pair of " + mesitemlink(5288, false, "Red Glasses [0] ") + " just like mine, if you'd like!";
+	switch(select("Sure!","No thank you")) {
+		clear;
+		mes "[Fashionable Lady]";
+		case 1: // Yes
+			mes "Great! I'll need this list of items to craft it:";
+			mes "1 " + mesitemlink(2296);
+			mes "1 " + mesitemlink(2276);
+			mes "5 " + mesitemlink(660);
+			mes "250 " + mesitemlink(734);
+			mes "and 850,000 zeny.";
+			setarray .@items[0],
+				2296, 2276, 660, 734;
+			setarray .@item_reqs[0],
+				1, 1, 5, 250;
+			.@req_zeny = 850000;
+			set .@has_items$, "I gathered all the items!";
+			for( .@i = 0 ; .@i < getarraysize(.@items) ; .@i++) {
+				if(countitem(.@items[.@i]) < .@item_reqs[.@i]) {
+					set .@has_items$, "";
+				}
+			}
+			switch(select(.@has_items$, "I'll go get those items.")) {
+				clear;
+				mes "[Fashionable Lady]";
+				case 1: // Has items
+					if (Zeny < .@req_zeny) { // But not enough zeny
+						mes "Sorry, but you still need to bring 850,000 zeny for me to craft this.";
+						close;
+					}
+					mes "Good job! Will you give them to me?";
+					switch(select("Create glasses","Never mind")) {
+						clear;
+						mes "[Fashionable Lady]";
+						case 1: // Create glasses
+							if(!checkweight(5288,1)) {
+								mes "Sorry, but you're carrying too many things. Get rid of some items and come back to me.";
+								close;
+							}
+							getitem 5288, 1;
+							for (.@i = 0; .@i < getarraysize(.@items); .@i++) {
+								delitem .@items[.@i], .@item_reqs[.@i];
+							}
+							Zeny -= .@req_zeny;
+							specialeffect2 EF_REPAIRWEAPON;
+							mes "There we go! Here are your new glasses!";
+							close;
+							break;
+						case 2: // Never mind
+							mes "Alright, come back if you change your mind again!";
+							close;
+							break;
+					}
+				case 2: // Close dialogue (I'll get the items)
+					mes "See you soon!";
+					close;
+			}
+			break;
+		case 2: // No
+			mes "Okay, see you later!";
+			close;
+	}
+}

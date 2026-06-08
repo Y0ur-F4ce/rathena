@@ -100,6 +100,11 @@ glast_01,204,273,5	script	Hugin	4_M_SAGE_C,{
 			setquest 12318;// Corrupted Soul Hunt
 		switch( select( .@menu$, "Enter Old Glast Heim", "Cancel" ) ) {
 		case 1:
+			next;
+			mes("[Hugin]");
+			mes("Right, choose a mode then.");
+			@oghMode = select("Normal Mode","Hard Mode");
+			next;
 			switch( instance_create(.@md_name$) ) {
 			case -3:
 				dispbottom "Memorial Dungeon, 'Old Glast Heim' is already in progress.",0xFFFFFF;
@@ -182,6 +187,9 @@ glast_01,204,273,5	script	Hugin	4_M_SAGE_C,{
 		cutin "gl_barmund2",2;
 		close3;
 	}
+	'oghMode = @oghMode;
+	'hardModeLootChance = 300; //default 50/1000, or 0.05%, change to increase chance
+	'normalModeLootChance = 450;
 	// If the instance has already been completed once, the player can skip sector 1,2,3 and starts from the 1st boss MG_CORRUPTION_ROOT
 	if (isbegin_quest(12321) == 2) {
 		mes "You have a previous clear record. You can skip the scenario and proceed accordingly.";
@@ -499,40 +507,326 @@ OnTimer92000:
 
 	.@label$ = instance_npcname("#talkinstance1") + "::OnMyMobDead";
 	monster 'map_name$[0],145,59,"Abysmal Knight",2470,1,.@label$;// MG_KNIGHT_OF_ABYSS
+	set .@mobId, $@mobId[0];
+	if('oghMode == 2)
+	{
+		setunitdata(.@mobId, UMOB_LEVEL, 172);
+		setunitdata(.@mobId, UMOB_MAXHP, 451578);
+		setunitdata(.@mobId, UMOB_HP, 451578);
+		setunitdata(.@mobId, UMOB_ATKMIN, 5413);
+		setunitdata(.@mobId, UMOB_ATKMAX, 7973);
+		setunitdata(.@mobId, UMOB_MATKMIN, 412);
+		setunitdata(.@mobId, UMOB_MATKMAX, 559);
+		setunitdata(.@mobId, UMOB_HIT, 427);
+		setunitdata(.@mobId, UMOB_FLEE, 468);
+	}
 	monster 'map_name$[0],154,59,"Abysmal Knight",2470,1,.@label$;
+	set .@mobId, $@mobId[0];
+	if('oghMode == 2)
+	{
+		setunitdata(.@mobId, UMOB_LEVEL, 172);
+		setunitdata(.@mobId, UMOB_MAXHP, 451578);
+		setunitdata(.@mobId, UMOB_HP, 451578);
+		setunitdata(.@mobId, UMOB_ATKMIN, 5413);
+		setunitdata(.@mobId, UMOB_ATKMAX, 7973);
+		setunitdata(.@mobId, UMOB_MATKMIN, 412);
+		setunitdata(.@mobId, UMOB_MATKMAX, 559);
+		setunitdata(.@mobId, UMOB_HIT, 427);
+		setunitdata(.@mobId, UMOB_FLEE, 468);
+	}
 	monster 'map_name$[0],145,69,"Abysmal Knight",2470,1,.@label$;
+	set .@mobId, $@mobId[0];
+	if('oghMode == 2)
+	{
+		setunitdata(.@mobId, UMOB_LEVEL, 172);
+		setunitdata(.@mobId, UMOB_MAXHP, 451578);
+		setunitdata(.@mobId, UMOB_HP, 451578);
+		setunitdata(.@mobId, UMOB_ATKMIN, 5413);
+		setunitdata(.@mobId, UMOB_ATKMAX, 7973);
+		setunitdata(.@mobId, UMOB_MATKMIN, 412);
+		setunitdata(.@mobId, UMOB_MATKMAX, 559);
+		setunitdata(.@mobId, UMOB_HIT, 427);
+		setunitdata(.@mobId, UMOB_FLEE, 468);
+	}
 	monster 'map_name$[0],154,69,"Abysmal Knight",2470,1,.@label$;
+	set .@mobId, $@mobId[0];
+	if('oghMode == 2)
+	{
+		setunitdata(.@mobId, UMOB_LEVEL, 172);
+		setunitdata(.@mobId, UMOB_MAXHP, 451578);
+		setunitdata(.@mobId, UMOB_HP, 451578);
+		setunitdata(.@mobId, UMOB_ATKMIN, 5413);
+		setunitdata(.@mobId, UMOB_ATKMAX, 7973);
+		setunitdata(.@mobId, UMOB_MATKMIN, 412);
+		setunitdata(.@mobId, UMOB_MATKMAX, 559);
+		setunitdata(.@mobId, UMOB_HIT, 427);
+		setunitdata(.@mobId, UMOB_FLEE, 468);
+	}
 	monster 'map_name$[0],145,79,"Abysmal Knight",2470,1,.@label$;
+	set .@mobId, $@mobId[0];
+	if('oghMode == 2)
+	{
+		setunitdata(.@mobId, UMOB_LEVEL, 172);
+		setunitdata(.@mobId, UMOB_MAXHP, 451578);
+		setunitdata(.@mobId, UMOB_HP, 451578);
+		setunitdata(.@mobId, UMOB_ATKMIN, 5413);
+		setunitdata(.@mobId, UMOB_ATKMAX, 7973);
+		setunitdata(.@mobId, UMOB_MATKMIN, 412);
+		setunitdata(.@mobId, UMOB_MATKMAX, 559);
+		setunitdata(.@mobId, UMOB_HIT, 427);
+		setunitdata(.@mobId, UMOB_FLEE, 468);
+	}
 	monster 'map_name$[0],154,79,"Abysmal Knight",2470,1,.@label$;
+	set .@mobId, $@mobId[0];
+	if('oghMode == 2)
+	{
+		setunitdata(.@mobId, UMOB_LEVEL, 172);
+		setunitdata(.@mobId, UMOB_MAXHP, 451578);
+		setunitdata(.@mobId, UMOB_HP, 451578);
+		setunitdata(.@mobId, UMOB_ATKMIN, 5413);
+		setunitdata(.@mobId, UMOB_ATKMAX, 7973);
+		setunitdata(.@mobId, UMOB_MATKMIN, 412);
+		setunitdata(.@mobId, UMOB_MATKMAX, 559);
+		setunitdata(.@mobId, UMOB_HIT, 427);
+		setunitdata(.@mobId, UMOB_FLEE, 468);
+	}
 	monster 'map_name$[0],145,89,"Abysmal Knight",2470,1,.@label$;
+	set .@mobId, $@mobId[0];
+	if('oghMode == 2)
+	{
+		setunitdata(.@mobId, UMOB_LEVEL, 172);
+		setunitdata(.@mobId, UMOB_MAXHP, 451578);
+		setunitdata(.@mobId, UMOB_HP, 451578);
+		setunitdata(.@mobId, UMOB_ATKMIN, 5413);
+		setunitdata(.@mobId, UMOB_ATKMAX, 7973);
+		setunitdata(.@mobId, UMOB_MATKMIN, 412);
+		setunitdata(.@mobId, UMOB_MATKMAX, 559);
+		setunitdata(.@mobId, UMOB_HIT, 427);
+		setunitdata(.@mobId, UMOB_FLEE, 468);
+	}
 	monster 'map_name$[0],154,89,"Abysmal Knight",2470,1,.@label$;
+	set .@mobId, $@mobId[0];
+	if('oghMode == 2)
+	{
+		setunitdata(.@mobId, UMOB_LEVEL, 172);
+		setunitdata(.@mobId, UMOB_MAXHP, 451578);
+		setunitdata(.@mobId, UMOB_HP, 451578);
+		setunitdata(.@mobId, UMOB_ATKMIN, 5413);
+		setunitdata(.@mobId, UMOB_ATKMAX, 7973);
+		setunitdata(.@mobId, UMOB_MATKMIN, 412);
+		setunitdata(.@mobId, UMOB_MATKMAX, 559);
+		setunitdata(.@mobId, UMOB_HIT, 427);
+		setunitdata(.@mobId, UMOB_FLEE, 468);
+	}
 	monster 'map_name$[0],145,99,"Abysmal Knight",2470,1,.@label$;
+	set .@mobId, $@mobId[0];
+	if('oghMode == 2)
+	{
+		setunitdata(.@mobId, UMOB_LEVEL, 172);
+		setunitdata(.@mobId, UMOB_MAXHP, 451578);
+		setunitdata(.@mobId, UMOB_HP, 451578);
+		setunitdata(.@mobId, UMOB_ATKMIN, 5413);
+		setunitdata(.@mobId, UMOB_ATKMAX, 7973);
+		setunitdata(.@mobId, UMOB_MATKMIN, 412);
+		setunitdata(.@mobId, UMOB_MATKMAX, 559);
+		setunitdata(.@mobId, UMOB_HIT, 427);
+		setunitdata(.@mobId, UMOB_FLEE, 468);
+	}
 	monster 'map_name$[0],154,99,"Abysmal Knight",2470,1,.@label$;
+	set .@mobId, $@mobId[0];
+	if('oghMode == 2)
+	{
+		setunitdata(.@mobId, UMOB_LEVEL, 172);
+		setunitdata(.@mobId, UMOB_MAXHP, 451578);
+		setunitdata(.@mobId, UMOB_HP, 451578);
+		setunitdata(.@mobId, UMOB_ATKMIN, 5413);
+		setunitdata(.@mobId, UMOB_ATKMAX, 7973);
+		setunitdata(.@mobId, UMOB_MATKMIN, 412);
+		setunitdata(.@mobId, UMOB_MATKMAX, 559);
+		setunitdata(.@mobId, UMOB_HIT, 427);
+		setunitdata(.@mobId, UMOB_FLEE, 468);
+	}
 
 	monster 'map_name$[0],145,54,"Khalitzburg",2471,1,.@label$;// G_MG_KHALITZBURG
 	unittalk $@mobid[0],"Water... Someone give me water...";
+	set .@mobId, $@mobId[0];
+	if('oghMode == 2)
+	{
+		setunitdata(.@mobId, UMOB_LEVEL, 173);
+		setunitdata(.@mobId, UMOB_MAXHP, 473702);
+		setunitdata(.@mobId, UMOB_HP, 473702);
+		setunitdata(.@mobId, UMOB_ATKMIN, 4774);
+		setunitdata(.@mobId, UMOB_ATKMAX, 7014);
+		setunitdata(.@mobId, UMOB_MATKMIN, 394);
+		setunitdata(.@mobId, UMOB_MATKMAX, 514);
+		setunitdata(.@mobId, UMOB_HIT, 515);
+		setunitdata(.@mobId, UMOB_FLEE, 448);
+	}
 	monster 'map_name$[0],154,54,"Khalitzburg",2471,1,.@label$;
 	unittalk $@mobid[0],"Kkkrrrruughgh...";
+	set .@mobId, $@mobId[0];
+	if('oghMode == 2)
+	{
+		setunitdata(.@mobId, UMOB_LEVEL, 173);
+		setunitdata(.@mobId, UMOB_MAXHP, 473702);
+		setunitdata(.@mobId, UMOB_HP, 473702);
+		setunitdata(.@mobId, UMOB_ATKMIN, 4774);
+		setunitdata(.@mobId, UMOB_ATKMAX, 7014);
+		setunitdata(.@mobId, UMOB_MATKMIN, 394);
+		setunitdata(.@mobId, UMOB_MATKMAX, 514);
+		setunitdata(.@mobId, UMOB_HIT, 515);
+		setunitdata(.@mobId, UMOB_FLEE, 448);
+	}
 	monster 'map_name$[0],145,64,"Khalitzburg",2471,1,.@label$;
 	unittalk $@mobid[0],"Sir Heinrich. Save me...";
+	set .@mobId, $@mobId[0];
+	if('oghMode == 2)
+	{
+		setunitdata(.@mobId, UMOB_LEVEL, 173);
+		setunitdata(.@mobId, UMOB_MAXHP, 473702);
+		setunitdata(.@mobId, UMOB_HP, 473702);
+		setunitdata(.@mobId, UMOB_ATKMIN, 4774);
+		setunitdata(.@mobId, UMOB_ATKMAX, 7014);
+		setunitdata(.@mobId, UMOB_MATKMIN, 394);
+		setunitdata(.@mobId, UMOB_MATKMAX, 514);
+		setunitdata(.@mobId, UMOB_HIT, 515);
+		setunitdata(.@mobId, UMOB_FLEE, 448);
+	}
 	monster 'map_name$[0],154,64,"Khalitzburg",2471,1,.@label$;
 	unittalk $@mobid[0],"I miss my sister...";
+	set .@mobId, $@mobId[0];
+	if('oghMode == 2)
+	{
+		setunitdata(.@mobId, UMOB_LEVEL, 173);
+		setunitdata(.@mobId, UMOB_MAXHP, 473702);
+		setunitdata(.@mobId, UMOB_HP, 473702);
+		setunitdata(.@mobId, UMOB_ATKMIN, 4774);
+		setunitdata(.@mobId, UMOB_ATKMAX, 7014);
+		setunitdata(.@mobId, UMOB_MATKMIN, 394);
+		setunitdata(.@mobId, UMOB_MATKMAX, 514);
+		setunitdata(.@mobId, UMOB_HIT, 515);
+		setunitdata(.@mobId, UMOB_FLEE, 448);
+	}
 	monster 'map_name$[0],145,74,"Khalitzburg",2471,1,.@label$;
 	unittalk $@mobid[0],"Don't leave me alone, help me.";
+	set .@mobId, $@mobId[0];
+	if('oghMode == 2)
+	{
+		setunitdata(.@mobId, UMOB_LEVEL, 173);
+		setunitdata(.@mobId, UMOB_MAXHP, 473702);
+		setunitdata(.@mobId, UMOB_HP, 473702);
+		setunitdata(.@mobId, UMOB_ATKMIN, 4774);
+		setunitdata(.@mobId, UMOB_ATKMAX, 7014);
+		setunitdata(.@mobId, UMOB_MATKMIN, 394);
+		setunitdata(.@mobId, UMOB_MATKMAX, 514);
+		setunitdata(.@mobId, UMOB_HIT, 515);
+		setunitdata(.@mobId, UMOB_FLEE, 448);
+	}
 	monster 'map_name$[0],154,74,"Khalitzburg",2471,1,.@label$;
 	unittalk $@mobid[0],"Aaarrrrrhhhh";
+	set .@mobId, $@mobId[0];
+	if('oghMode == 2)
+	{
+		setunitdata(.@mobId, UMOB_LEVEL, 173);
+		setunitdata(.@mobId, UMOB_MAXHP, 473702);
+		setunitdata(.@mobId, UMOB_HP, 473702);
+		setunitdata(.@mobId, UMOB_ATKMIN, 4774);
+		setunitdata(.@mobId, UMOB_ATKMAX, 7014);
+		setunitdata(.@mobId, UMOB_MATKMIN, 394);
+		setunitdata(.@mobId, UMOB_MATKMAX, 514);
+		setunitdata(.@mobId, UMOB_HIT, 515);
+		setunitdata(.@mobId, UMOB_FLEE, 448);
+	}
 	monster 'map_name$[0],145,84,"Khalitzburg",2471,1,.@label$;
 	unittalk $@mobid[0],"I am so thirsty.";
+	set .@mobId, $@mobId[0];
+	if('oghMode == 2)
+	{
+		setunitdata(.@mobId, UMOB_LEVEL, 173);
+		setunitdata(.@mobId, UMOB_MAXHP, 473702);
+		setunitdata(.@mobId, UMOB_HP, 473702);
+		setunitdata(.@mobId, UMOB_ATKMIN, 4774);
+		setunitdata(.@mobId, UMOB_ATKMAX, 7014);
+		setunitdata(.@mobId, UMOB_MATKMIN, 394);
+		setunitdata(.@mobId, UMOB_MATKMAX, 514);
+		setunitdata(.@mobId, UMOB_HIT, 515);
+		setunitdata(.@mobId, UMOB_FLEE, 448);
+	}
 	monster 'map_name$[0],154,84,"Khalitzburg",2471,1,.@label$;
 	unittalk $@mobid[0],"Oh...No...I can't die yet...";
+	set .@mobId, $@mobId[0];
+	if('oghMode == 2)
+	{
+		setunitdata(.@mobId, UMOB_LEVEL, 173);
+		setunitdata(.@mobId, UMOB_MAXHP, 473702);
+		setunitdata(.@mobId, UMOB_HP, 473702);
+		setunitdata(.@mobId, UMOB_ATKMIN, 4774);
+		setunitdata(.@mobId, UMOB_ATKMAX, 7014);
+		setunitdata(.@mobId, UMOB_MATKMIN, 394);
+		setunitdata(.@mobId, UMOB_MATKMAX, 514);
+		setunitdata(.@mobId, UMOB_HIT, 515);
+		setunitdata(.@mobId, UMOB_FLEE, 448);
+	}
 	monster 'map_name$[0],145,94,"Khalitzburg",2471,1,.@label$;
 	unittalk $@mobid[0],"I feel sick to my stomach urrgg";
+	set .@mobId, $@mobId[0];
+	if('oghMode == 2)
+	{
+		setunitdata(.@mobId, UMOB_LEVEL, 173);
+		setunitdata(.@mobId, UMOB_MAXHP, 473702);
+		setunitdata(.@mobId, UMOB_HP, 473702);
+		setunitdata(.@mobId, UMOB_ATKMIN, 4774);
+		setunitdata(.@mobId, UMOB_ATKMAX, 7014);
+		setunitdata(.@mobId, UMOB_MATKMIN, 394);
+		setunitdata(.@mobId, UMOB_MATKMAX, 514);
+		setunitdata(.@mobId, UMOB_HIT, 515);
+		setunitdata(.@mobId, UMOB_FLEE, 448);
+	}
 	monster 'map_name$[0],154,94,"Khalitzburg",2471,1,.@label$;
 	unittalk $@mobid[0],"Can someone...";
+	set .@mobId, $@mobId[0];
+	if('oghMode == 2)
+	{
+		setunitdata(.@mobId, UMOB_LEVEL, 173);
+		setunitdata(.@mobId, UMOB_MAXHP, 473702);
+		setunitdata(.@mobId, UMOB_HP, 473702);
+		setunitdata(.@mobId, UMOB_ATKMIN, 4774);
+		setunitdata(.@mobId, UMOB_ATKMAX, 7014);
+		setunitdata(.@mobId, UMOB_MATKMIN, 394);
+		setunitdata(.@mobId, UMOB_MATKMAX, 514);
+		setunitdata(.@mobId, UMOB_HIT, 515);
+		setunitdata(.@mobId, UMOB_FLEE, 448);
+	}
 	monster 'map_name$[0],145,104,"Khalitzburg",2471,1,.@label$;
 	unittalk $@mobid[0],"Arrgg... My body";
+	set .@mobId, $@mobId[0];
+	if('oghMode == 2)
+	{
+		setunitdata(.@mobId, UMOB_LEVEL, 173);
+		setunitdata(.@mobId, UMOB_MAXHP, 473702);
+		setunitdata(.@mobId, UMOB_HP, 473702);
+		setunitdata(.@mobId, UMOB_ATKMIN, 4774);
+		setunitdata(.@mobId, UMOB_ATKMAX, 7014);
+		setunitdata(.@mobId, UMOB_MATKMIN, 394);
+		setunitdata(.@mobId, UMOB_MATKMAX, 514);
+		setunitdata(.@mobId, UMOB_HIT, 515);
+		setunitdata(.@mobId, UMOB_FLEE, 448);
+	}
 	monster 'map_name$[0],154,104,"Khalitzburg",2471,1,.@label$;
 	unittalk $@mobid[0],"My throat is burning!";
+	set .@mobId, $@mobId[0];
+	if('oghMode == 2)
+	{
+		setunitdata(.@mobId, UMOB_LEVEL, 173);
+		setunitdata(.@mobId, UMOB_MAXHP, 473702);
+		setunitdata(.@mobId, UMOB_HP, 473702);
+		setunitdata(.@mobId, UMOB_ATKMIN, 4774);
+		setunitdata(.@mobId, UMOB_ATKMAX, 7014);
+		setunitdata(.@mobId, UMOB_MATKMIN, 394);
+		setunitdata(.@mobId, UMOB_MATKMAX, 514);
+		setunitdata(.@mobId, UMOB_HIT, 515);
+		setunitdata(.@mobId, UMOB_FLEE, 448);
+	}
 	end;
 OnTimer94000:
 	npctalk "Heinrich: My men... This can't be happening!", 'npc_heinrich2$;
@@ -836,13 +1130,111 @@ OnStart:
 
 	// note: x17 MG_GHOUL / x17 MG_ZOMBIE / x17 MG_WRAITH
 	.@label$ = instance_npcname("#ghmemorialmob01") + "::OnMyMobDead";
+	.@monsters_to_spawn = 15;
+	cleararray $@mobId[0],0,getarraysize($@modId);
 	areamonster 'map_name$[0],76,99,87,10,"Grand Chamberlain in pain",2466,14,.@label$;
+	if('oghMode == 2)
+	{
+		for( .@i = 0; .@i < .@monsters_to_spawn; .@i++ )
+		{
+			setunitdata($@mobId[.@i], UMOB_LEVEL, 162);
+			/*setunitdata($@mobId[.@i], UMOB_MAXHP, 416200);
+			setunitdata($@mobId[.@i], UMOB_HP, 416200);
+			setunitdata($@mobId[.@i], UMOB_ATKMIN, 4994);
+			setunitdata($@mobId[.@i], UMOB_ATKMAX, 7366);
+			setunitdata($@mobId[.@i], UMOB_MATKMIN, 1115);
+			setunitdata($@mobId[.@i], UMOB_MATKMAX, 1914);
+			setunitdata($@mobId[.@i], UMOB_HIT, 406);
+			setunitdata($@mobId[.@i], UMOB_FLEE, 427);*/
+		}
+	}
+	.@monsters_to_spawn = 20;
+	cleararray $@mobId[0],0,getarraysize($@modId);
 	areamonster 'map_name$[0],67,39,12, 6,"Corrupted Monk",2465,17,.@label$;
+	if('oghMode == 2)
+	{
+		for( .@i = 0; .@i < getarraysize($@mobId); .@i++ )
+		{
+			setunitdata($@mobId[.@i], UMOB_LEVEL, 163);
+			/*setunitdata($@mobId[.@i], UMOB_MAXHP, 200336);
+			setunitdata($@mobId[.@i], UMOB_HP, 200336);
+			setunitdata($@mobId[.@i], UMOB_ATKMIN, 1777);
+			setunitdata($@mobId[.@i], UMOB_ATKMAX, 2576);
+			setunitdata($@mobId[.@i], UMOB_MATKMIN, 4179);
+			setunitdata($@mobId[.@i], UMOB_MATKMAX, 7524);
+			setunitdata($@mobId[.@i], UMOB_HIT, 389);
+			setunitdata($@mobId[.@i], UMOB_FLEE, 412);*/
+		}
+	}
+	.@monsters_to_spawn = 3;
+	cleararray $@mobId[0],0,getarraysize($@modId);
 	areamonster 'map_name$[0],67,39,12, 6,"Grand Chamberlain in pain",2466,3,.@label$;
+	if('oghMode == 2)
+	{
+		for( .@i = 0; .@i < getarraysize($@mobId); .@i++ )
+		{
+			setunitdata($@mobId[.@i], UMOB_LEVEL, 162);
+			/*setunitdata($@mobId[.@i], UMOB_MAXHP, 416200);
+			/*setunitdata($@mobId[.@i], UMOB_HP, 416200);
+			setunitdata($@mobId[.@i], UMOB_ATKMIN, 4994);
+			setunitdata($@mobId[.@i], UMOB_ATKMAX, 7366);
+			setunitdata($@mobId[.@i], UMOB_MATKMIN, 1115);
+			setunitdata($@mobId[.@i], UMOB_MATKMAX, 1914);
+			setunitdata($@mobId[.@i], UMOB_HIT, 406);
+			setunitdata($@mobId[.@i], UMOB_FLEE, 427);*/
+		}
+	}
+	.@monsters_to_spawn = 6;
+	cleararray $@mobId[0],0,getarraysize($@modId);
 	areamonster 'map_name$[0],32,75,51,58,"Corrupted Steward",2464,5,.@label$;
+	if('oghMode == 2)
+	{
+		for( .@i = 0; .@i < getarraysize($@mobId); .@i++ )
+		{
+			setunitdata($@mobId[.@i], UMOB_LEVEL, 160);
+			/*setunitdata($@mobId[.@i], UMOB_MAXHP, 271200);
+			/*setunitdata($@mobId[.@i], UMOB_HP, 271200);
+			setunitdata($@mobId[.@i], UMOB_ATKMIN, 3986);
+			setunitdata($@mobId[.@i], UMOB_ATKMAX, 5877);
+			setunitdata($@mobId[.@i], UMOB_MATKMIN, 806);
+			setunitdata($@mobId[.@i], UMOB_MATKMAX, 1339);
+			setunitdata($@mobId[.@i], UMOB_HIT, 382);
+			setunitdata($@mobId[.@i], UMOB_FLEE, 418);*/
+		}
+	}
+	.@monsters_to_spawn = 12;
+	cleararray $@mobId[0],0,getarraysize($@modId);
 	areamonster 'map_name$[0],45,84,6,137,"Corrupted Steward",2464,12,.@label$;
+	if('oghMode == 2)
+	{
+		for( .@i = 0; .@i < getarraysize($@mobId); .@i++ )
+		{
+			setunitdata($@mobId[.@i], UMOB_LEVEL, 160);
+			/*setunitdata($@mobId[.@i], UMOB_MAXHP, 271200);
+			/*setunitdata($@mobId[.@i], UMOB_HP, 271200);
+			setunitdata($@mobId[.@i], UMOB_ATKMIN, 3986);
+			setunitdata($@mobId[.@i], UMOB_ATKMAX, 5877);
+			setunitdata($@mobId[.@i], UMOB_MATKMIN, 806);
+			setunitdata($@mobId[.@i], UMOB_MATKMAX, 1339);
+			setunitdata($@mobId[.@i], UMOB_HIT, 382);
+			setunitdata($@mobId[.@i], UMOB_FLEE, 418);*/
+		}
+	}
 	end;
 OnMyMobDead:
+	if('oghMode == 2)
+	{
+		if(rand(1000) < 'hardModeLootChance)
+		{
+			getitem 6755, 1;
+		}
+	} else if('oghMode == 1)
+	{
+		if(rand(1000) < 'normalModeLootChance)
+		{
+			getitem 6608, 1;
+		}
+	}
 	.@label$ = instance_npcname("#ghmemorialmob01") + "::OnMyMobDead";
 	.@mob_dead_num = 51 - mobcount('map_name$[0],.@label$);
 	if (.@mob_dead_num > 35) {
@@ -918,14 +1310,92 @@ OnStart:
 
 	// note: x34 MG_ZOMBIE / x35 MG_GHOUL
 	.@label$ = instance_npcname("#ghmemorialmob02") + "::OnMyMobDead";
+	.@monsters_to_spawn = 17;
+	cleararray $@mobId[0],0,50;
 	areamonster 'map_name$[0],236,12,288,52,"Outraged Refiner",2466,18,.@label$;// MG_GHOUL
+	if('oghMode == 2)
+	{
+		for( .@i = 0; .@i < getarraysize($@mobId); .@i++ )
+		{
+			setunitdata($@mobId[.@i], UMOB_LEVEL, 162);
+			setunitdata($@mobId[.@i], UMOB_MAXHP, 416200);
+			setunitdata($@mobId[.@i], UMOB_HP, 416200);
+			setunitdata($@mobId[.@i], UMOB_ATKMIN, 4994);
+			setunitdata($@mobId[.@i], UMOB_ATKMAX, 7366);
+			setunitdata($@mobId[.@i], UMOB_MATKMIN, 1115);
+			setunitdata($@mobId[.@i], UMOB_MATKMAX, 1914);
+			setunitdata($@mobId[.@i], UMOB_HIT, 406);
+			setunitdata($@mobId[.@i], UMOB_FLEE, 427);
+		}
+	}
+	cleararray $@mobId[0],0,50;
 	areamonster 'map_name$[0],236,12,288,52,"Decomposed Blacksmith",2464,17,.@label$;// MG_ZOMBIE
+	if('oghMode == 2)
+	{
+		for( .@i = 0; .@i < getarraysize($@mobId); .@i++ )
+		{
+			setunitdata($@mobId[.@i], UMOB_LEVEL, 163);
+			setunitdata($@mobId[.@i], UMOB_MAXHP, 200336);
+			setunitdata($@mobId[.@i], UMOB_HP, 200336);
+			setunitdata($@mobId[.@i], UMOB_ATKMIN, 1777);
+			setunitdata($@mobId[.@i], UMOB_ATKMAX, 2576);
+			setunitdata($@mobId[.@i], UMOB_MATKMIN, 4179);
+			setunitdata($@mobId[.@i], UMOB_MATKMAX, 7524);
+			setunitdata($@mobId[.@i], UMOB_HIT, 389);
+			setunitdata($@mobId[.@i], UMOB_FLEE, 412);
+		}
+	}
+	cleararray $@mobId[0],0,50;
 	areamonster 'map_name$[0],242,71,286,145,"Outraged Refiner",2466,17,.@label$;
+	if('oghMode == 2)
+	{
+		for( .@i = 0; .@i < getarraysize($@mobId); .@i++ )
+		{
+			setunitdata($@mobId[.@i], UMOB_LEVEL, 162);
+			setunitdata($@mobId[.@i], UMOB_MAXHP, 416200);
+			setunitdata($@mobId[.@i], UMOB_HP, 416200);
+			setunitdata($@mobId[.@i], UMOB_ATKMIN, 4994);
+			setunitdata($@mobId[.@i], UMOB_ATKMAX, 7366);
+			setunitdata($@mobId[.@i], UMOB_MATKMIN, 1115);
+			setunitdata($@mobId[.@i], UMOB_MATKMAX, 1914);
+			setunitdata($@mobId[.@i], UMOB_HIT, 406);
+			setunitdata($@mobId[.@i], UMOB_FLEE, 427);
+		}
+	}
+	cleararray $@mobId[0],0,50;
 	areamonster 'map_name$[0],242,71,286,145,"Decomposed Blacksmith",2464,17,.@label$;
+	if('oghMode == 2)
+	{
+		for( .@i = 0; .@i < getarraysize($@mobId); .@i++ )
+		{
+			setunitdata($@mobId[.@i], UMOB_LEVEL, 163);
+			setunitdata($@mobId[.@i], UMOB_MAXHP, 200336);
+			setunitdata($@mobId[.@i], UMOB_HP, 200336);
+			setunitdata($@mobId[.@i], UMOB_ATKMIN, 1777);
+			setunitdata($@mobId[.@i], UMOB_ATKMAX, 2576);
+			setunitdata($@mobId[.@i], UMOB_MATKMIN, 4179);
+			setunitdata($@mobId[.@i], UMOB_MATKMAX, 7524);
+			setunitdata($@mobId[.@i], UMOB_HIT, 389);
+			setunitdata($@mobId[.@i], UMOB_FLEE, 412);
+		}
+	}
 	end;
 OnMyMobDead:
 	.@label$ = instance_npcname("#ghmemorialmob02") + "::OnMyMobDead";
-	.@mob_dead_num = 69 - mobcount('map_name$[0],.@label$);
+	if('oghMode == 2)
+	{
+		if(rand(1000) < 'hardModeLootChance)
+		{
+			getitem 6755, 1;
+		}
+	} else if('oghMode == 1)
+	{
+		if(rand(1000) < 'normalModeLootChance)
+		{
+			getitem 6608, 1;
+		}
+	}
+	.@mob_dead_num = 68 - mobcount('map_name$[0],.@label$);
 	if (.@mob_dead_num > 56) {
 		mapannounce 'map_name$[0], "Himelmez's curse is getting weaker. Find any survivors!", bc_map,0xFFFFFF;
 		killmonster 'map_name$[0],.@label$;
@@ -993,10 +1463,43 @@ OnTouch_:
 	else if (.@i == 3) .@mobs = 5;
 	else if (.@i < 7) .@mobs = 6;
 	else .@mobs = 7;
+	.@event$ = instance_npcname( strnpcinfo(0) ) + "::OnMobDead";
+	killmonster 'map_name$[1], .@event$;
 	getmapxy .@map$,.@x,.@y, BL_NPC;
 	specialeffect EF_VENOMDUST;
-	monster .@map$,.@x,.@y,"Maggot",2467,.@mobs;
+	cleararray $@mobId[0],0,50;
+	monster .@map$,.@x,.@y,"Maggot",2467,.@mobs, .@event$;
+	if('oghMode == 2)
+	{
+		for( .@i = 0; .@i < getarraysize($@mobId); .@i++ )
+		{
+			setunitdata($@mobId[.@i], UMOB_LEVEL, 163);
+			setunitdata($@mobId[.@i], UMOB_MAXHP, 161622);
+			setunitdata($@mobId[.@i], UMOB_HP, 161622);
+			setunitdata($@mobId[.@i], UMOB_ATKMIN, 2216);
+			setunitdata($@mobId[.@i], UMOB_ATKMAX, 3213);
+			setunitdata($@mobId[.@i], UMOB_MATKMIN, 1957);
+			setunitdata($@mobId[.@i], UMOB_MATKMAX, 3466);
+			setunitdata($@mobId[.@i], UMOB_HIT, 466);
+			setunitdata($@mobId[.@i], UMOB_FLEE, 505);
+		}
+	}
 	disablenpc();
+	end;
+OnMyMobDead:
+	if('oghMode == 2)
+	{
+		if(rand(2000) < 'hardModeLootChance)
+		{
+			getitem 6755, 1;
+		}
+	} else if('oghMode == 1)
+	{
+		if(rand(2000) < 'normalModeLootChance)
+		{
+			getitem 6608, 1;
+		}
+	}
 	end;
 }
 1@gl_k,233,123,4	duplicate(A dead man#1)	A dead man#2	4_M_DIEMAN,5,5
@@ -1037,15 +1540,129 @@ OnEnable:
 
 	// note: x50 MG_RAYDRIC / x50 MG_RAYDRIC_ARCHER
 	.@label$ = instance_npcname("#ghmemorialmob03") + "::OnMyMobDead";
+	.@monsters_to_spawn = 25;
+	cleararray $@mobId[0],0,50;
 	areamonster 'map_name$[0],16,186,43,280,"Outraged Archer",2469,25,.@label$;
+	if('oghMode == 2)
+	{
+		for( .@i = 0; .@i < getarraysize($@mobId); .@i++ )
+		{
+			setunitdata($@mobId[.@i], UMOB_LEVEL, 166);
+			setunitdata($@mobId[.@i], UMOB_MAXHP, 288740);
+			setunitdata($@mobId[.@i], UMOB_HP, 288740);
+			setunitdata($@mobId[.@i], UMOB_ATKMIN, 6444);
+			setunitdata($@mobId[.@i], UMOB_ATKMAX, 9557);
+			setunitdata($@mobId[.@i], UMOB_MATKMIN, 414);
+			setunitdata($@mobId[.@i], UMOB_MATKMAX, 615);
+			setunitdata($@mobId[.@i], UMOB_HIT, 390);
+			setunitdata($@mobId[.@i], UMOB_FLEE, 492);
+		}
+	}
+	cleararray $@mobId[0],0,50;
 	areamonster 'map_name$[0],44,191,89,225,"Hungry Palace Guard",2468,25,.@label$;
+	if('oghMode == 2)
+	{
+		for( .@i = 0; .@i < getarraysize($@mobId); .@i++ )
+		{
+			setunitdata($@mobId[.@i], UMOB_LEVEL, 165);
+			setunitdata($@mobId[.@i], UMOB_MAXHP, 368160);
+			setunitdata($@mobId[.@i], UMOB_HP, 368160);
+			setunitdata($@mobId[.@i], UMOB_ATKMIN, 5391);
+			setunitdata($@mobId[.@i], UMOB_ATKMAX, 7924);
+			setunitdata($@mobId[.@i], UMOB_MATKMIN, 391);
+			setunitdata($@mobId[.@i], UMOB_MATKMAX, 556);
+			setunitdata($@mobId[.@i], UMOB_HIT, 452);
+			setunitdata($@mobId[.@i], UMOB_FLEE, 441);
+		}
+	}
+	.@monsters_to_spawn = 20;
+	cleararray $@mobId[0],0,50;
 	areamonster 'map_name$[0],115,215,188,273,"Corrupted Palace Guard",2468,20,.@label$;
+	if('oghMode == 2)
+	{
+		for( .@i = 0; .@i < getarraysize($@mobId); .@i++ )
+		{
+			setunitdata($@mobId[.@i], UMOB_LEVEL, 165);
+			setunitdata($@mobId[.@i], UMOB_MAXHP, 368160);
+			setunitdata($@mobId[.@i], UMOB_HP, 368160);
+			setunitdata($@mobId[.@i], UMOB_ATKMIN, 5391);
+			setunitdata($@mobId[.@i], UMOB_ATKMAX, 7924);
+			setunitdata($@mobId[.@i], UMOB_MATKMIN, 391);
+			setunitdata($@mobId[.@i], UMOB_MATKMAX, 556);
+			setunitdata($@mobId[.@i], UMOB_HIT, 452);
+			setunitdata($@mobId[.@i], UMOB_FLEE, 441);
+		}
+	}
+	.@monsters_to_spawn = 5;
+	cleararray $@mobId[0],0,50;
 	areamonster 'map_name$[0],108,232,193,281,"Corrupted Palace Guard",2468,5,.@label$;
+	if('oghMode == 2)
+	{
+		for( .@i = 0; .@i < getarraysize($@mobId); .@i++ )
+		{
+			setunitdata($@mobId[.@i], UMOB_LEVEL, 165);
+			setunitdata($@mobId[.@i], UMOB_MAXHP, 368160);
+			setunitdata($@mobId[.@i], UMOB_HP, 368160);
+			setunitdata($@mobId[.@i], UMOB_ATKMIN, 5391);
+			setunitdata($@mobId[.@i], UMOB_ATKMAX, 7924);
+			setunitdata($@mobId[.@i], UMOB_MATKMIN, 391);
+			setunitdata($@mobId[.@i], UMOB_MATKMAX, 556);
+			setunitdata($@mobId[.@i], UMOB_HIT, 452);
+			setunitdata($@mobId[.@i], UMOB_FLEE, 441);
+		}
+	}
+	.@monsters_to_spawn = 12;
+	cleararray $@mobId[0],0,50;
 	areamonster 'map_name$[0],158,236,230,250,"Wandering Archer",2469,12,.@label$;
+	if('oghMode == 2)
+	{
+		for( .@i = 0; .@i < getarraysize($@mobId); .@i++ )
+		{
+			setunitdata($@mobId[.@i], UMOB_LEVEL, 166);
+			setunitdata($@mobId[.@i], UMOB_MAXHP, 288740);
+			setunitdata($@mobId[.@i], UMOB_HP, 288740);
+			setunitdata($@mobId[.@i], UMOB_ATKMIN, 6444);
+			setunitdata($@mobId[.@i], UMOB_ATKMAX, 9557);
+			setunitdata($@mobId[.@i], UMOB_MATKMIN, 414);
+			setunitdata($@mobId[.@i], UMOB_MATKMAX, 615);
+			setunitdata($@mobId[.@i], UMOB_HIT, 390);
+			setunitdata($@mobId[.@i], UMOB_FLEE, 492);
+		}
+	}
+	.@monsters_to_spawn = 13;
+	cleararray $@mobId[0],0,50;
 	areamonster 'map_name$[0],65,231,155,256,"Wandering Archer",2469,13,.@label$;
+	if('oghMode == 2)
+	{
+		for( .@i = 0; .@i < getarraysize($@mobId); .@i++ )
+		{
+			setunitdata($@mobId[.@i], UMOB_LEVEL, 166);
+			setunitdata($@mobId[.@i], UMOB_MAXHP, 288740);
+			setunitdata($@mobId[.@i], UMOB_HP, 288740);
+			setunitdata($@mobId[.@i], UMOB_ATKMIN, 6444);
+			setunitdata($@mobId[.@i], UMOB_ATKMAX, 9557);
+			setunitdata($@mobId[.@i], UMOB_MATKMIN, 414);
+			setunitdata($@mobId[.@i], UMOB_MATKMAX, 615);
+			setunitdata($@mobId[.@i], UMOB_HIT, 390);
+			setunitdata($@mobId[.@i], UMOB_FLEE, 492);
+		}
+	}
 	end;
 OnMyMobDead:
 	.@label$ = instance_npcname("#ghmemorialmob03") + "::OnMyMobDead";
+	if('oghMode == 2)
+	{
+		if(rand(1000) < 'hardModeLootChance)
+		{
+			getitem 6755, 1;
+		}
+	} else if('oghMode == 1)
+	{
+		if(rand(1000) < 'normalModeLootChance)
+		{
+			getitem 6608, 1;
+		}
+	}
 	.@mob_dead_num = 100 - mobcount('map_name$[0],.@label$);
 	if (.@mob_dead_num > 85) {
 		killmonster 'map_name$[0],.@label$;
@@ -1097,7 +1714,14 @@ OnTimer5000:
 	}
 	mes "This item has an extraordinary aura with it. Can be very useful for someone special.";
 	getitem 6607,1;// Temporal_Crystal
-	getitem 6608,1;// Coagulated_Spell
+	switch('oghMode) {
+		case 2:
+			getitem 6755,1; //Contaminated Magic
+			break;
+		default:
+			getitem 6608,1; //Coagulated_Spell
+			break;
+		}
 	close3;
 }
 
@@ -1206,10 +1830,40 @@ OnTimer14500:
 	end;
 OnStart:
 	enablenpc instance_npcname("#ghmemorialmob04");
-	monster 'map_name$[0],150,259,"Corrupted Soul",2475,1, instance_npcname("#ghmemorialmob04") + "::OnMyMobDead";// MG_CORRUPTION_ROOT
+	if ('oghMode == 2) {
+		monster 'map_name$[0],150,259,"Corrupted Root",2475,1, instance_npcname("#ghmemorialmob04") + "::OnMyMobDead";// HARD MODE MVP
+	} else {
+		monster 'map_name$[0],150,259,"Corrupted Soul",2475,1, instance_npcname("#ghmemorialmob04") + "::OnMyMobDead";// MG_CORRUPTION_ROOT
+	}
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 180);
+		setunitdata($@mobId[0], UMOB_MAXHP, 18200000);
+		setunitdata($@mobId[0], UMOB_HP, 18200000);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 6600);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 9709);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 5822);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 10487);
+		setunitdata($@mobId[0], UMOB_HIT, 400);
+		setunitdata($@mobId[0], UMOB_FLEE, 551);
+		
+	}
 	unittalk $@mobid[0],"Grrrrrrhh~~~";
 	end;
 OnMyMobDead:
+	if('oghMode == 2)
+	{
+		if(rand(1000) < 'hardModeLootChance)
+		{
+			getitem 6755, 1;
+		}
+	} else if('oghMode == 1)
+	{
+		if(rand(1000) < 'normalModeLootChance)
+		{
+			getitem 6608, 1;
+		}
+	}
 	if (mobcount('map_name$[0], instance_npcname("#ghmemorialmob04") + "::OnMyMobDead") < 1) {
 		mapannounce 'map_name$[0], "Opening 2nd floor entrance towards 12 O'clock direction.", bc_map,0xFFFF00;
 		npctalk "Varmundt: I collected some items dropped from its body. You can take it from me.", instance_npcname("Varmundt#2");
@@ -1399,10 +2053,75 @@ OnTouch_:
 	killmonster 'map_name$[1], .@event$;
 	getmapxy .@map$,.@x,.@y, BL_NPC;
 	monster .@map$,.@x,.@y, "Corrupted Palace Guard", 2468,1, .@event$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 165);
+		setunitdata($@mobId[0], UMOB_MAXHP, 368160);
+		setunitdata($@mobId[0], UMOB_HP, 368160);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 5391);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 7924);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 391);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 556);
+		setunitdata($@mobId[0], UMOB_HIT, 452);
+		setunitdata($@mobId[0], UMOB_FLEE, 441);
+	}
+	cleararray $@mobId[0],0,50;
 	monster .@map$,.@x,.@y, "Archer of Death", 2469,1, .@event$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 166);
+		setunitdata($@mobId[0], UMOB_MAXHP, 288740);
+		setunitdata($@mobId[0], UMOB_HP, 288740);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 6444);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 9557);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 414);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 615);
+		setunitdata($@mobId[0], UMOB_HIT, 390);
+		setunitdata($@mobId[0], UMOB_FLEE, 492);
+	}
+	cleararray $@mobId[0],0,50;
 	monster .@map$,.@x,.@y, "Corrupted Abysmal Knight", 2470,1, .@event$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 172);
+		setunitdata($@mobId[0], UMOB_MAXHP, 451578);
+		setunitdata($@mobId[0], UMOB_HP, 451578);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 5413);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 7973);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 412);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 559);
+		setunitdata($@mobId[0], UMOB_HIT, 427);
+		setunitdata($@mobId[0], UMOB_FLEE, 468);
+	}
+	cleararray $@mobId[0],0,50;
 	monster .@map$,.@x,.@y, "Suffered Khalitzburg", 2471,1, .@event$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 173);
+		setunitdata($@mobId[0], UMOB_MAXHP, 473702);
+		setunitdata($@mobId[0], UMOB_HP, 473702);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 4774);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 7014);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 394);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 514);
+		setunitdata($@mobId[0], UMOB_HIT, 515);
+		setunitdata($@mobId[0], UMOB_FLEE, 448);
+	}
+	cleararray $@mobId[0],0,50;
 	monster .@map$,.@x,.@y, "Bloody Knight", 2472,1, .@event$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 173);
+		setunitdata($@mobId[0], UMOB_MAXHP, 493502);
+		setunitdata($@mobId[0], UMOB_HP, 493502);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 3314);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 4819);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 4804);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 8644);
+		setunitdata($@mobId[0], UMOB_HIT, 428);
+		setunitdata($@mobId[0], UMOB_FLEE, 480);
+	}
+	cleararray $@mobId[0],0,50;
 	initnpctimer;
 	end;
 OnTimer30000:
@@ -1445,6 +2164,19 @@ OnMyMobDead4:
 OnMyMobDead5:
 OnMyMobDead6:
 OnMyMobDead7:
+	if('oghMode == 2)
+	{
+		if(rand(1000) < 'hardModeLootChance)
+		{
+			getitem 6755, 1;
+		}
+	} else if('oghMode == 1)
+	{
+		if(rand(1000) < 'normalModeLootChance)
+		{
+			getitem 6608, 1;
+		}
+	}
 	if (mobcount('map_name$[1], instance_npcname("#ghmemorialmob05") + "::OnBossDead") > 0)	// Prevent boss re-spawn
 		end;
 	if ('mode == 2)	// Higher (but unknown) spawn rate in fast mode
@@ -1458,10 +2190,36 @@ OnMyMobDead7:
 		.@r = rand(4) * 2;
 		setarray .@coord[0], 41,146, 58,44, 122,148, 131,64;
 		monster 'map_name$[1],.@coord[.@r],.@coord[.@r+1], "1st Commander of Destruction",2473,1, instance_npcname("#ghmemorialmob05") + "::OnBossDead";
+		if('oghMode == 2)
+		{
+			setunitdata($@mobId[0], UMOB_LEVEL, 175);
+			setunitdata($@mobId[0], UMOB_MAXHP, 1900066);
+			setunitdata($@mobId[0], UMOB_HP, 1900066);
+			setunitdata($@mobId[0], UMOB_ATKMIN, 5653);
+			setunitdata($@mobId[0], UMOB_ATKMAX, 8310);
+			setunitdata($@mobId[0], UMOB_MATKMIN, 1709);
+			setunitdata($@mobId[0], UMOB_MATKMAX, 2920);
+			setunitdata($@mobId[0], UMOB_HIT, 457);
+			setunitdata($@mobId[0], UMOB_FLEE, 499);
+		}
+		cleararray $@mobId[0],0,50;
 	}
 	end;
 
 OnBossDead:
+	if('oghMode == 2)
+	{
+		if(rand(1000) < 'hardModeLootChance)
+		{
+			getitem 6755, 1;
+		}
+	} else if('oghMode == 1)
+	{
+		if(rand(1000) < 'normalModeLootChance)
+		{
+			getitem 6608, 1;
+		}
+	}
 	disablenpc();
 	mapannounce 'map_name$[1], "A portal has opened to the east in the central hallway.", bc_map,0xFFFF00;
 	enablenpc instance_npcname("#23 Control");
@@ -1489,49 +2247,652 @@ OnStart:
 	// Fix spawn
 	.@label$ = instance_npcname("#ghmemorialmob06") + "::OnMyMobDead";
 	monster 'map_name$[1],252, 75, "Corrupted Palace Guard",2468,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 165);
+		setunitdata($@mobId[0], UMOB_MAXHP, 368160);
+		setunitdata($@mobId[0], UMOB_HP, 368160);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 5391);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 7924);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 391);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 556);
+		setunitdata($@mobId[0], UMOB_HIT, 452);
+		setunitdata($@mobId[0], UMOB_FLEE, 441);
+	}
+	cleararray $@mobId[0],0,50;
+
 	monster 'map_name$[1],253, 76, "Corrupted Palace Guard",2468,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 165);
+		setunitdata($@mobId[0], UMOB_MAXHP, 368160);
+		setunitdata($@mobId[0], UMOB_HP, 368160);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 5391);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 7924);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 391);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 556);
+		setunitdata($@mobId[0], UMOB_HIT, 452);
+		setunitdata($@mobId[0], UMOB_FLEE, 441);
+	}
+	cleararray $@mobId[0],0,50;
+
 	monster 'map_name$[1],247, 77, "Corrupted Palace Guard",2468,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 165);
+		setunitdata($@mobId[0], UMOB_MAXHP, 368160);
+		setunitdata($@mobId[0], UMOB_HP, 368160);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 5391);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 7924);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 391);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 556);
+		setunitdata($@mobId[0], UMOB_HIT, 452);
+		setunitdata($@mobId[0], UMOB_FLEE, 441);
+	}
+	cleararray $@mobId[0],0,50;
+
 	monster 'map_name$[1],248, 80, "Corrupted Palace Guard",2468,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 165);
+		setunitdata($@mobId[0], UMOB_MAXHP, 368160);
+		setunitdata($@mobId[0], UMOB_HP, 368160);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 5391);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 7924);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 391);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 556);
+		setunitdata($@mobId[0], UMOB_HIT, 452);
+		setunitdata($@mobId[0], UMOB_FLEE, 441);
+	}
+	cleararray $@mobId[0],0,50;
+
 	monster 'map_name$[1],236,100, "Corrupted Palace Guard",2468,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 165);
+		setunitdata($@mobId[0], UMOB_MAXHP, 368160);
+		setunitdata($@mobId[0], UMOB_HP, 368160);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 5391);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 7924);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 391);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 556);
+		setunitdata($@mobId[0], UMOB_HIT, 452);
+		setunitdata($@mobId[0], UMOB_FLEE, 441);
+	}
+	cleararray $@mobId[0],0,50;
+
 	monster 'map_name$[1],240,100, "Corrupted Palace Guard",2468,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 165);
+		setunitdata($@mobId[0], UMOB_MAXHP, 368160);
+		setunitdata($@mobId[0], UMOB_HP, 368160);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 5391);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 7924);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 391);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 556);
+		setunitdata($@mobId[0], UMOB_HIT, 452);
+		setunitdata($@mobId[0], UMOB_FLEE, 441);
+	}
+	cleararray $@mobId[0],0,50;
+
 	monster 'map_name$[1],242,100, "Corrupted Palace Guard",2468,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 165);
+		setunitdata($@mobId[0], UMOB_MAXHP, 368160);
+		setunitdata($@mobId[0], UMOB_HP, 368160);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 5391);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 7924);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 391);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 556);
+		setunitdata($@mobId[0], UMOB_HIT, 452);
+		setunitdata($@mobId[0], UMOB_FLEE, 441);
+	}
+	cleararray $@mobId[0],0,50;
+
 	monster 'map_name$[1],244,100, "Corrupted Palace Guard",2468,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 165);
+		setunitdata($@mobId[0], UMOB_MAXHP, 368160);
+		setunitdata($@mobId[0], UMOB_HP, 368160);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 5391);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 7924);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 391);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 556);
+		setunitdata($@mobId[0], UMOB_HIT, 452);
+		setunitdata($@mobId[0], UMOB_FLEE, 441);
+	}
+	cleararray $@mobId[0],0,50;
+
 	monster 'map_name$[1],199,111, "Corrupted Palace Guard",2468,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 165);
+		setunitdata($@mobId[0], UMOB_MAXHP, 368160);
+		setunitdata($@mobId[0], UMOB_HP, 368160);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 5391);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 7924);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 391);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 556);
+		setunitdata($@mobId[0], UMOB_HIT, 452);
+		setunitdata($@mobId[0], UMOB_FLEE, 441);
+	}
+	cleararray $@mobId[0],0,50;
 	monster 'map_name$[1],181,107, "Wandering Archer",2469,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 166);
+		setunitdata($@mobId[0], UMOB_MAXHP, 288740);
+		setunitdata($@mobId[0], UMOB_HP, 288740);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 6444);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 9557);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 414);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 615);
+		setunitdata($@mobId[0], UMOB_HIT, 390);
+		setunitdata($@mobId[0], UMOB_FLEE, 492);
+	}
+	cleararray $@mobId[0],0,50;
+
 	monster 'map_name$[1],177,110, "Wandering Archer",2469,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 166);
+		setunitdata($@mobId[0], UMOB_MAXHP, 288740);
+		setunitdata($@mobId[0], UMOB_HP, 288740);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 6444);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 9557);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 414);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 615);
+		setunitdata($@mobId[0], UMOB_HIT, 390);
+		setunitdata($@mobId[0], UMOB_FLEE, 492);
+	}
+	cleararray $@mobId[0],0,50;
+
 	monster 'map_name$[1],236, 27, "Wandering Archer",2469,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 166);
+		setunitdata($@mobId[0], UMOB_MAXHP, 288740);
+		setunitdata($@mobId[0], UMOB_HP, 288740);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 6444);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 9557);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 414);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 615);
+		setunitdata($@mobId[0], UMOB_HIT, 390);
+		setunitdata($@mobId[0], UMOB_FLEE, 492);
+	}
+	cleararray $@mobId[0],0,50;
+
 	monster 'map_name$[1],242, 27, "Wandering Archer",2469,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 166);
+		setunitdata($@mobId[0], UMOB_MAXHP, 288740);
+		setunitdata($@mobId[0], UMOB_HP, 288740);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 6444);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 9557);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 414);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 615);
+		setunitdata($@mobId[0], UMOB_HIT, 390);
+		setunitdata($@mobId[0], UMOB_FLEE, 492);
+	}
+	cleararray $@mobId[0],0,50;
+
 	monster 'map_name$[1],252, 26, "Wandering Archer",2469,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 166);
+		setunitdata($@mobId[0], UMOB_MAXHP, 288740);
+		setunitdata($@mobId[0], UMOB_HP, 288740);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 6444);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 9557);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 414);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 615);
+		setunitdata($@mobId[0], UMOB_HIT, 390);
+		setunitdata($@mobId[0], UMOB_FLEE, 492);
+	}
+	cleararray $@mobId[0],0,50;
+
 	monster 'map_name$[1],172,130, "Wandering Archer",2469,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 166);
+		setunitdata($@mobId[0], UMOB_MAXHP, 288740);
+		setunitdata($@mobId[0], UMOB_HP, 288740);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 6444);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 9557);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 414);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 615);
+		setunitdata($@mobId[0], UMOB_HIT, 390);
+		setunitdata($@mobId[0], UMOB_FLEE, 492);
+	}
+	cleararray $@mobId[0],0,50;
+
 	monster 'map_name$[1],171,127, "Wandering Archer",2469,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 166);
+		setunitdata($@mobId[0], UMOB_MAXHP, 288740);
+		setunitdata($@mobId[0], UMOB_HP, 288740);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 6444);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 9557);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 414);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 615);
+		setunitdata($@mobId[0], UMOB_HIT, 390);
+		setunitdata($@mobId[0], UMOB_FLEE, 492);
+	}
+	cleararray $@mobId[0],0,50;
+
 	monster 'map_name$[1],173,127, "Wandering Archer",2469,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 166);
+		setunitdata($@mobId[0], UMOB_MAXHP, 288740);
+		setunitdata($@mobId[0], UMOB_HP, 288740);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 6444);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 9557);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 414);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 615);
+		setunitdata($@mobId[0], UMOB_HIT, 390);
+		setunitdata($@mobId[0], UMOB_FLEE, 492);
+	}
+	cleararray $@mobId[0],0,50;
 	monster 'map_name$[1],177, 69, "Corrupted Abysmal Knight",2470,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 172);
+		setunitdata($@mobId[0], UMOB_MAXHP, 451578);
+		setunitdata($@mobId[0], UMOB_HP, 451578);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 5413);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 7973);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 412);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 559);
+		setunitdata($@mobId[0], UMOB_HIT, 427);
+		setunitdata($@mobId[0], UMOB_FLEE, 468);
+	}
+	cleararray $@mobId[0],0,50;
+
 	monster 'map_name$[1],186, 66, "Corrupted Abysmal Knight",2470,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 172);
+		setunitdata($@mobId[0], UMOB_MAXHP, 451578);
+		setunitdata($@mobId[0], UMOB_HP, 451578);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 5413);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 7973);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 412);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 559);
+		setunitdata($@mobId[0], UMOB_HIT, 427);
+		setunitdata($@mobId[0], UMOB_FLEE, 468);
+	}
+	cleararray $@mobId[0],0,50;
+
 	monster 'map_name$[1],189, 67, "Corrupted Abysmal Knight",2470,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 172);
+		setunitdata($@mobId[0], UMOB_MAXHP, 451578);
+		setunitdata($@mobId[0], UMOB_HP, 451578);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 5413);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 7973);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 412);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 559);
+		setunitdata($@mobId[0], UMOB_HIT, 427);
+		setunitdata($@mobId[0], UMOB_FLEE, 468);
+	}
+	cleararray $@mobId[0],0,50;
+
 	monster 'map_name$[1],190, 68, "Corrupted Abysmal Knight",2470,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 172);
+		setunitdata($@mobId[0], UMOB_MAXHP, 451578);
+		setunitdata($@mobId[0], UMOB_HP, 451578);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 5413);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 7973);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 412);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 559);
+		setunitdata($@mobId[0], UMOB_HIT, 427);
+		setunitdata($@mobId[0], UMOB_FLEE, 468);
+	}
+	cleararray $@mobId[0],0,50;
+
 	monster 'map_name$[1],257,157, "Corrupted Abysmal Knight",2470,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 172);
+		setunitdata($@mobId[0], UMOB_MAXHP, 451578);
+		setunitdata($@mobId[0], UMOB_HP, 451578);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 5413);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 7973);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 412);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 559);
+		setunitdata($@mobId[0], UMOB_HIT, 427);
+		setunitdata($@mobId[0], UMOB_FLEE, 468);
+	}
+	cleararray $@mobId[0],0,50;
+
 	monster 'map_name$[1],246,159, "Corrupted Abysmal Knight",2470,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 172);
+		setunitdata($@mobId[0], UMOB_MAXHP, 451578);
+		setunitdata($@mobId[0], UMOB_HP, 451578);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 5413);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 7973);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 412);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 559);
+		setunitdata($@mobId[0], UMOB_HIT, 427);
+		setunitdata($@mobId[0], UMOB_FLEE, 468);
+	}
+	cleararray $@mobId[0],0,50;
+
 	monster 'map_name$[1],237,158, "Corrupted Abysmal Knight",2470,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 172);
+		setunitdata($@mobId[0], UMOB_MAXHP, 451578);
+		setunitdata($@mobId[0], UMOB_HP, 451578);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 5413);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 7973);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 412);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 559);
+		setunitdata($@mobId[0], UMOB_HIT, 427);
+		setunitdata($@mobId[0], UMOB_FLEE, 468);
+	}
+	cleararray $@mobId[0],0,50;
+
 	monster 'map_name$[1],206,159, "Corrupted Abysmal Knight",2470,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 172);
+		setunitdata($@mobId[0], UMOB_MAXHP, 451578);
+		setunitdata($@mobId[0], UMOB_HP, 451578);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 5413);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 7973);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 412);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 559);
+		setunitdata($@mobId[0], UMOB_HIT, 427);
+		setunitdata($@mobId[0], UMOB_FLEE, 468);
+	}
+	cleararray $@mobId[0],0,50;
+
 	monster 'map_name$[1],172,120, "Corrupted Abysmal Knight",2470,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 172);
+		setunitdata($@mobId[0], UMOB_MAXHP, 451578);
+		setunitdata($@mobId[0], UMOB_HP, 451578);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 5413);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 7973);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 412);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 559);
+		setunitdata($@mobId[0], UMOB_HIT, 427);
+		setunitdata($@mobId[0], UMOB_FLEE, 468);
+	}
+	cleararray $@mobId[0],0,50;
 	monster 'map_name$[1],226, 30, "Suffered Khalitzburg",2471,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 173);
+		setunitdata($@mobId[0], UMOB_MAXHP, 473702);
+		setunitdata($@mobId[0], UMOB_HP, 473702);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 4774);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 7014);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 394);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 514);
+		setunitdata($@mobId[0], UMOB_HIT, 515);
+		setunitdata($@mobId[0], UMOB_FLEE, 448);
+	}
+	cleararray $@mobId[0],0,50;
+
 	monster 'map_name$[1],226, 38, "Suffered Khalitzburg",2471,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 173);
+		setunitdata($@mobId[0], UMOB_MAXHP, 473702);
+		setunitdata($@mobId[0], UMOB_HP, 473702);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 4774);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 7014);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 394);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 514);
+		setunitdata($@mobId[0], UMOB_HIT, 515);
+		setunitdata($@mobId[0], UMOB_FLEE, 448);
+	}
+	cleararray $@mobId[0],0,50;
+
 	monster 'map_name$[1],228, 29, "Suffered Khalitzburg",2471,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 173);
+		setunitdata($@mobId[0], UMOB_MAXHP, 473702);
+		setunitdata($@mobId[0], UMOB_HP, 473702);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 4774);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 7014);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 394);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 514);
+		setunitdata($@mobId[0], UMOB_HIT, 515);
+		setunitdata($@mobId[0], UMOB_FLEE, 448);
+	}
+	cleararray $@mobId[0],0,50;
+
 	monster 'map_name$[1],226, 63, "Suffered Khalitzburg",2471,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 173);
+		setunitdata($@mobId[0], UMOB_MAXHP, 473702);
+		setunitdata($@mobId[0], UMOB_HP, 473702);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 4774);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 7014);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 394);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 514);
+		setunitdata($@mobId[0], UMOB_HIT, 515);
+		setunitdata($@mobId[0], UMOB_FLEE, 448);
+	}
+	cleararray $@mobId[0],0,50;
+
 	monster 'map_name$[1],268,137, "Suffered Khalitzburg",2471,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 173);
+		setunitdata($@mobId[0], UMOB_MAXHP, 473702);
+		setunitdata($@mobId[0], UMOB_HP, 473702);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 4774);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 7014);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 394);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 514);
+		setunitdata($@mobId[0], UMOB_HIT, 515);
+		setunitdata($@mobId[0], UMOB_FLEE, 448);
+	}
+	cleararray $@mobId[0],0,50;
+
 	monster 'map_name$[1],263,138, "Suffered Khalitzburg",2471,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 173);
+		setunitdata($@mobId[0], UMOB_MAXHP, 473702);
+		setunitdata($@mobId[0], UMOB_HP, 473702);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 4774);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 7014);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 394);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 514);
+		setunitdata($@mobId[0], UMOB_HIT, 515);
+		setunitdata($@mobId[0], UMOB_FLEE, 448);
+	}
+	cleararray $@mobId[0],0,50;
+
 	monster 'map_name$[1],259,138, "Suffered Khalitzburg",2471,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 173);
+		setunitdata($@mobId[0], UMOB_MAXHP, 473702);
+		setunitdata($@mobId[0], UMOB_HP, 473702);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 4774);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 7014);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 394);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 514);
+		setunitdata($@mobId[0], UMOB_HIT, 515);
+		setunitdata($@mobId[0], UMOB_FLEE, 448);
+	}
+	cleararray $@mobId[0],0,50;
+
 	monster 'map_name$[1],259,138, "Suffered Khalitzburg",2471,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 173);
+		setunitdata($@mobId[0], UMOB_MAXHP, 473702);
+		setunitdata($@mobId[0], UMOB_HP, 473702);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 4774);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 7014);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 394);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 514);
+		setunitdata($@mobId[0], UMOB_HIT, 515);
+		setunitdata($@mobId[0], UMOB_FLEE, 448);
+	}
+	cleararray $@mobId[0],0,50;
+
 	monster 'map_name$[1],187,121, "Suffered Khalitzburg",2471,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 173);
+		setunitdata($@mobId[0], UMOB_MAXHP, 473702);
+		setunitdata($@mobId[0], UMOB_HP, 473702);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 4774);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 7014);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 394);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 514);
+		setunitdata($@mobId[0], UMOB_HIT, 515);
+		setunitdata($@mobId[0], UMOB_FLEE, 448);
+	}
+	cleararray $@mobId[0],0,50;
 	monster 'map_name$[1],265, 52, "Bloody Knight",2472,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 173);
+		setunitdata($@mobId[0], UMOB_MAXHP, 493502);
+		setunitdata($@mobId[0], UMOB_HP, 493502);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 3314);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 4819);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 4804);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 8644);
+		setunitdata($@mobId[0], UMOB_HIT, 428);
+		setunitdata($@mobId[0], UMOB_FLEE, 480);
+	}
+	cleararray $@mobId[0],0,50;
 	monster 'map_name$[1],265, 55, "Bloody Knight",2472,1, .@label$; 
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 173);
+		setunitdata($@mobId[0], UMOB_MAXHP, 493502);
+		setunitdata($@mobId[0], UMOB_HP, 493502);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 3314);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 4819);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 4804);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 8644);
+		setunitdata($@mobId[0], UMOB_HIT, 428);
+		setunitdata($@mobId[0], UMOB_FLEE, 480);
+	}
+	cleararray $@mobId[0],0,50;
 	monster 'map_name$[1],264, 79, "Bloody Knight",2472,1, .@label$; 
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 173);
+		setunitdata($@mobId[0], UMOB_MAXHP, 493502);
+		setunitdata($@mobId[0], UMOB_HP, 493502);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 3314);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 4819);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 4804);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 8644);
+		setunitdata($@mobId[0], UMOB_HIT, 428);
+		setunitdata($@mobId[0], UMOB_FLEE, 480);
+	}
+	cleararray $@mobId[0],0,50;
 	monster 'map_name$[1],225, 92, "Bloody Knight",2472,1, .@label$; 
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 173);
+		setunitdata($@mobId[0], UMOB_MAXHP, 493502);
+		setunitdata($@mobId[0], UMOB_HP, 493502);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 3314);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 4819);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 4804);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 8644);
+		setunitdata($@mobId[0], UMOB_HIT, 428);
+		setunitdata($@mobId[0], UMOB_FLEE, 480);
+	}
+	cleararray $@mobId[0],0,50;
 	monster 'map_name$[1],237, 92, "Bloody Knight",2472,1, .@label$; 
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 173);
+		setunitdata($@mobId[0], UMOB_MAXHP, 493502);
+		setunitdata($@mobId[0], UMOB_HP, 493502);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 3314);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 4819);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 4804);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 8644);
+		setunitdata($@mobId[0], UMOB_HIT, 428);
+		setunitdata($@mobId[0], UMOB_FLEE, 480);
+	}
+	cleararray $@mobId[0],0,50;
 	monster 'map_name$[1],249, 92, "Bloody Knight",2472,1, .@label$; 
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 173);
+		setunitdata($@mobId[0], UMOB_MAXHP, 493502);
+		setunitdata($@mobId[0], UMOB_HP, 493502);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 3314);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 4819);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 4804);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 8644);
+		setunitdata($@mobId[0], UMOB_HIT, 428);
+		setunitdata($@mobId[0], UMOB_FLEE, 480);
+	}
+	cleararray $@mobId[0],0,50;
 	monster 'map_name$[1],256, 93, "Bloody Knight",2472,1, .@label$; 
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 173);
+		setunitdata($@mobId[0], UMOB_MAXHP, 493502);
+		setunitdata($@mobId[0], UMOB_HP, 493502);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 3314);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 4819);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 4804);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 8644);
+		setunitdata($@mobId[0], UMOB_HIT, 428);
+		setunitdata($@mobId[0], UMOB_FLEE, 480);
+	}
+	cleararray $@mobId[0],0,50;
 	monster 'map_name$[1],264,100, "Bloody Knight",2472,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 173);
+		setunitdata($@mobId[0], UMOB_MAXHP, 493502);
+		setunitdata($@mobId[0], UMOB_HP, 493502);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 3314);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 4819);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 4804);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 8644);
+		setunitdata($@mobId[0], UMOB_HIT, 428);
+		setunitdata($@mobId[0], UMOB_FLEE, 480);
+	}
+	cleararray $@mobId[0],0,50;
 	monster 'map_name$[1],181,120, "Bloody Knight",2472,1, .@label$;
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 173);
+		setunitdata($@mobId[0], UMOB_MAXHP, 493502);
+		setunitdata($@mobId[0], UMOB_HP, 493502);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 3314);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 4819);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 4804);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 8644);
+		setunitdata($@mobId[0], UMOB_HIT, 428);
+		setunitdata($@mobId[0], UMOB_FLEE, 480);
+	}
+	cleararray $@mobId[0],0,50;
 	end;
 
 OnMyMobDead:
@@ -1542,6 +2903,19 @@ OnMyMobDead4:
 OnMyMobDead5:
 OnMyMobDead6:
 OnMyMobDead7:
+	if('oghMode == 2)
+	{
+		if(rand(1000) < 'hardModeLootChance)
+		{
+			getitem 6755, 1;
+		}
+	} else if('oghMode == 1)
+	{
+		if(rand(1000) < 'normalModeLootChance)
+		{
+			getitem 6608, 1;
+		}
+	}
 	if (mobcount('map_name$[1], instance_npcname("#ghmemorialmob06") + "::OnBossDead") > 0)	// Prevent boss re-spawn
 		end;
 	if ('mode == 2)	// Higher (but unknown) spawn rate in fast mode
@@ -1555,10 +2929,35 @@ OnMyMobDead7:
 		.@r = rand(4) * 2;
 		setarray .@coord[0], 166,119, 211,45, 227,139, 245,74;
 		monster 'map_name$[1],.@coord[.@r],.@coord[.@r+1], "2nd Commander of Destruction",2474,1, instance_npcname("#ghmemorialmob06") + "::OnBossDead";
+	if('oghMode == 2) {
+		setunitdata($@mobId[0], UMOB_LEVEL, 175);
+		setunitdata($@mobId[0], UMOB_MAXHP, 1696020);
+		setunitdata($@mobId[0], UMOB_HP, 1696020);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 5274);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 7746);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 2393);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 4178);
+		setunitdata($@mobId[0], UMOB_HIT, 463);
+		setunitdata($@mobId[0], UMOB_FLEE, 499);
+	}
+	cleararray $@mobId[0],0,50;
 	}
 	end;
 
 OnBossDead:
+	if('oghMode == 2)
+	{
+		if(rand(1000) < 'hardModeLootChance)
+		{
+			getitem 6755, 1;
+		}
+	} else if('oghMode == 1)
+	{
+		if(rand(1000) < 'normalModeLootChance)
+		{
+			getitem 6608, 1;
+		}
+	}
 	disablenpc();
 	mapannounce 'map_name$[1], "A new portal has appeared at the end of the central corridor.", bc_map,0xFFFF00;
 	enablenpc instance_npcname("#24 Control");
@@ -1617,7 +3016,23 @@ OnTouch_:
 	killmonster 'map_name$[1], .@event$;
 	getmapxy .@map$,.@x,.@y, BL_NPC;
 	specialeffect EF_VENOMDUST;
+	cleararray $@mobId[0],0,50;
 	monster .@map$,.@x,.@y,"Maggot",2467,.@mobs, .@event$;
+	if('oghMode == 2)
+	{
+		for( .@i = 0; .@i < getarraysize($@mobId); .@i++ )
+		{
+			setunitdata($@mobId[.@i], UMOB_LEVEL, 163);
+			setunitdata($@mobId[.@i], UMOB_MAXHP, 161622);
+			setunitdata($@mobId[.@i], UMOB_HP, 161622);
+			setunitdata($@mobId[.@i], UMOB_ATKMIN, 2216);
+			setunitdata($@mobId[.@i], UMOB_ATKMAX, 3213);
+			setunitdata($@mobId[.@i], UMOB_MATKMIN, 1957);
+			setunitdata($@mobId[.@i], UMOB_MATKMAX, 3466);
+			setunitdata($@mobId[.@i], UMOB_HIT, 466);
+			setunitdata($@mobId[.@i], UMOB_FLEE, 505);
+		}
+	}
 	initnpctimer;
 	end;
 OnTimer45000:
@@ -1625,6 +3040,19 @@ OnTimer45000:
 	stopnpctimer;
 	end;
 OnMobDead:
+	if('oghMode == 2)
+	{
+		if(rand(2000) < 'hardModeLootChance)
+		{
+			getitem 6755, 1;
+		}
+	} else if('oghMode == 1)
+	{
+		if(rand(2000) < 'normalModeLootChance)
+		{
+			getitem 6608, 1;
+		}
+	}
 	end;
 }
 2@gl_k,145,236,4	duplicate(Decomposed body#1)	Decomposed body#2	4_M_DIEMAN,5,5
@@ -1870,6 +3298,18 @@ OnTimer20500:
 OnStart:
 	enablenpc instance_npcname("#ghmemorialmob07");
 	monster 'map_name$[1],158,255,"Amdarais",2476,1,instance_npcname("#ghmemorialmob07") + "::OnMyMobDead";// MG_AMDARAIS
+	if('oghMode == 2)
+	{
+		setunitdata($@mobId[0], UMOB_LEVEL, 180);
+		setunitdata($@mobId[0], UMOB_MAXHP, 42900000);
+		setunitdata($@mobId[0], UMOB_HP, 42900000);
+		setunitdata($@mobId[0], UMOB_ATKMIN, 8899);
+		setunitdata($@mobId[0], UMOB_ATKMAX, 13131);
+		setunitdata($@mobId[0], UMOB_MATKMIN, 5809);
+		setunitdata($@mobId[0], UMOB_MATKMAX, 10489);
+		setunitdata($@mobId[0], UMOB_HIT, 419);
+		setunitdata($@mobId[0], UMOB_FLEE, 516);
+	}
 	'boss_id = $@mobid[0];
 	unittalk 'boss_id, "Run away... run away from me...";
 	initnpctimer;
@@ -1892,6 +3332,19 @@ OnTimer55000:
 	end;
 
 OnMyMobDead:
+	if('oghMode == 2)
+	{
+		if(rand(1000) < 'hardModeLootChance)
+		{
+			getitem 6755, 1;
+		}
+	} else if('oghMode == 1)
+	{
+		if(rand(1000) < 'normalModeLootChance)
+		{
+			getitem 6608, 1;
+		}
+	}
 	if (mobcount('map_name$[1], instance_npcname("#ghmemorialmob07") + "::OnMyMobDead") < 1) {
 		stopnpctimer;
 		enablenpc instance_npcname("Hugin#21");
@@ -2030,12 +3483,18 @@ OnTimer10000:
 			setquest 12321;// Time Conqueror
 			completequest 12321;
 			getitem 6607,5;// Temporal_Crystal
-			getitem 6608,5;// Coagulated_Spell
+			if ('oghMode == 2) {
+				getitem 6755, 1;	// Contaminated Magic
+			}
+			else getitem 6608,1;	// Coagulated_Spell
 			getexp 350000,350000;
 		}
 		else {
 			getitem 6607,1;// Temporal_Crystal
-			getitem 6608,1;// Coagulated_Spell
+			if ('oghMode == 2) {
+				getitem 6755, 1;	// Contaminated Magic
+			}
+			else getitem 6608,1;	// Coagulated_Spell
 		}
 		next;
 		mes "[Hugin]";

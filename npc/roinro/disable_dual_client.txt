@@ -1,0 +1,40 @@
+/*-	script	disable dual client	-1,{
+	OnPCLoginEvent:
+		.@query_result = query_sql( "SELECT `login`.`account_id` FROM `login` INNER JOIN `char` ON `char`.`account_id` = `login`.`account_id` WHERE `last_ip` = '"+escape_sql( getcharip() )+"' AND `char`.`online` = 1 AND `login`.`account_id` NOT IN ( SELECT `account_id` FROM `vendings` )",.@count );
+		if ( .@count >= 2 ) { //&& getcharip() != "73.20.73.216") { // Me and Allie
+		mes "You can't dual login from same IP.";
+		sleep2 5000;
+		atcommand "@kick "+strcharinfo(0);
+		}
+		end;
+}
+*/
+// GPT script enhancement
+-	script	disable_dual_client	-1,{
+
+	OnPCLoginEvent:
+		.@ip$ = escape_sql(getcharip());
+		.@nb = query_sql(
+			"SELECT `login`.`account_id` " +
+			"FROM `login` " +
+			"INNER JOIN `char` ON `char`.`account_id` = `login`.`account_id` " +
+			"WHERE `last_ip` = '"+.@ip$+"' " +
+			"AND `char`.`online` = 1 " +
+			"AND `login`.`account_id` NOT IN ( SELECT `account_id` FROM `vendings` )",
+			.@account_id );
+
+		// .@nb = number of rows returned
+		if ( .@nb >= 2 && (
+		// List of IP exceptions
+		getcharip() != "192.168.68.66" &&	// Roin Local ip
+		getcharip() != "73.20.73.216" &&	// Roin (GM)
+		getcharip() != "74.50.221.198"	// Evan
+		
+		)) {
+			mes "You can't dual login from same IP.";
+			sleep2 5000;
+			atcommand "@kick "+strcharinfo(0);
+		}
+		end;
+}
+// @reloadnpcfile npc/roinro/disable_dual_client.txt

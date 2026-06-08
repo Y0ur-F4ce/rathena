@@ -83,7 +83,7 @@ moc_para01,48,177,3	script	91-99 Mission Board	857,{
 		mes "You must be within level 91-99 to accept these missions.";
 		for(set .@quest,4181; .@quest<=4196; set .@quest,.@quest+1) {
 			set .@hunting, checkquest(.@quest,HUNTING);
-			if (.@hunting == 0 || .@hunting == 1) {
+			/*if (.@hunting == 0 || .@hunting == 1) { //I freaking hate when my quests get deleted without my consent
 				next;
 				mes ":: You cannot proceed in";
 				mes ":: ^0000FF"+.@names$[.@quest-4181]+" Hunting^000000.";
@@ -91,7 +91,7 @@ moc_para01,48,177,3	script	91-99 Mission Board	857,{
 				mes ":: is cancelled.";
 				erasequest .@quest;
 				close;
-			} else if (.@hunting == 2) {
+			} else */if (.@hunting == 2) {
 				next;
 				mes ":: You added information";
 				mes ":: about the mission";
@@ -100,7 +100,7 @@ moc_para01,48,177,3	script	91-99 Mission Board	857,{
 				mes ":: You've got a";
 				mes ":: salutary experience.";
 				erasequest .@quest;
-				getexp .@exp[.@quest-4181],0;
+				getexp .@exp[.@quest-4181],.@exp[.@quest-4181];
 				close;
 			}
 		}
@@ -162,14 +162,14 @@ moc_para01,48,177,3	script	91-99 Mission Board	857,{
 //callsub L_Quest,<quest ID>,"<monster name>",<reward EXP>,"<cutin image>","<description>"{,"s"};
 L_Quest:
 	set .@quest1, getarg(0);
-	set .@quest2, .@quest1+31;
+	//set .@quest2, .@quest1+31;
 	.@cutin$ = getarg(3);
-	set .@playtime, checkquest(.@quest2,PLAYTIME);
+	/*set .@playtime, checkquest(.@quest2,PLAYTIME);
 	if (.@playtime == 0 || .@playtime == 1) {
 		mes "[91-99 Mission Board]";
 		mes "You need to wait 3 hours before you can take this mission again.";
 		close;
-	}
+	}*/
 	set .@hunting, checkquest(.@quest1,HUNTING);
 	if (.@hunting == 0 || .@hunting == 1) {
 		mes "[91-99 Mission Board]";
@@ -180,8 +180,8 @@ L_Quest:
 		mes "You have completed the hunting.";
 		mes "Please accept this reward as a compensation.";
 		erasequest .@quest1;
-		if (.@playtime > -1) erasequest .@quest2;
-		setquest .@quest2;
+		//if (.@playtime > -1) erasequest .@quest2;
+		//setquest .@quest2;
 
 		// Job Experience calculation.
 		if (JobLevel > 50 && JobLevel < 56) set .@jexp,67000;
@@ -190,7 +190,7 @@ L_Quest:
 		else if (JobLevel > 65 && JobLevel < 69) set .@jexp,212000;
 		else if (JobLevel == 69) set .@jexp,311000;
 
-		getexp getarg(2),.@jexp;
+		getexp getarg(2),getarg(2);
 		close;
 	}/* else if (.@hunting == 3) {
 //		recall_completequest .@quest1
@@ -214,5 +214,13 @@ L_Quest:
 			setquest .@quest1;
 		}
 		close;
+	}
+	OnInit: {
+		setarray .all_quest_ids[0], //used for quest deletion npc
+			4181,4182,4183,
+			4184,4185,4186,
+			4187,4188,4189,
+			4190,4191,
+			4192,4193,4194,4195,4196;
 	}
 }

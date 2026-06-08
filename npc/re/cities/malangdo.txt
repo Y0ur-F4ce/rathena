@@ -157,7 +157,7 @@ morocc,168,275,4	duplicate(Dolangmal)	Dolangmal#5	553
 yuno,165,122,4	duplicate(Dolangmal)	Dolangmal#6	553
 rachel,121,126,4	duplicate(Dolangmal)	Dolangmal#7	553
 lighthalzen,254,83,5	duplicate(Dolangmal)	Dolangmal#8	553
-mora,57,150,4	duplicate(Dolangmal)	Dolangmal#9	553
+mora,61,139,4	duplicate(Dolangmal)	Dolangmal#9	553
 
 -	script	::Odgnalam	-1,{
 	mes "This cat is sleeping in the warm "+((strnpcinfo(2) == "albe")?"Alberta":"Izlude")+" sun.";

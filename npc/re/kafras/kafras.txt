@@ -31,16 +31,16 @@
 
 // Dewata
 //============================================================
-dewata,202,184,6	script	Kafra Employee::kaf_dewata	4_F_KAFRA1,{
+dewata,198,184,6	script	Kafra Employee::kaf_dewata	4_F_KAFRA1,{
 	cutin "kafra_01",2;
 	callfunc "F_Kafra",0,10,1,40,700;
-	savepoint "dewata",206,174,1,1;
+	savepoint "dewata",200,180,5,5;
 	callfunc "F_KafEnd",0,1,"on Dewata Island";
 }
 
 // Glastheim
 //============================================================
-glast_01,200,275,0	script	Kafra Employee::kaf_glast	4_F_KAFRA3,{
+glast_01,200,275,4	script	Kafra Employee::kaf_glast	4_F_KAFRA3,{
 	cutin "kafra_03",2;
 	callfunc "F_Kafra",0,3,2,500,700;
 	savepoint "glast_01",200,272,1,1;
@@ -98,7 +98,7 @@ job3_rune01,92,62,3	script	Kafra Employee::kaf_rune	4_F_KAFRA4,{
 
 // Rockridge
 //============================================================
-harboro1,291,207,5	script	Kafra Employee::kaf_rock	4_F_KAFRA1,{
+harboro1,283,195,6	script	Kafra Employee::kaf_rock	4_F_KAFRA1,{
 	cutin "kafra_01",2;
 	callfunc "F_KafSet";
 	callfunc "F_Kafra",0,8,2,500,0;

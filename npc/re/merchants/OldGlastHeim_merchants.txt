@@ -341,7 +341,7 @@ S_Slot:
 }
 
 // Temporal shoes slotted - npc enchant
-glast_01,184,283,4	script	Dark magic master#pa082	1_F_01,{
+glast_01,207,275,4	script	Dark magic master#pa082	1_F_01,{
 	disable_items;
 	if ((MaxWeight - Weight) < 1000) {
 		mes "Your bag is too heavy. Reduce some weight and come back.";
@@ -519,7 +519,7 @@ glast_01,184,283,4	script	Dark magic master#pa082	1_F_01,{
 }
 
 // Items exchange for card
-glast_01,216,292,5	script	Portrait collector#0002	4_M_OILMAN,{
+glast_01,198,275,5	script	Portrait collector#0002	4_M_OILMAN,{
 	disable_items;
 	if ((MaxWeight - Weight) < 1000) {
 		mes "Your bag is too heavy. Reduce some weight and come back.";
@@ -548,12 +548,12 @@ glast_01,216,292,5	script	Portrait collector#0002	4_M_OILMAN,{
 	case 2:
 		.@reward_id = .@white_card;
 		.@amount_coag = 3000;
-		.@amount_polluted = 70;
+		.@amount_polluted = 700;
 		break;
 	case 3:
 		.@reward_id = .@khalitzburg_card;
 		.@amount_coag = 5000;
-		.@amount_polluted = 100;
+		.@amount_polluted = 1000;
 		break;
 	}
 	mes "[Portrait collector]";

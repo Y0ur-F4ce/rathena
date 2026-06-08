@@ -1,0 +1,70 @@
+// Main Office
+
+//-	itemshop	Roin Coin Shop#Office	648,250000,7619:50,7620:50,12920:450:12921:450,6226:30,6225:30,16260:270,16261:270,7621:20,14533:65
+//-	marketshop	Roin Coin Shop#Office	HIDDEN_NPC,7619:-1,-1,7620:-1,-1,12920:-1:12921:-1,-1,6226:-1,-1,6225:-1,-1,16260:-1,-1,16261:-1,-1,7621:-1,-1,14533:-1
+//m_office,32,26,5	duplicate(Roin Coin Shop#Office)	Roin Coin Shop	648
+m_office,32,26,5	script	Roin Coin Shop#Office	648,{
+	mes "[Roin Coin Shop]";
+	mes "Hey you! What kind of stuff are you looking for?";
+	next;
+	switch(select("Usables Shop:Item Shop:Gear Shop:Other:Cancel")) {
+	case 1:
+		close2;
+		callshop "Roin_Coin_Office_Usable", 1; // Shops are found in npc/custom/barters.yml
+		break;
+	case 2:
+		close2;
+		callshop "Roin_Coin_Office_Item", 1; // Shops are found in npc/custom/barters.yml
+		break;
+	case 3:
+		close2;
+		callshop "Roin_Coin_Office_Gear", 1;
+		break;
+	case 4:
+		close2;
+		callshop "Roin_Coin_Office_Other", 1;
+		break;
+	case 5:
+		clear;
+		mes "[Roin Coin Shop]";
+		mes "See ya.";
+		close3;
+		break;
+	}
+	end;
+}
+
+// Cor
+sp_cor,138,158,5	script	Roin Coin Shop#Cor	648,{
+	mes "[Roin Coin Shop]";
+	mes "Hey there buddy! It seems like some of the stuff here can be pretty time-consuming to get.";
+	next;
+	mes "[Roin Coin Shop]";
+	mes "Lucky for you, I can sell you some stuff you might need, as long as you've got enough Roin Coins.";
+	close2;
+	callshop "Roin_Coin_Cor", 1; 
+}
+
+// Wolf Village
+wolfvill,163,142,3	script	Roin Coin Shop#Wolf	648,{
+	mes "[Roin Coin Shop]";
+	mes "Hey there buddy! It seems like Amethyst Fragments can be pretty time-consuming to get.";
+	next;
+	mes "[Roin Coin Shop]";
+	mes "Lucky for you, I can sell you that stuff, as long as you've got enough Roin Coins.";
+	close2;
+	callshop "Roin_Coin_Wolf", 1; 
+}
+
+/* Item list
+7619 = Enriched Elu
+7620 = Enriched Ori
+12920 = Enriched Elu (10) box
+12921 = Enriched Ori (10) box
+6226 = HD Bradium
+6225 = HD Carnium
+16260 = HD Brad (10) box
+16261 = HD Carn (10) box
+7621 = Token of Siegfried
+14533 = Field Manual 100%
+*/

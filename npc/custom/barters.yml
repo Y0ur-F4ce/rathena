@@ -45,3 +45,377 @@
 Header:
   Type: BARTER_DB
   Version: 2
+
+Body:
+###########################################################################
+##= Roin Coin Usable Shop
+###########################################################################
+  - Name: Roin_Coin_Office_Usable
+    Items:
+      - Index: 0
+        Item: Boarding_Halter_Box
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 100
+      - Index: 1
+        Item: B_Halter_Box_30Days
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 300
+      - Index: 2
+        Item: Token_Of_Siegfried
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 20
+      - Index: 3
+        Item: Token_Of_Siegfried_Box
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 180
+      - Index: 4
+        Item: Giant_Fly_Wing_Box
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 15
+      - Index: 5
+        Item: Bubble_Gum
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 40
+      - Index: 6
+        Item: Bubble_Gum_Box
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 360
+      - Index: 7
+        Item: Kafra_Card
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 25
+      - Index: 8
+        Item: Convex_Mirror
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 35
+      - Index: 9
+        Item: Bloody_Dead_Branch
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 100
+      - Index: 10
+        Item: Battle_Manual100
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 75
+      - Index: 11
+        Item: Blessing_10_Scroll_Box
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 35
+      - Index: 12
+        Item: Inc_Agi_10_Scroll_Box
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 35
+      - Index: 13
+        Item: Silvervine
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 4
+      - Index: 14
+        Item: Incubus_Egg
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 125
+      - Index: 15
+        Item: Succubus_Egg
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 100
+###########################################################################
+##= Roin Coin Item Shop
+###########################################################################
+  - Name: Roin_Coin_Office_Item
+    Items:
+      - Index: 0
+        Item: Enriched_Elunium
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 45
+      - Index: 1
+        Item: Enriched_Oridecon
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 45
+      - Index: 2
+        Item: Enriched_Elunium_Box
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 405
+      - Index: 3
+        Item: Enriched_Oridecon_Box
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 405
+      - Index: 4
+        Item: HD_Bradium
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 25
+      - Index: 5
+        Item: HD_Carnium
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 25
+      - Index: 6
+        Item: HD_Bradium_Box10
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 270
+      - Index: 7
+        Item: HD_Carnium_Box10
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 270
+      - Index: 8
+        Item: Blacksmith_Blessing
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 55
+###########################################################################
+##= Roin Coin Gear Shop
+###########################################################################
+  - Name: Roin_Coin_Office_Gear
+    Items:
+      - Index: 0
+        Item: Bravery_Bag
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 75
+      - Index: 1
+        Item: Shark_Hat
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 75
+      - Index: 2
+        Item: Octopus_Hat
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 75
+      - Index: 3
+        Item: Drooping_Wild_Rose
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 75
+      - Index: 4
+        Item: Malangdo_Hat
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 75
+      - Index: 5
+        Item: Bogy_Cap
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 75
+      - Index: 6
+        Item: Neko_Mimi_Kafra
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 75
+      - Index: 7
+        Item: Pecopeco_Wing_Ears
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 75
+      - Index: 7
+        Item: Pecopeco_Wing_Ears
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 75
+      - Index: 8
+        Item: Power_Of_Thor
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 100
+      - Index: 9
+        Item: Wing_Headphone
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 125
+      - Index: 10
+        Item: Rune_Hairband
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 125
+      - Index: 11
+        Item: Little_Fhat
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 125
+      - Index: 12
+        Item: Tare_Pope_
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 125
+      - Index: 13
+        Item: Strawberry_Hat
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 125
+      - Index: 14
+        Item: Asgard_Blessing
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 175
+      - Index: 15
+        Item: Scarlet_Rose
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 175
+      - Index: 16
+        Item: Heart_Wing_Hairband
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 185
+      - Index: 17
+        Item: Spell_Circuit
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 275
+      - Index: 18
+        Item: General_Helmet_
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 300
+      - Index: 19
+        Item: Classical_Fhat
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 300
+      - Index: 20
+        Item: Dog_Officer
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 300
+      - Index: 21
+        Item: Amistr_Beret
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 300
+###########################################################################
+##= Roin Coin Other Shop
+###########################################################################
+  - Name: Roin_Coin_Office_Other
+    Items:
+      - Index: 1
+        Item: Max_Weight_Up_Scroll
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 100
+      - Index: 2
+        Item: multi_ep_16_1_ticket
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 100
+      - Index: 3
+        Item: multi_ep_16_2_ticket
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 110
+      - Index: 4
+        Item: multi_ep_17_1_ticket
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 120
+      - Index: 5
+        Item: multi_ep_17_2_ticket
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 130
+###########################################################################
+##= Roin Coin Cor Shop
+###########################################################################
+  - Name: Roin_Coin_Cor
+    Items:
+      - Index: 0
+        Item: EP17_1_EVT39
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 1
+      - Index: 1
+        Item: EP17_1_EVT02
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 1
+      - Index: 2
+        Item: EP17_1_EVT01
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 20
+###########################################################################
+##= Roin Coin Wolf Village Shop
+###########################################################################
+  - Name: Roin_Coin_Wolf
+    Items:
+      - Index: 0
+        Item: Ep18_Amethyst_Fragment
+        RequiredItems:
+          - Index: 0
+            Item: roin_coin
+            Amount: 1

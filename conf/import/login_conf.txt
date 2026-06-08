@@ -1,0 +1,1 @@
+vip_char_increase: 0

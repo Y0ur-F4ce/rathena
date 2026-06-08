@@ -1,0 +1,87 @@
+/*
+@go restrictions, based on players' quests, level, or other variables
+ Created by Roin
+ Last updated 6/14/2025
+ */
+ 
+ -	script	restrict_@go	-1,{
+	function at_go_charge_up;
+	OnInit:
+		bindatcmd "go",strnpcinfo(3) + "::OnAtCommand";
+		end;
+	OnAtCommand:
+		.@userstring$ = strtolower(.@atcmd_parameters$[0]);
+		// Manually check if the player's warping to a spot they haven't gained access to
+		if(substr(.@userstring$,0,2) == "cor" || substr(.@userstring$,0,1) == "40") {
+			if(isbegin_quest(11603) < 2) {
+				message strcharinfo(0),"You have not completed a prerequisite quest to warp to this area.";
+				if(getgmlevel()) { // GM privileges
+					message strcharinfo(0),"BUT... You're looking pretty handsome today, so you can warp there anyway.";
+					at_go_charge_up(.@atcmd_parameters$[0],.@atcmd_parameters$[1]);
+				}
+				end;
+			}
+		}
+		if(substr(.@userstring$,0,2) == "var" || substr(.@userstring$,0,3) == "mans" || substr(.@userstring$,0,1) == "41") {
+			if(isbegin_quest(11620) < 1) {
+				message strcharinfo(0),"You have not started a prerequisite quest to warp to this area.";
+				if(getgmlevel()) { // GM privileges
+					message strcharinfo(0),"BUT... You're looking pretty handsome today, so you can warp there anyway.";
+					at_go_charge_up(.@atcmd_parameters$[0],.@atcmd_parameters$[1]);
+				}
+				end;
+			}
+		}
+		if(substr(.@userstring$,0,3) == "wolf" || substr(.@userstring$,0,1) == "44") {
+			if(isbegin_quest(11724) < 1) {
+				message strcharinfo(0),"You have not started a prerequisite quest to warp to this area.";
+				if(getgmlevel()) { // GM privileges
+					message strcharinfo(0),"BUT... You're looking pretty handsome today, so you can warp there anyway.";
+					at_go_charge_up(.@atcmd_parameters$[0],.@atcmd_parameters$[1]);
+				}
+				end;
+			}
+		}
+		if(substr(.@userstring$,0,2) == "ver" || substr(.@userstring$,0,1) == "38") {
+			if(BaseLevel < 140) {
+				message strcharinfo(0),"You must be at least lvl 140 to warp to this area.";
+				if(getgmlevel()) { // GM privileges
+					message strcharinfo(0),"BUT... You're looking pretty handsome today, so you can warp there anyway.";
+					at_go_charge_up(.@atcmd_parameters$[0],.@atcmd_parameters$[1]);
+				}
+				end;
+			}
+		}
+		if(substr(.@userstring$,0,3) == "thor" || substr(.@userstring$,0,1) == "42") {
+			if(ep18_main < 47) {
+				message strcharinfo(0),"You have not finished a prerequisite quest to warp to this area.";
+				if(getgmlevel()) { // GM privileges
+					message strcharinfo(0),"BUT... You're looking pretty handsome today, so you can warp there anyway.";
+					at_go_charge_up(.@atcmd_parameters$[0],.@atcmd_parameters$[1]);
+				}
+				end;
+			}
+		}
+		
+		// Proceed with the warp, assuming none of those above catches were set off
+		at_go_charge_up(.@atcmd_parameters$[0],.@atcmd_parameters$[1]);
+		end;
+		
+	function at_go_charge_up {
+		if(getgmlevel()) { // GMs can skip the delay by adding a second @go parameter
+			if(getarg(1) != "") {
+				atcommand "@go " + getarg(0);
+				end;
+			}
+		}
+		stand;
+		message strcharinfo(0),"Warping...";
+		specialeffect2 EF_BEGINSPELL;
+		specialeffect2 EF_CASTSPIN2;
+		sc_start SC_STOP,1000,0;
+		// block skill usage here
+		sleep2 1000;
+		atcommand "@go " + getarg(0);
+		end;
+	}
+ }

@@ -422,7 +422,7 @@ tra_fild03	mapflag	nowarpto
 oz_dun01	mapflag	nowarpto
 oz_dun02	mapflag	nowarpto
 que_thr	mapflag	nowarpto
-wolfvill	mapflag	nowarpto
+//wolfvill	mapflag	nowarpto
 
 //============================================================
 // Sunken Tower

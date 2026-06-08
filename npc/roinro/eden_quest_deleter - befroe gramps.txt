@@ -1,0 +1,590 @@
+/* Eden Quest Deleter NPC
+You'll need to manually update .@quest_names$ arrays and .@userselect lines with new quests that you add, even though the actual quest IDs
+get imported in from the NPC boards.
+*/
+
+moc_para01,41,22,3	script	Quest Deletion#quest_deleter	415,{
+	function F_confirm; function F_erase_quest_range; function F_erase_quest_array; function F_compile_board_quests;
+	
+	mes "[Quest Deletion]";
+	mes "Hi, I can help you remove a quest you signed up for from these Eden bounty boards.";
+	mes "Do you need a quest removed?";
+	if(select("Yes:No") == 2) {
+		clear;
+		mes "[Quest Deletion]";
+		mes "Very well, have a good day.";
+		close;
+	}
+	clear;
+	mes "[Quest Deletion]";
+	mes "Please select which bounty board:";
+	setarray .@quest_ids[0], 0;
+	setarray .every_board_quest_id[0], 0;
+	set .every_board_quest_id_index,0;
+	switch(select("11-25:26-40:41-55:56-70:71-85:86-90:91-99:100-110:111-120:121-130:131-140:141-150:151-160:161-170:171+:Delete ALL Board Quests:Cancel")) {
+		case 1: { // Board 11-25
+			for(set .@i,0; .@i < getarraysize(getvariableofnpc(.all_quest_ids,"Mission [11 - 25]")); set .@i,.@i+1) {
+				set .@quest_ids[.@i],getvariableofnpc(.all_quest_ids[.@i],"Mission [11 - 25]");
+			}
+			set .@userselect,select("Hornet Hunting:Condor Hunting:Rocker Hunting:Worm Tail Hunting:Spore Hunting:Thief Bug Egg Hunting:Muka Hunting:Familiar Hunting:Peco Peco Hunting:Poison Spore Hunting:ALL of these quests");
+			if(.@userselect == getarraysize(.@quest_ids)+1) { // Player selects 'Delete All'
+				clear;
+				mes "[Quest Deletion]";
+				mes "Are you sure you want to ^F80000DELETE ALL ^000000bounty 11-25 quests? This CANNOT be undone.";
+				if(select("Yes, ^F80000DELETE ALL:^000000Nevermind...") == 2) {
+					clear;
+					mes "[Quest Deletion]";
+					mes "Very well, have a good day.";
+					close;
+				}
+				clear;
+				F_erase_quest_array(.@quest_ids);
+				mes "[Quest Deletion]";
+				mes "It's done! All your quests from level range 11-25 were removed.";
+				mes "Have a good day.";
+				end;
+			}
+			setarray .@quest_names$[0],
+				"Hornet Hunting","Condor Hunting","Rocker Hunting","Worm Tail Hunting",
+				"Spore Hunting","Thief Bug Egg Hunting","Muka Hunting",
+				"Familiar Hunting","Peco Peco Hunting","Poison Spore Hunting";
+			F_confirm(.@quest_names$[.@userselect-1],.@quest_ids[.@userselect-1]);
+			end;
+		}
+		case 2: { // Board 26-40
+			for(set .@i,0; .@i < getarraysize(getvariableofnpc(.all_quest_ids,"Mission [26 - 40]")); set .@i,.@i+1) {
+				set .@quest_ids[.@i],getvariableofnpc(.all_quest_ids[.@i],"Mission [26 - 40]");
+			}
+			set .@userselect,select("Poison Spore Hunting:Smokie Hunting:Elder Willow Hunting:Coco Hunting:Thara Frog Hunting:Skeleton Hunting:Soldier Skeleton Hunting:Bigfoot Hunting:Poporing Hunting:Deliver an Insecticide:Deliver Honey:Deliver Blanket:Gather Skel-Bones:Gather Pelts & Foot Skins:Gather Peelings & Garlets:Gather Tails, Acorns, & Leaves:Gather Cookies & Cake:Gather Whiskers & Claws:ALL of these quests");
+			if(.@userselect == getarraysize(.@quest_ids)+1) { // Player selects 'Delete All'
+				clear;
+				mes "[Quest Deletion]";
+				mes "Are you sure you want to ^F80000DELETE ALL ^000000bounty 26-40 quests? This CANNOT be undone.";
+				if(select("Yes, ^F80000DELETE ALL:^000000Nevermind...") == 2) {
+					clear;
+					mes "[Quest Deletion]";
+					mes "Very well, have a good day.";
+					close;
+				}
+				clear;
+				F_erase_quest_array(.@quest_ids);
+				mes "[Quest Deletion]";
+				mes "It's done! All your quests from level range 26-40 were removed.";
+				mes "Have a good day.";
+				end;
+			}
+			setarray .@quest_names$[0],
+				"Poison Spore Hunting","Smokie Hunting","Elder Willow Hunting","Coco Hunting","Thara Frog Hunting",
+				"Skeleton Hunting","Soldier Skeleton Hunting","Bigfoot Hunting","Poporing Hunting",
+				"Deliver an Insecticide","Deliver Honey","Deliver Blanket",
+				"Gather Skel-Bones","Gather Pelts & Foot Skins","Gather Peelings & Garlets",
+				"Gather Tails, Acorns, & Leaves","Gather Cookies & Cake","Gather Whiskers & Claws";
+			F_confirm(.@quest_names$[.@userselect-1],.@quest_ids[.@userselect-1]);
+			end;
+		}
+		case 3: { // Board 41-55
+			for(set .@i,0; .@i < getarraysize(getvariableofnpc(.all_quest_ids,"Mission [41 - 55]")); set .@i,.@i+1) {
+				set .@quest_ids[.@i],getvariableofnpc(.all_quest_ids[.@i],"Mission [41 - 55]");
+			}
+			set .@userselect,select("Thara Frog Hunting:Cruiser Hunting:Kukre Hunting:Orc Baby Hunting:Orc Warrior Hunting:Vadon Hunting:Megalodon Hunting:Marse Hunting:Cornutus Hunting:Myst Hunting:Shellfish Hunting:Marine Sphere Hunting:Phen Hunting:Orc Skeleton Hunting:Zenorc Hunting:Mummy Hunting:Archer Skeleton Hunting:Greatest General Hunting:Sea Otter Hunting:Seal Hunting:Raggler Hunting:Grove Hunting:ALL of these quests");
+			if(.@userselect == getarraysize(.@quest_ids)+1) { // Player selects 'Delete All'
+				clear;
+				mes "[Quest Deletion]";
+				mes "Are you sure you want to ^F80000DELETE ALL ^000000bounty 41-55 quests? This CANNOT be undone.";
+				if(select("Yes, ^F80000DELETE ALL:^000000Nevermind...") == 2) {
+					clear;
+					mes "[Quest Deletion]";
+					mes "Very well, have a good day.";
+					close;
+				}
+				clear;
+				F_erase_quest_array(.@quest_ids);
+				mes "[Quest Deletion]";
+				mes "It's done! All your quests from level range 41-55 were removed.";
+				mes "Have a good day.";
+				end;
+			}
+			setarray .@quest_names$[0],
+				"Thara Frog Hunting","Cruiser Hunting","Kukre Hunting","Orc Baby Hunting",
+				"Orc Warrior Hunting","Vadon Hunting","Megalodon Hunting","Marse Hunting",
+				"Cornutus Hunting","Myst Hunting","Shellfish Hunting","Marine Sphere Hunting",
+				"Phen Hunting","Orc Skeleton Hunting","Zenorc Hunting","Mummy Hunting",
+				"Archer Skeleton Hunting","Greatest General Hunting","Sea Otter Hunting",
+				"Seal Hunting","Raggler Hunting","Grove Hunting";
+			F_confirm(.@quest_names$[.@userselect-1],.@quest_ids[.@userselect-1]);
+			end;
+		}
+		case 4: { // Board 56-70
+			for(set .@i,0; .@i < getarraysize(getvariableofnpc(.all_quest_ids,"Mission [56 - 70]")); set .@i,.@i+1) {
+				set .@quest_ids[.@i],getvariableofnpc(.all_quest_ids[.@i],"Mission [56 - 70]");
+			}
+			set .@userselect,select("Mummy Hunting:Alligator Hunting.:Merman Hunting:Savage Hunting:Sohee Hunting:Marionette Hunting:Hunter Fly Hunting:Munak Hunting:Bongun Hunting:Wild Rose Hunting:Dryad Hunting:Wootan Fighter Hunting:Parasite Hunting:Stalactic Golem Hunting:Golem Hunting:Ghoul Hunting:Jakk Hunting:Nightmare Hunting:Gather Sticky Webfoot:Gather Huge Leaf:Gather Fine Sand & Grit:Gather Maneater Blossoms:Gather Dokebi Horns & Trunks:ALL of these quests");
+			if(.@userselect == getarraysize(.@quest_ids)+1) { // Player selects 'Delete All'
+				clear;
+				mes "[Quest Deletion]";
+				mes "Are you sure you want to ^F80000DELETE ALL ^000000bounty 56-70 quests? This CANNOT be undone.";
+				if(select("Yes, ^F80000DELETE ALL:^000000Nevermind...") == 2) {
+					clear;
+					mes "[Quest Deletion]";
+					mes "Very well, have a good day.";
+					close;
+				}
+				clear;
+				F_erase_quest_array(.@quest_ids);
+				mes "[Quest Deletion]";
+				mes "It's done! All your quests from level range 56-70 were removed.";
+				mes "Have a good day.";
+				end;
+			}
+			setarray .@quest_names$[0],
+				"Mummy Hunting","Alligator Hunting.","Merman Hunting","Savage Hunting",
+				"Sohee Hunting","Marionette Hunting","Hunter Fly Hunting","Munak Hunting",
+				"Bongun Hunting","Wild Rose Hunting","Dryad Hunting","Wootan Fighter Hunting","Parasite Hunting",
+				"Stalactic Golem Hunting","Golem Hunting","Ghoul Hunting","Jakk Hunting","Nightmare Hunting",
+				"Gather Sticky Webfoot","Gather Huge Leaf","Gather Fine Sand & Grit","Gather Maneater Blossoms","Gather Dokebi Horns & Trunks";
+			F_confirm(.@quest_names$[.@userselect-1],.@quest_ids[.@userselect-1]);
+			end;
+		}
+		case 5: { // Board 71-85
+			for(set .@i,0; .@i < getarraysize(getvariableofnpc(.all_quest_ids,"Mission [71 - 85]")); set .@i,.@i+1) {
+				set .@quest_ids[.@i],getvariableofnpc(.all_quest_ids[.@i],"Mission [71 - 85]");
+			}
+			set .@userselect,select("Hunt Requiem:Hunt Marduk:Hunt Pasana:Hunt Dark Frame:Hunt Evil Druid:Hunt Wraith:Hunt Raydric Archer:Hunt Grand Peco:Hunt Sleeper:Hunt Goat:Hunt Harpy:Hunt Clock:Hunt Punk:Hunt Rideword:Hunt Kikimora:Hunt Miyabi Doll:Hunt Mi Gao:Hunt Headless Mule:Hunt Tamruan:Gather Festival Masks:Hunt Curupira:Hunt Jaguar:Hunt Toucan:Hunt Piranha:Hunt Iara:ALL of these quests");
+			if(.@userselect == getarraysize(.@quest_ids)+1) { // Player selects 'Delete All'
+				clear;
+				mes "[Quest Deletion]";
+				mes "Are you sure you want to ^F80000DELETE ALL ^000000bounty 71-85 quests? This CANNOT be undone.";
+				if(select("Yes, ^F80000DELETE ALL:^000000Nevermind...") == 2) {
+					clear;
+					mes "[Quest Deletion]";
+					mes "Very well, have a good day.";
+					close;
+				}
+				clear;
+				F_erase_quest_array(.@quest_ids);
+				mes "[Quest Deletion]";
+				mes "It's done! All your quests from level range 71-85 were removed.";
+				mes "Have a good day.";
+				end;
+			}
+			setarray .@quest_names$[0],
+				"Hunt Requiem","Hunt Marduk","Hunt Pasana",
+				"Hunt Dark Frame","Hunt Evil Druid","Hunt Wraith","Hunt Raydric Archer",
+				"Hunt Grand Peco","Hunt Sleeper","Hunt Goat","Hunt Harpy",
+				"Hunt Clock","Hunt Punk","Hunt Rideword",
+				"Hunt Kikimora","Hunt Miyabi Doll","Hunt Mi Gao","Hunt Headless Mule","Hunt Tamruan","Gather Festival Masks",
+				"Hunt Curupira","Hunt Jaguar","Hunt Toucan","Hunt Piranha","Hunt Iara";
+			F_confirm(.@quest_names$[.@userselect-1],.@quest_ids[.@userselect-1]);
+			end;
+		}
+		case 6: { // Board 86-90
+			for(set .@i,0; .@i < getarraysize(getvariableofnpc(.all_quest_ids,"86-90 Mission Board")); set .@i,.@i+1) {
+				set .@quest_ids[.@i],getvariableofnpc(.all_quest_ids[.@i],"86-90 Mission Board");
+			}
+			set .@userselect,select("Dragon Tail:Spring Rabbit:Pest:Bathory:Alarm:Baba Yaga:Yao Jun:Firelock Soldier:Zipper Bear:Ground Petite:Flying Petite:Rafflesia:Venomous:Metaling:Pitman:Yellow Novus:Red Novus:Stem Worm:Breeze:ALL of these quests");
+			if(.@userselect == getarraysize(.@quest_ids)+1) { // Player selects 'Delete All'
+				clear;
+				mes "[Quest Deletion]";
+				mes "Are you sure you want to ^F80000DELETE ALL ^000000bounty 86-90 quests? This CANNOT be undone.";
+				if(select("Yes, ^F80000DELETE ALL:^000000Nevermind...") == 2) {
+					clear;
+					mes "[Quest Deletion]";
+					mes "Very well, have a good day.";
+					close;
+				}
+				clear;
+				F_erase_quest_array(.@quest_ids);
+				mes "[Quest Deletion]";
+				mes "It's done! All your quests from level range 86-90 were removed.";
+				mes "Have a good day.";
+				end;
+			}
+			setarray .@quest_names$[0],
+				"Dragon Tail","Spring Rabbit","Pest",
+				"Bathory","Alarm",
+				"Baba Yaga","Yao Jun","Firelock Soldier","Zipper Bear",
+				"Ground Petite","Flying Petite","Rafflesia","Venomous","Metaling","Pitman",
+				"Yellow Novus","Red Novus","Stem Worm","Breeze";
+			F_confirm(.@quest_names$[.@userselect-1],.@quest_ids[.@userselect-1]);
+			end;
+		}
+		case 7: { // Board 91-99
+			for(set .@i,0; .@i < getarraysize(getvariableofnpc(.all_quest_ids,"91-99 Mission Board")); set .@i,.@i+1) {
+				set .@quest_ids[.@i],getvariableofnpc(.all_quest_ids[.@i],"91-99 Mission Board");
+			}
+			set .@userselect,select("Solider:Freezer:Heater:Injustice:Rybio:Dark Priest:Stapo:Roween:Siroma:Shinobi:Evil Nymph:Deviruchi:Mineral:Kaho:Neraid:Disguise:ALL of these quests");
+			if(.@userselect == getarraysize(.@quest_ids)+1) { // Player selects 'Delete All'
+				clear;
+				mes "[Quest Deletion]";
+				mes "Are you sure you want to ^F80000DELETE ALL ^000000bounty 91-99 quests? This CANNOT be undone.";
+				if(select("Yes, ^F80000DELETE ALL:^000000Nevermind...") == 2) {
+					clear;
+					mes "[Quest Deletion]";
+					mes "Very well, have a good day.";
+					close;
+				}
+				clear;
+				F_erase_quest_array(.@quest_ids);
+				mes "[Quest Deletion]";
+				mes "It's done! All your quests from level range 91-99 were removed.";
+				mes "Have a good day.";
+				end;
+			}
+			setarray .@quest_names$[0],
+				"Solider","Freezer","Heater",
+				"Injustice","Rybio","Dark Priest",
+				"Stapo","Roween","Siroma",
+				"Shinobi","Evil Nymph",
+				"Deviruchi","Mineral","Kaho","Neraid","Disguise";
+			F_confirm(.@quest_names$[.@userselect-1],.@quest_ids[.@userselect-1]);
+			end;
+		}
+		case 8: { // Board 100-110
+			for(set .@i,0; .@i < getarraysize(getvariableofnpc(.all_quest_ids,"100-110 Mission Board")); set .@i,.@i+1) {
+				set .@quest_ids[.@i],getvariableofnpc(.all_quest_ids[.@i],"100-110 Mission Board");
+			}
+			set .@userselect,select("Carat Hunting:Arclouse Hunting:Anolian Hunting:Sting Hunting:Majoruros Hunting:Pinguicula Hunting:Luciola Vespa Hunting:Desert Wolf Hunting:Snowier Hunting:Ice Titan Hunting:Nightmare Terror Hunting:Ground Deleter Hunting:Flying Deleter Hunting:Loli Ruri Hunting:Medusa Hunting:Anubis Hunting:Axe Kobold Hunting:Hammer Kobold Hunting:Mace Kobold Hunting:Kobold Archer Hunting:ALL of these quests");
+			if(.@userselect == getarraysize(.@quest_ids)+1) { // Player selects 'Delete All'
+				clear;
+				mes "[Quest Deletion]";
+				mes "Are you sure you want to ^F80000DELETE ALL ^000000bounty 100-110 quests? This CANNOT be undone.";
+				if(select("Yes, ^F80000DELETE ALL:^000000Nevermind...") == 2) {
+					clear;
+					mes "[Quest Deletion]";
+					mes "Very well, have a good day.";
+					close;
+				}
+				clear;
+				F_erase_quest_array(.@quest_ids);
+				mes "[Quest Deletion]";
+				mes "It's done! All your quests from level range 100-110 were removed.";
+				mes "Have a good day.";
+				end;
+			}
+			setarray .@quest_names$[0],
+				"Carat Hunting","Arclouse Hunting","Anolian Hunting","Sting Hunting","Majoruros Hunting",
+				"Pinguicula Hunting","Luciola Vespa Hunting",
+				"Desert Wolf Hunting","Snowier Hunting","Ice Titan Hunting",
+				"Nightmare Terror Hunting","Ground Deleter Hunting","Flying Deleter Hunting",
+				"Loli Ruri Hunting","Medusa Hunting","Anubis Hunting",
+				"Axe Kobold Hunting","Hammer Kobold Hunting","Mace Kobold Hunting","Kobold Archer Hunting";
+			F_confirm(.@quest_names$[.@userselect-1],.@quest_ids[.@userselect-1]);
+			end;
+		}
+		case 9: { // Board 111-120
+			for(set .@i,0; .@i < getarraysize(getvariableofnpc(.all_quest_ids,"111-120 Mission Board")); set .@i,.@i+1) {
+				set .@quest_ids[.@i],getvariableofnpc(.all_quest_ids[.@i],"111-120 Mission Board");
+			}
+			set .@userselect,select("Raydric Hunting:Khalitzburg Hunting:Wanderer Hunting:Ancient Mimic Hunting:Deathword Hunting:Owl Baron Hunting:Dark Pinguicula Hunting:Nepenthes Hunting:Naga Hunting", "Centipede Larva Hunting", "Cornus Hunting:Ancient Mummy Hunting:Geffenia Hunting:Venatu Hunting:Gather Bloody Pages:Gather Mystic Horns:Gather Fragments & Screws:ALL of these quests");
+			if(.@userselect == getarraysize(.@quest_ids)+1) { // Player selects 'Delete All'
+				clear;
+				mes "[Quest Deletion]";
+				mes "Are you sure you want to ^F80000DELETE ALL ^000000bounty 111-120 quests? This CANNOT be undone.";
+				if(select("Yes, ^F80000DELETE ALL:^000000Nevermind...") == 2) {
+					clear;
+					mes "[Quest Deletion]";
+					mes "Very well, have a good day.";
+					close;
+				}
+				clear;
+				F_erase_quest_array(.@quest_ids);
+				mes "[Quest Deletion]";
+				mes "It's done! All your quests from level range 111-120 were removed.";
+				mes "Have a good day.";
+				end;
+			}
+			setarray .@quest_names$[0],
+				"Raydric Hunting","Khalitzburg Hunting","Wanderer Hunting",
+				"Ancient Mimic Hunting","Deathword Hunting","Owl Baron Hunting",
+				"Dark Pinguicula Hunting","Nepenthes Hunting","Naga Hunting", "Centipede Larva Hunting", "Cornus Hunting",
+				"Ancient Mummy Hunting","Geffenia Hunting","Venatu Hunting",
+				"Gather Bloody Pages","Gather Mystic Horns","Gather Fragments & Screws";
+			F_confirm(.@quest_names$[.@userselect-1],.@quest_ids[.@userselect-1]);
+			end;
+		}
+		case 10: { // Board 121-130
+			for(set .@i,0; .@i < getarraysize(getvariableofnpc(.all_quest_ids,"121-130 Mission Board")); set .@i,.@i+1) {
+				set .@quest_ids[.@i],getvariableofnpc(.all_quest_ids[.@i],"121-130 Mission Board");
+			}
+			set .@userselect,select("Baroness of Retribution Hunting:Lady Solace Hunting:Mistress of Shelter Hunting:Dame of Sentinel Hunting:Vanberk & Isilla Hunting:Hodremlin Hunting:Agav & Echio Hunting:Ragged Zombie Hunting:Zombie Slaughter Hunting:Banshee Hunting:Ferus Hunting:Acidus Hunting:Centipede Hunting:Tatacho Hunting:ALL of these quests");
+			if(.@userselect == getarraysize(.@quest_ids)+1) { // Player selects 'Delete All'
+				clear;
+				mes "[Quest Deletion]";
+				mes "Are you sure you want to ^F80000DELETE ALL ^000000bounty 121-130 quests? This CANNOT be undone.";
+				if(select("Yes, ^F80000DELETE ALL:^000000Nevermind...") == 2) {
+					clear;
+					mes "[Quest Deletion]";
+					mes "Very well, have a good day.";
+					close;
+				}
+				clear;
+				F_erase_quest_array(.@quest_ids);
+				mes "[Quest Deletion]";
+				mes "It's done! All your quests from level range 121-130 were removed.";
+				mes "Have a good day.";
+				end;
+			}
+			setarray .@quest_names$[0],
+				"Baroness of Retribution Hunting","Lady Solace Hunting","Mistress of Shelter Hunting","Dame of Sentinel Hunting",
+				"Vanberk & Isilla Hunting","Hodremlin Hunting","Agav & Echio Hunting",
+				"Ragged Zombie Hunting","Zombie Slaughter Hunting","Banshee Hunting",
+				"Ferus Hunting","Acidus Hunting",
+				"Centipede Hunting","Tatacho Hunting";
+			F_confirm(.@quest_names$[.@userselect-1],.@quest_ids[.@userselect-1]);
+			end;
+		}
+		case 11: { // Board 131-140
+			for(set .@i,0; .@i < getarraysize(getvariableofnpc(.all_quest_ids,"131-140 Mission Board")); set .@i,.@i+1) {
+				set .@quest_ids[.@i],getvariableofnpc(.all_quest_ids[.@i],"131-140 Mission Board");
+			}
+			set .@userselect,select("Egnigem Cenia Hunting:Armeyer Dinze Hunting:Wickebine Tres Hunting:Kavach Icarus Hunting:Errende Ebecee Hunting:Laurell Weinder Hunting:Incarnation of Morocc (Angel):Incarnation of Morocc (Demon):Incarnation of Morocc (Ghost):Uni-Horn Scaraba Hunting:Horn Scaraba Hunting:Antler Scaraba Hunting:Rake Horn Scaraba Hunting:Dolomedes Hunting:Bradium Golem Hunting:Remover Hunting:Skogul Hunting:Frus Hunting:ALL of these quests");
+			if(.@userselect == getarraysize(.@quest_ids)+1) { // Player selects 'Delete All'
+				clear;
+				mes "[Quest Deletion]";
+				mes "Are you sure you want to ^F80000DELETE ALL ^000000bounty 131-140 quests? This CANNOT be undone.";
+				if(select("Yes, ^F80000DELETE ALL:^000000Nevermind...") == 2) {
+					clear;
+					mes "[Quest Deletion]";
+					mes "Very well, have a good day.";
+					close;
+				}
+				clear;
+				F_erase_quest_array(.@quest_ids);
+				mes "[Quest Deletion]";
+				mes "It's done! All your quests from level range 131-140 were removed.";
+				mes "Have a good day.";
+				end;
+			}
+			setarray .@quest_names$[0],
+				"Egnigem Cenia Hunting","Armeyer Dinze Hunting","Wickebine Tres Hunting","Kavach Icarus Hunting","Errende Ebecee Hunting","Laurell Weinder Hunting",
+				"Incarnation of Morocc (Angel)","Incarnation of Morocc (Demon)","Incarnation of Morocc (Ghost)",
+				"Uni-Horn Scaraba Hunting","Horn Scaraba Hunting","Antler Scaraba Hunting","Rake Horn Scaraba Hunting",
+				"Dolomedes Hunting","Bradium Golem Hunting","Remover Hunting",
+				"Skogul Hunting","Frus Hunting";
+			F_confirm(.@quest_names$[.@userselect-1],.@quest_ids[.@userselect-1]);
+			end;
+		}
+		case 12: { // Board 141-150
+			for(set .@i,0; .@i < getarraysize(getvariableofnpc(.all_quest_ids,"141-150 Mission Board")); set .@i,.@i+1) {
+				set .@quest_ids[.@i],getvariableofnpc(.all_quest_ids[.@i],"141-150 Mission Board");
+			}
+			set .@userselect,select("Kathryne Keyron Hunting:Margaretha Sorin Hunting:Cecil Damon Hunting:Eremes Guile Hunting:Seyren Windsor Hunting:Howard Alt-Eisen Hunting:Trentini Hunting:Celia Alde Hunting:Alphoccio Hunting:Gertie Wie Hunting:Chen Lio Hunting:Flamel Emure Hunting:Randel Lawrence Hunting:Cenere Hunting:Antique Book Hunting:Yellow Lichtern Hunting:Blue Lichtern Hunting:Red Lichtern Hunting:Green Lichtern Hunting:Menblatt Hunting:Petal Hunting:Miming Hunting:Little Fatum Hunting:Angra Mantis Hunting:Nightmare Mimic Hunting:Nightmare Rideword Hunting:ALL of these quests");
+			if(.@userselect == getarraysize(.@quest_ids)+1) { // Player selects 'Delete All'
+				clear;
+				mes "[Quest Deletion]";
+				mes "Are you sure you want to ^F80000DELETE ALL ^000000bounty 141-150 quests? This CANNOT be undone.";
+				if(select("Yes, ^F80000DELETE ALL:^000000Nevermind...") == 2) {
+					clear;
+					mes "[Quest Deletion]";
+					mes "Very well, have a good day.";
+					close;
+				}
+				clear;
+				F_erase_quest_array(.@quest_ids);
+				mes "[Quest Deletion]";
+				mes "It's done! All your quests from level range 141-150 were removed.";
+				mes "Have a good day.";
+				end;
+			}
+			setarray .@quest_names$[0],
+				"Kathryne Keyron Hunting","Margaretha Sorin Hunting","Cecil Damon Hunting","Eremes Guile Hunting",
+				"Seyren Windsor Hunting","Howard Alt-Eisen Hunting","Trentini Hunting","Celia Alde Hunting",
+				"Alphoccio Hunting","Gertie Wie Hunting","Chen Lio Hunting","Flamel Emure Hunting","Randel Lawrence Hunting",
+				"Cenere Hunting","Antique Book Hunting","Yellow Lichtern Hunting","Blue Lichtern Hunting","Red Lichtern Hunting","Green Lichtern Hunting",
+				"Menblatt Hunting","Petal Hunting",
+				"Miming Hunting","Little Fatum Hunting","Angra Mantis Hunting",
+				"Nightmare Mimic Hunting","Nightmare Rideword Hunting";
+			F_confirm(.@quest_names$[.@userselect-1],.@quest_ids[.@userselect-1]);
+			end;
+		}
+		case 13: { // Board 151-160
+			for(set .@i,0; .@i < getarraysize(getvariableofnpc(.all_quest_ids,"151-160 Mission Board")); set .@i,.@i+1) {
+				set .@quest_ids[.@i],getvariableofnpc(.all_quest_ids[.@i],"151-160 Mission Board");
+			}
+			set .@userselect,select("Ominous Permeter Hunting:Ominous Solider Hunting:Ominous Freezer Hunting:Ominous Heater Hunting:RGY Teddy Bear Hunting:Soul Fragment Hunting:Hardworking Pitman Hunting:Sinister Dwelling Obsidian Hunting:Big Bell Hunting:Big Ben Hunting:Neo Punk Hunting:ALL of these quests");
+			if(.@userselect == getarraysize(.@quest_ids)+1) { // Player selects 'Delete All'
+				clear;
+				mes "[Quest Deletion]";
+				mes "Are you sure you want to ^F80000DELETE ALL ^000000bounty 151-160 quests? This CANNOT be undone.";
+				if(select("Yes, ^F80000DELETE ALL:^000000Nevermind...") == 2) {
+					clear;
+					mes "[Quest Deletion]";
+					mes "Very well, have a good day.";
+					close;
+				}
+				clear;
+				F_erase_quest_array(.@quest_ids);
+				mes "[Quest Deletion]";
+				mes "It's done! All your quests from level range 151-160 were removed.";
+				mes "Have a good day.";
+				end;
+			}
+			setarray .@quest_names$[0],
+				"Ominous Permeter Hunting","Ominous Solider Hunting","Ominous Freezer Hunting","Ominous Heater Hunting",
+				"RGY Teddy Bear Hunting","Soul Fragment Hunting","Hardworking Pitman Hunting","Sinister Dwelling Obsidian Hunting",
+				"Big Bell Hunting","Big Ben Hunting","Neo Punk Hunting";
+			F_confirm(.@quest_names$[.@userselect-1],.@quest_ids[.@userselect-1]);
+			end;
+		}
+		case 14: { // Board 161-170
+			for(set .@i,0; .@i < getarraysize(getvariableofnpc(.all_quest_ids,"161-170 Mission Board")); set .@i,.@i+1) {
+				set .@quest_ids[.@i],getvariableofnpc(.all_quest_ids[.@i],"161-170 Mission Board");
+			}
+			set .@userselect,select("Ancient Tri Joint Hunting:Ancient Stalactic Golem Hunting:Ancient Megalith Hunting:Ancient Wootan Fighter Hunting:Diligent Ant Hunting:Intrepid Familiar Hunting:Intrepid Giearth Hunting:Diligent Soldier Andre Hunting:ALL of these quests");
+			if(.@userselect == getarraysize(.@quest_ids)+1) { // Player selects 'Delete All'
+				clear;
+				mes "[Quest Deletion]";
+				mes "Are you sure you want to ^F80000DELETE ALL ^000000bounty 161-170 quests? This CANNOT be undone.";
+				if(select("Yes, ^F80000DELETE ALL:^000000Nevermind...") == 2) {
+					clear;
+					mes "[Quest Deletion]";
+					mes "Very well, have a good day.";
+					close;
+				}
+				clear;
+				F_erase_quest_array(.@quest_ids);
+				mes "[Quest Deletion]";
+				mes "It's done! All your quests from level range 161-170 were removed.";
+				mes "Have a good day.";
+				end;
+			}
+			setarray .@quest_names$[0],
+				"Ancient Tri Joint Hunting","Ancient Stalactic Golem Hunting","Ancient Megalith Hunting","Ancient Wootan Fighter Hunting",
+				"Diligent Ant Hunting","Intrepid Familiar Hunting","Intrepid Giearth Hunting","Diligent Soldier Andre Hunting";
+			F_confirm(.@quest_names$[.@userselect-1],.@quest_ids[.@userselect-1]);
+			end;
+		}
+		case 15: { // Board 171+
+			for(set .@i,0; .@i < getarraysize(getvariableofnpc(.all_quest_ids,"171+ Mission Board")); set .@i,.@i+1) {
+				set .@quest_ids[.@i],getvariableofnpc(.all_quest_ids[.@i],"171+ Mission Board");
+				//mes ".@quest_ids["+.@i+": " + .@quest_ids[.@i];
+			}
+			set .@userselect,select("GX Eremes Guille Hunting:AB Margaretha Sorin Hunting:Warlock Kathryne Keyron Hunting:Ranger Cecil Damon Hunting:Mechanic Howard Alt-Eisen Hunting:RK Seyren Windsor Hunting:RG Randel Lawrence Hunting:Genetic Flamel Emure Hunting:Sorceress Celia Alde Hunting:Sura Chen Lio Hunting:SC Gertie Wie Hunting:Maestro Alphoccio Basil Hunting:Wanderer Trentini Hunting:ALL of these quests");
+			//mes ".@userselect: " + .@userselect;
+			//mes "getarraysize(.@quest_ids): " + getarraysize(.@quest_ids);
+			//next;
+			if(.@userselect == getarraysize(.@quest_ids)+1) { // Player selects 'Delete All'
+				clear;
+				mes "[Quest Deletion]";
+				mes "Are you sure you want to ^F80000DELETE ALL ^000000bounty 171+ quests? This CANNOT be undone.";
+				if(select("Yes, ^F80000DELETE ALL:^000000Nevermind...") == 2) {
+					clear;
+					mes "[Quest Deletion]";
+					mes "Very well, have a good day.";
+					close;
+				}
+				clear;
+				F_erase_quest_array(.@quest_ids);
+				mes "[Quest Deletion]";
+				mes "It's done! All your quests from level range 171+ were removed.";
+				mes "Have a good day.";
+				end;
+			}
+			setarray .@quest_names$[0],
+				"GX Eremes Guille Hunting","AB Margaretha Sorin Hunting","Warlock Kathryne Keyron Hunting","Ranger Cecil Damon Hunting",
+				"Mechanic Howard Alt-Eisen Hunting","RK Seyren Windsor Hunting","RG Randel Lawrence Hunting","Genetic Flamel Emure Hunting",
+				"Sorceress Celia Alde Hunting","Sura Chen Lio Hunting","SC Gertie Wie Hunting","Maestro Alphoccio Basil Hunting",
+				"Wanderer Trentini Hunting";
+			F_confirm(.@quest_names$[.@userselect-1],.@quest_ids[.@userselect-1]);
+			end;
+		}
+		case 16: { // Delete All Boards' Quests
+			clear;
+			mes "[Quest Deletion]";
+			mes "Are you sure you want to ^F80000DELETE ALL ^000000bounty board quests? This CANNOT be undone.";
+			if(select("Yes, ^F80000DELETE ALL:^000000Nevermind...") == 2) {
+				clear;
+				mes "[Quest Deletion]";
+				mes "Very well, have a good day.";
+				close;
+			}
+			//DELETE ALL QUESTS HERE
+			F_compile_board_quests("Mission [11 - 25]");
+			F_compile_board_quests("Mission [26 - 40]");
+			F_compile_board_quests("Mission [41 - 55]");
+			F_compile_board_quests("Mission [56 - 70]");
+			F_compile_board_quests("Mission [71 - 85]");
+			F_compile_board_quests("86-90 Mission Board");
+			F_compile_board_quests("91-99 Mission Board");
+			F_compile_board_quests("100-110 Mission Board");
+			F_compile_board_quests("111-120 Mission Board");
+			F_compile_board_quests("121-130 Mission Board");
+			F_compile_board_quests("131-140 Mission Board");
+			F_compile_board_quests("141-150 Mission Board");
+			F_compile_board_quests("151-160 Mission Board");
+			F_compile_board_quests("161-170 Mission Board");
+			F_compile_board_quests("171+ Mission Board");
+			F_erase_quest_array(.every_board_quest_id);
+			clear;
+			mes "[Quest Deletion]";
+			mes "It's done! All your bounty board quest records have been removed.";
+			mes "Have a good day.";
+			close;
+		}
+		case 17: {
+			clear;
+			mes "[Quest Deletion]";
+			mes "Very well, have a good day.";
+			close;
+		}
+	}
+	function F_confirm {
+		clear;
+		mes "[Quest Deletion]";
+		mes "Delete " + getarg(0,"this quest") + "? This CANNOT be undone.";
+		if(select("Yes:Nevermind") == 2) {
+			clear;
+			mes "[Quest Deletion]";
+			mes "Very well, have a good day.";
+			close;
+		}
+		if(isbegin_quest(getarg(1))) {
+			erasequest getarg(1);
+			clear;
+			mes "[Quest Deletion]";
+			mes "It's done. Have a good day.";
+			close;
+		}
+		clear;
+		mes "Odd, it doesn't show in the record that you're signed up for that particular quest.";
+		mes "Sorry, I can't do anything about it!";
+		close;
+	}
+
+	function F_erase_quest_range {
+		set .@lower_range, getarg(0);
+		set .@upper_range, getarg(1);
+		//mes ".@lower_range: "+ .@lower_range;
+		//mes ".@upper_range: "+ .@upper_range;
+		//next;
+		for(set .@i,.@lower_range; .@i <= .@upper_range; set .@i,.@i+1) {
+			//mes "checking quest" + .@i;
+			//next;
+			if(isbegin_quest(.@i)) {
+				clear;
+				//mes "erasing quest #" + .@i;
+				erasequest .@i;
+				//next;
+				continue;
+			}
+		}
+		return;
+	}
+	
+	function F_erase_quest_array { // pass in an array of quest IDs to have them all removed from ongoing quests
+		for(set .@i,0; .@i < getarraysize(getarg(0)); set .@i,.@i+1) {
+			if(isbegin_quest(getelementofarray(getarg(0),.@i))) {
+				erasequest getelementofarray(getarg(0),.@i);
+				continue;
+			}
+		}
+		return;
+	}
+	
+	function F_compile_board_quests { // Input the str name of the board to add its quests to .every_board_quest_id array
+		for(set .@i,0; .@i < getarraysize(getvariableofnpc(.all_quest_ids,getarg(0))); set .@i,.@i+1) {
+			set .every_board_quest_id[.every_board_quest_id_index],getvariableofnpc(.all_quest_ids[.@i],getarg(0));
+			set .every_board_quest_id_index,.every_board_quest_id_index+1;
+		}
+	}
+}

@@ -1,0 +1,93 @@
+// client.conf
+min_hair_style: 0
+max_hair_style: 107
+min_hair_color: 0
+max_hair_color: 131
+min_cloth_color: 0 
+max_cloth_color: 699
+min_body_style: 0
+max_body_style: 1
+
+area_size: 19
+max_walk_path: 19
+
+// drops.conf
+item_rate_common: 2000
+item_rate_common_boss: 2000
+item_rate_common_mvp: 2000
+item_drop_common_min: 20
+item_drop_common_max: 200000
+
+item_rate_heal: 2000
+item_rate_heal_boss: 2000
+item_rate_heal_mvp: 2000
+item_drop_heal_min: 20
+item_drop_heal_max: 200000
+
+item_rate_use: 2000
+item_rate_use_boss: 2000
+item_rate_use_mvp: 2000
+item_drop_use_min: 20
+item_drop_use_max: 200000
+
+item_rate_equip: 2000
+item_rate_equip_boss: 2000
+item_rate_equip_mvp: 2000
+item_drop_equip_min: 20
+item_drop_equip_max: 200000
+
+item_rate_card: 2000
+item_rate_card_boss: 2000
+item_rate_card_mvp: 2000
+item_drop_card_min: 20
+item_drop_card_max: 200000
+
+item_rate_mvp: 2000
+item_drop_mvp_min: 20
+item_drop_mvp_max: 200000
+item_drop_mvp_mode: 0
+
+item_rate_adddrop: 2000
+item_drop_add_min: 20
+item_drop_add_max: 200000
+
+item_group_rate: 2000
+item_group_drop_min: 20
+item_group_drop_max: 200000
+
+item_rate_treasure: 2000
+item_drop_treasure_min: 20
+item_drop_treasure_max: 200000
+
+// exp.conf
+base_exp_rate: 2500
+job_exp_rate: 2500
+multi_level_up: yes
+quest_exp_rate: 2500
+
+// homonc.conf
+homunculus_friendly_rate: 400
+hom_rename: yes
+homunculus_autoloot: yes
+hom_idle_no_share: 240
+homunculus_exp_gain: 250
+
+// items.conf
+vending_max_value: 10000000000
+
+// monster.conf
+monster_ai: 0x0081
+monster_chase_refresh: 1
+
+// pet.conf
+pet_catch_rate: 1000
+pet_rename: yes
+pet_friendly_rate: 2000
+pet_hungry_delay_rate: 500
+
+// player.conf
+// skill.conf
+skip_teleport_lv1_menu: yes
+
+// party.conf
+party_even_share_bonus: 80

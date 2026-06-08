@@ -98,7 +98,7 @@ aldeg_cas05,150,202,2	duplicate(InsideFlagsA5)	Rothenburg#18	722
 
 // Guild Flag (Town)
 //============================================================
-aldebaran,128,97,4	duplicate(InsideFlagsA5)	Rothenburg#19	722
+//aldebaran,128,97,4	duplicate(InsideFlagsA5)	Rothenburg#19	722
 
 // Kafra Employee
 //============================================================

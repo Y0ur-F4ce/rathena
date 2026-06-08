@@ -1,0 +1,465 @@
+// RoinRO Episode Skipper v1.0
+// Would've been based off of the following NPC, but rAthena hasn't seemed to implement it yet:
+// https://irowiki.org/wiki/Episode#Skip_/_Clear_Tickets
+// Last modified 5/28/2025
+// Modifed quests/variables are found at the end of this file
+// Also includes an NPC to sell single-use tickets
+
+//Main NPC
+m_office,34,13,6	script	Skipper#Office	561,{
+	function no_ticket; function need_prev_ep; function already_complete;
+	mes "[Skipper]";
+	mes "Arg! I be the Episode Skipper. If ye want to skip any episode quests, bring me a valid ticket!";
+	next;
+	mes "[Skipper]";
+	mes "But a word of caution matey, ye WILL NOT receive any EXP or items related to completing episode quests.";
+	mes "Do ye wish to continue?";
+	next;
+	set .@ep_select, select("Skip Episode 16.1 - The Royal Banquet","Skip Episode 16.2 - Terra Gloria","Skip Episode 17.1 - Illusion","Skip Episode 17.2 - Legacy of the Wise One","Cancel");
+	clear;
+	mes "[Skipper]";
+	if(.@ep_select == 5) { // "Cancel"
+		mes "Aye, sometimes it be better to experience misery than to skip it all.";
+		close3;
+	}
+	if(.@ep_select == 1) { // Skip 16.1
+		if(done_with_ep_16_1 != 1) { // Check if the player already has it done
+			setarray .@ep_16_1_quests[0],
+				5402, 7682, 7683, 7684, 7686, 11400, 14469, 14475, 14495;
+			setarray .@ep_16_1_quests_started[0],
+				7699, 11401, 14470, 14476, 14496;
+			if(countitem(250005) > 0) { // Check if user has MULTI-use 16.1 pass in inventory
+				mes "I see that ye have a multi-use ticket for this episode! I'll go ahead and assume to use that then?";
+				if(select("Aye!","No thanks") == 2) {
+					clear;
+					mes "[Skipper]";
+					mes "Arrrg, make up yer mind...";
+					close3;
+				}
+				clear;
+				mes "[Skipper]";
+				mes "Come back if ye want to skip more episode quests!";
+				specialeffect2 227;
+				specialeffect2 6;
+				// Skip quests
+				for(set .@i,0 ; .@i < getarraysize(.@ep_16_1_quests) ; set .@i,.@i+1) {
+					if(checkquest(.@ep_16_1_quests[.@i]) < 0) {
+						setquest .@ep_16_1_quests[.@i];
+					}
+					completequest .@ep_16_1_quests[.@i];
+				}
+				// Start quests
+				for(set .@i,0 ; .@i < getarraysize(.@ep_16_1_quests_started) ; set .@i,.@i+1) {
+					if(checkquest(.@ep_16_1_quests_started[.@i]) < 0) {
+						setquest .@ep_16_1_quests_started[.@i];
+					}
+					//completequest .@ep_16_1_quests_started[.@i];
+				}
+				// Set char-specific variables
+				ep13_start = 100;
+				ep16_gaobs = 2;
+				ep16_lug = 2;
+				ep16_royal = 17;
+				ep16_wal = 2;
+				ep16_wig = 2;
+				done_with_ep_16_1 = 1;
+				close3;
+			}
+			if(countitem(250001) > 0) { // Check if user has SINGLE-use 16.1 pass
+				mes "I see that ye have a single-use ticket for this episode, so I'll go ahead and use that then, aye?";
+				if(select("Aye aye, Captain!","Please don't") == 2) {
+					clear;
+					mes "[Skipper]";
+					mes "Arrrg, make up yer mind...";
+					close3;
+				}
+				clear;
+				mes "[Skipper]";
+				mes "Come back if ye want to skip more episode quests!";
+				specialeffect2 227;
+				specialeffect2 6;
+				// Skip quests
+				for(set .@i,0 ; .@i < getarraysize(.@ep_16_1_quests) ; set .@i,.@i+1) {
+					if(checkquest(.@ep_16_1_quests[.@i]) < 0) {
+						setquest .@ep_16_1_quests[.@i];
+					}
+					completequest .@ep_16_1_quests[.@i];
+				}
+				// Start quests
+				for(set .@i,0 ; .@i < getarraysize(.@ep_16_1_quests_started) ; set .@i,.@i+1) {
+					if(checkquest(.@ep_16_1_quests_started[.@i]) < 0) {
+						setquest .@ep_16_1_quests_started[.@i];
+					}
+					//completequest .@ep_16_1_quests_started[.@i];
+				}
+				// Set char-specific variables
+				ep13_start = 100;
+				ep16_gaobs = 2;
+				ep16_lug = 2;
+				ep16_royal = 17;
+				ep16_wal = 2;
+				ep16_wig = 2;
+				done_with_ep_16_1 = 1;
+				// Deleting single-use voucher
+				delitem 250001,1;
+				close3;
+			}
+			no_ticket();
+		} else {already_complete();}
+	}
+	if(.@ep_select == 2) { // Skip 16.2
+		if(done_with_ep_16_2 != 1) { // Check if the player already has it done
+			if(done_with_ep_16_1 == 1) { // Check if the player needs previous episodes done
+				setarray .@ep_16_2_quests[0],
+					7741, 11462, 12374, 14600, 14601, 14602, 14613, 14615, 16010;
+				if(countitem(250006) > 0) { // Check if user has MULTI-use 16.2 pass in inventory
+					mes "I see that ye have a multi-use ticket for this episode! I'll go ahead and assume to use that then?";
+					if(select("Aye!","No thanks") == 2) {
+						clear;
+						mes "[Skipper]";
+						mes "Arrrg, make up yer mind...";
+						close3;
+					}
+					clear;
+					mes "[Skipper]";
+					mes "Come back if ye want to skip more episode quests!";
+					specialeffect2 227;
+					specialeffect2 6;
+					// Skip quests
+					for(set .@i,0 ; .@i < getarraysize(.@ep_16_2_quests) ; set .@i,.@i+1) {
+						if(checkquest(.@ep_16_2_quests[.@i]) < 0) {
+							setquest .@ep_16_2_quests[.@i];
+						}
+						completequest .@ep_16_2_quests[.@i];
+					}
+					// Set char-specific variables
+					terra_gloria_lady_part = 10;
+					terra_gloria_main = 25;
+					done_with_ep_16_2 = 1;
+					// Leather bag Item (used for a side quest)
+					getitem 23087,1;
+					close3;
+				}
+				if(countitem(250002) > 0) { // Check if user has SINGLE-use 16.2 pass
+					mes "I see that ye have a single-use ticket for this episode, so I'll go ahead and use that then, aye?";
+					if(select("Aye aye, Captain!","Please don't") == 2) {
+						clear;
+						mes "[Skipper]";
+						mes "Arrrg, make up yer mind...";
+						close3;
+					}
+					clear;
+					mes "[Skipper]";
+					mes "Come back if ye want to skip more episode quests!";
+					specialeffect2 227;
+					specialeffect2 6;
+					// Skip quests
+					for(set .@i,0 ; .@i < getarraysize(.@ep_16_2_quests) ; set .@i,.@i+1) {
+						if(checkquest(.@ep_16_2_quests[.@i]) < 0) {
+							setquest .@ep_16_2_quests[.@i];
+						}
+						completequest .@ep_16_2_quests[.@i];
+					}
+					// Set char-specific variables
+					terra_gloria_lady_part = 10;
+					terra_gloria_main = 25;
+					done_with_ep_16_2 = 1;
+					// Leather bag Item (used for a side quest)
+					getitem 23087,1;
+					// Deleting single-use voucher
+					delitem 250002,1;
+					close3;
+				}
+				no_ticket();
+			} else {need_prev_ep();}
+		} else {already_complete();}
+	}
+	if(.@ep_select == 3) { // Skip 17.1
+		if(done_with_ep_17_1 != 1) { // Check if the player already has it done
+			if(done_with_ep_16_1 == 1 && done_with_ep_16_2 == 1) { // Check if the player needs previous episodes done
+				setarray .@ep_17_1_quests[0],
+					7850, 7853, 7857, 7858, 7859, 7860, 7861, 7862, 7863, 7864, 7865,
+					11596, 11597, 11598, 11599, 11600, 11601, 11602, 11603, 16352, 16353, 16354, 16355, 16356, 16357, 16358, 16359, 16360,
+					17000, 17001, 17002, 17003, 17004, 17005, 17006, 17007, 17008, 17009, 17010, 17011, 17012, 17013, 17014, 17015, 17016, 17017, 17018, 17019;
+				if(countitem(250007) > 0) { // Check if user has MULTI-use 17.1 pass in inventory
+					mes "I see that ye have a multi-use ticket for this episode! I'll go ahead and assume to use that then?";
+					if(select("Aye!","No thanks") == 2) {
+						clear;
+						mes "[Skipper]";
+						mes "Arrrg, make up yer mind...";
+						close3;
+					}
+					clear;
+					mes "[Skipper]";
+					mes "Come back if ye want to skip more episode quests!";
+					specialeffect2 227;
+					specialeffect2 6;
+					// Skip quests
+					for(set .@i,0 ; .@i < getarraysize(.@ep_17_1_quests) ; set .@i,.@i+1) {
+						if(checkquest(.@ep_17_1_quests[.@i]) < 0) {
+							setquest .@ep_17_1_quests[.@i];
+						}
+						completequest .@ep_17_1_quests[.@i];
+					}
+					// Set char-specific variables
+					terra_gloria_lady_part = 12;
+					terra_gloria_main = 26;
+					done_with_ep_17_1 = 1;
+					close3;
+				}
+				if(countitem(250003) > 0) { // Check if user has SINGLE-use 17.1 pass
+					mes "I see that ye have a single-use ticket for this episode, so I'll go ahead and use that then, aye?";
+					if(select("Aye aye, Captain!","Please don't") == 2) {
+						clear;
+						mes "[Skipper]";
+						mes "Arrrg, make up yer mind...";
+						close3;
+					}
+					clear;
+					mes "[Skipper]";
+					mes "Come back if ye want to skip more episode quests!";
+					specialeffect2 227;
+					specialeffect2 6;
+					// Skip quests
+					for(set .@i,0 ; .@i < getarraysize(.@ep_17_1_quests) ; set .@i,.@i+1) {
+						if(checkquest(.@ep_17_1_quests[.@i]) < 0) {
+							setquest .@ep_17_1_quests[.@i];
+						}
+						completequest .@ep_17_1_quests[.@i];
+					}
+					// Set char-specific variables
+					terra_gloria_lady_part = 12;
+					terra_gloria_main = 26;
+					done_with_ep_17_1 = 1;
+					// Deleting single-use voucher
+					delitem 250003,1;
+					close3;
+				}
+				no_ticket();
+			} else {need_prev_ep();}
+		} else {already_complete();}
+	}
+	if(.@ep_select == 4) { // Skip 17.2
+		if(done_with_ep_17_2 != 1) {
+			if(done_with_ep_16_1 == 1 && done_with_ep_16_2 == 1 && done_with_ep_17_1 == 1) {
+				setarray .@ep_17_2_quests[0],
+					11620, 16452, 18003, 18004, 18005, 18009, 18010, 18018, 18020, 18021;
+				if(countitem(250008) > 0) { // Check if user has MULTI-use 17.2 pass in inventory
+					mes "I see that ye have a multi-use ticket for this episode! I'll go ahead and assume to use that then?";
+					if(select("Aye!","No thanks") == 2) {
+						clear;
+						mes "[Skipper]";
+						mes "Arrrg, make up yer mind...";
+						close3;
+					}
+					clear;
+					mes "[Skipper]";
+					mes "Come back if ye want to skip more episode quests!";
+					specialeffect2 227;
+					specialeffect2 6;
+					// Skip quests
+					for(set .@i,0 ; .@i < getarraysize(.@ep_17_2_quests) ; set .@i,.@i+1) {
+						if(checkquest(.@ep_17_2_quests[.@i]) < 0) {
+							setquest .@ep_17_2_quests[.@i];
+						}
+						completequest .@ep_17_2_quests[.@i];
+					}
+					// Set char-specific variables
+					ep17_2_main = 36;
+					done_with_ep_17_2 = 1;
+					close3;
+				}
+				if(countitem(250004) > 0) { // Check if user has SINGLE-use 17.2 pass
+					mes "I see that ye have a single-use ticket for this episode, so I'll go ahead and use that then, aye?";
+					if(select("Aye aye, Captain!","Please don't") == 2) {
+						clear;
+						mes "[Skipper]";
+						mes "Arrrg, make up yer mind...";
+						close3;
+					}
+					clear;
+					mes "[Skipper]";
+					mes "Come back if ye want to skip more episode quests!";
+					specialeffect2 227;
+					specialeffect2 6;
+					// Skip quests
+					for(set .@i,0 ; .@i < getarraysize(.@ep_17_2_quests) ; set .@i,.@i+1) {
+						if(checkquest(.@ep_17_2_quests[.@i]) < 0) {
+							setquest .@ep_17_2_quests[.@i];
+						}
+						completequest .@ep_17_2_quests[.@i];
+					}
+					// Set char-specific variables
+					ep17_2_main = 36;
+					done_with_ep_17_2 = 1;
+					// Deleting single-use voucher
+					delitem 250004,1;
+					close3;
+				}
+				no_ticket();
+			} else {need_prev_ep();}
+		} else {already_complete();}
+	}
+	
+	/*function complete_quests {
+		setarray .@quests[0],0;
+		for(set .@i,0; .@i < getarraysize(getarg(0)); set .@i,.@i+1) {
+			set .@quests[.@i]
+			debugmes "getarraysize(.@quests): " + getarraysize(.@quests);
+			debugmes "getarraysize(getarg(0)): " + getarraysize(getarg(0));
+			if(checkquest(getarg(0)[.@i]) == 0) {
+				setquest getarg(0)[.@i];
+			}
+			completequest getarg(0)[.@i];
+		};
+	}
+	function set_quests {
+		for(set .@i,0; .@i < getarraysize(getarg(0)); set .@i,.@i+1) {
+			if(checkquest(getarg(0)[.@i]) == 0) {
+				setquest getarg(0)[.@i];
+			}
+			//completequest getarg(0)[.@i];
+		};
+	}*/
+	function no_ticket {
+		mes "Are ye pullin me leg? There be no valid tickets in yer inventory, matey.";
+		mes "I won't help ye skip this episode, as that would be piracy!";
+		close3;
+	}
+	function need_prev_ep {
+		mes "Arg, ye need to finish at least one previous episode's main questline before ye can skip this quest.";
+		close3;
+	}
+	function already_complete {
+		mes "Are ye feeling alright matey? Ye have already completed this episode.";
+		close3;
+	}
+}
+
+-	shop	#Ep_Ticket_Seller	545,no,250001:5500000,250002:6000000,250003:6500000,250004:7000000
+
+m_office,35,8,7	script	Skippy#Office	545,{
+	mes "[Skippy]";
+	mes "Hi! I sell single-use episode skip tickets you can hand over to my boss my next me.";
+	next;
+	mes "[Skippy]";
+	mes "But you can also get multi-use tickets from completing the episode quests without skipping them, or by buying them at the Roin Coin shop.";
+	close2;
+	callshop "#Ep_Ticket_Seller",1;
+}
+
+/* Ep 16.1
+Quests
+5402	2
+7682	2
+7683	2
+7684	2
+7686	2
+7699	1
+11394	1 DO NOT IMPLEMENT THIS ONE
+11400	2
+11401	1
+14469	2
+14470	1
+14475	2
+14476	1
+14495	2
+14496	1
+Char variables (char_reg_num)
+ep13_start	100
+ep16_cookbs	1 DO NOT IMPLEMENT THIS ONE
+ep16_gaobs	2
+ep16_lug	2
+ep16_royal	17
+ep16_wal	2
+ep16_wig	2
+
+Ep 16.2
+Items
+23087	// Small leather Bag
+Quests
+7741	2
+11462	2
+12374	2
+12375	1	(time: 1748426400)	(maybe just set to 2)	ACTUALLY, JUST DON'T IMPLEMENT
+14600	2
+14601	2
+14602	2
+14613	2
+14615	2
+16010	2
+Char variables (char_reg_num)
+terra_gloria_lady_part	10
+terra_gloria_main		25
+
+Ep 17.1
+Quests
+7850	2
+7853	2
+7857	2
+7858	2
+7859	2
+7860	2
+7861	2
+7862	2
+7863	2
+7864	2
+7865	2
+11463	1	GONNA TRY NOT IMPLMENTING THIS
+11596	2
+11597	2
+11598	2
+11599	2
+11600	2
+11601	2
+11602	2
+11603	2
+16352	2
+16353	2
+16354	2
+16355	2
+16356	2
+16357	2
+16358	2
+16359	2
+16360	2
+16377	1	(timer 1748389253)	GONNA TRY NOT IMPLMENTING THIS
+17000	2
+17001	2
+17002	2
+17003	2
+17004	2
+17005	2
+17006	2
+17007	2
+17008	2
+17009	2
+17010	2
+17011	2
+17012	2
+17013	2
+17014	2
+17015	2
+17016	2
+17017	2
+17018	2
+17019	2
+Char variables (char_reg_num)
+terra_gloria_lady_part	12
+terra_gloria_main		26
+
+Ep 17.2
+Quests
+11620	2
+16452	2
+18003	2
+18004	2
+18005	2
+18009	2
+18010	2
+18018	2
+18020	2
+18021	2
+Char variables (char_reg_num)
+ep_17_2_main	36
+*/

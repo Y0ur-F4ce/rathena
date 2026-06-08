@@ -57,6 +57,7 @@
 //= 2.9a Tweaked NPC sprite & cutin used. [Liam]
 //============================================================ 
 
+/*
 einbroch,246,70,0	script	Vote Timer#ein	-1,{
 OnInit:
 	if ($dts) {
@@ -1333,4 +1334,5 @@ sec_in02,17,160,4	script	Vote Globalvar Girl#yuno	864,{
 		close;
 	}
 }
+*\/
 */

@@ -1,0 +1,85 @@
+// Gangster Scarf quest, based off NovaRO
+
+gef_tower,70,172,4	script	Buffalo Gangster	10231,{
+	mes "[Buffalo Gangster]";
+	mes "You like my scarf?";
+	mes "Too bad. You can't have it.";
+	next;
+	mes "...";
+	next;
+	clear;
+	mes "[Buffalo Gangster]";
+	mes "Quit staring and leave me alone!";
+	next;
+	mes "...";
+	next;
+	clear;
+	mes "[Buffalo Gangster]";
+	mes "FINE! How about I make you a new scarf and you buzz off?";
+	mes "It'll be a " + mesitemlink(5361, false, "Gangster Scarf [0]") + ", just like mine.";
+	switch(select("Yes please!","I hate scarves")) {
+		clear;
+		mes "[Buffalo Gangster]";
+		case 1: // Yes
+			mes "Go get me this stuff:";
+			mes "1 " + mesitemlink(2265);
+			mes "1 " + mesitemlink(975);
+			mes "1 " + mesitemlink(1236);
+			mes "1 " + mesitemlink(719);
+			mes "50 " + mesitemlink(7097);
+			mes "and 30,000 zeny.";
+			setarray .@items[0],
+				2265, 975, 1236, 719, 7097;
+			setarray .@item_reqs[0],
+				1, 1, 1, 1, 50;
+			.@req_zeny = 30000;
+			set .@has_items$, "I gathered all the items!";
+			for( .@i = 0 ; .@i < getarraysize(.@items) ; .@i++) {
+				if(countitem(.@items[.@i]) < .@item_reqs[.@i]) {
+					set .@has_items$, "";
+				}
+			}
+			switch(select(.@has_items$, "I'll go get those items.")) {
+				clear;
+				mes "[Buffalo Gangster]";
+				case 1: // Has items
+					if (Zeny < .@req_zeny) { // But not enough zeny
+						mes "Not so fast.";
+						mes "You still need to pay up 30,000 zeny.";
+						close;
+					}
+					mes "Whoop-de-do. Now hand it over.";
+					switch(select("Create scarf","Never mind")) {
+						clear;
+						mes "[Buffalo Gangster]";
+						case 1: // Create scarf
+							if(!checkweight(5361,1)) {
+								mes "Hold it, you're lugging too much crap around. Get rid of some inventory and then come back.";
+								close;
+							}
+							getitem 5361, 1;
+							for (.@i = 0; .@i < getarraysize(.@items); .@i++) {
+								delitem .@items[.@i], .@item_reqs[.@i];
+							}
+							Zeny -= .@req_zeny;
+							specialeffect2 EF_REPAIRWEAPON;
+							mes "There. Now get lost.";
+							close;
+							break;
+						case 2: // Never mind
+							mes "WHAT DO YOU WANT FROM ME?!";
+							emotion ET_FRET;
+							close;
+							break;
+					}
+				case 2: // Close dialogue (I'll get the items)
+					mes "Yeah, sure kid.";
+					close;
+			}
+			break;
+		case 2: // No
+			mes "Then WHY the crap are you STILL HERE?!";
+			emotion ET_STARE;
+			close;
+	}
+}

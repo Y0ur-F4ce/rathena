@@ -167,6 +167,6 @@ L_Mark:
 	return;
 }
 
-geffen,118,62,0	duplicate(GuideGeffen)	Guide#02geffen	705
+geffen,112,63,6	duplicate(GuideGeffen)	Guide#02geffen	705
 geffen,36,123,6	duplicate(GuideGeffen)	Guide#03geffen	705
 geffen,123,203,4	duplicate(GuideGeffen)	Guide#04geffen	705

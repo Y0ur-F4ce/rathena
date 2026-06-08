@@ -3961,7 +3961,7 @@ moc_para01,111,83,3	script	Blacksmith Thorn#2nd10	2_M_OLDBLSMITH,{
 					13066,"Eden Group Dagger III","Dagger, MATK +80, ATK 165", //P.Dagger III
 					13310,"Eden Group Huuma Shuriken I","Huuma Suriken, MATK +50, ATK 170"; //P.Huuma Suriken I
 			}
-			else if (Class == Job_Star_Gladiator)
+			else if (Class == Job_Star_Gladiator || Class == Job_Star_Emperor)
 				getitem 1583,1; //P.Book I
 			else if (Class == Job_Soul_Linker) {
 				callsub L_Select,"",

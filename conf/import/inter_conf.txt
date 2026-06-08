@@ -1,0 +1,42 @@
+login_server_ip: 127.0.0.1
+login_server_port: 3306
+login_server_id: roinadmin
+login_server_pw: oi0P7TBE5xmGJDmzmTT6
+login_server_db: roinro
+login_codepage:
+login_case_sensitive: yes
+
+ipban_db_ip: 127.0.0.1
+ipban_db_port: 3306
+ipban_db_id: roinadmin
+ipban_db_pw: oi0P7TBE5xmGJDmzmTT6
+ipban_db_db: roinro
+ipban_codepage:
+
+char_server_ip: 127.0.0.1
+char_server_port: 3306
+char_server_id: roinadmin
+char_server_pw: oi0P7TBE5xmGJDmzmTT6
+char_server_db: roinro
+
+map_server_ip: 127.0.0.1
+map_server_port: 3306
+map_server_id: roinadmin
+map_server_pw: oi0P7TBE5xmGJDmzmTT6
+map_server_db: roinro
+
+web_server_ip: 127.0.0.1
+web_server_port: 3306
+web_server_id: roinadmin
+web_server_pw: oi0P7TBE5xmGJDmzmTT6
+web_server_db: roinro
+
+log_db_ip: 127.0.0.1
+log_db_port: 3306
+log_db_id: roinadmin
+log_db_pw: oi0P7TBE5xmGJDmzmTT6
+log_db_db: log
+log_codepage:
+log_login_db: loginlog
+
+party_share_level: 30

@@ -1,0 +1,46 @@
+//===== rAthena Script =======================================
+//= Universal Rental NPC
+//===== By: ==================================================
+//= Euphy
+//===== Current Version: =====================================
+//= 1.0a
+//===== Compatible With: =====================================
+//= rAthena Project
+//===== Description: =========================================
+//= One-click automatic mount rentals.
+//============================================================
+
+prontera,163,194,5	script	Universal Rental NPC	105,{
+	if (ismounting()) {
+		message strcharinfo(0),"You must first remove your mount.";
+		end;
+	} else if (((eaclass()&EAJ_THIRDMASK)==EAJ_RANGER) && !countitem(6124)) {
+		if (!checkfalcon() && getskilllv("HT_FALCON") && !checkwug()) {
+			if(select(" ~ Falcon: ~ Warg")==1) setfalcon;
+			else getitem 6124,1; //Wolf's_Flute
+		} else getitem 6124,1; //Wolf's_Flute
+	} else if (((eaclass()&EAJ_THIRDMASK)==EAJ_MECHANIC) && !checkcart() && getskilllv("MC_PUSHCART")) {
+		if (!checkmadogear() && getskilllv("NC_MADOLICENCE")) {
+			if(select(" ~ Cart: ~ Mado")==1) setcart;
+			else { if (eaclass()&EAJL_FOURTH) {setmadogear true, MADO_SUIT;} else setmadogear;}
+		} else setcart;
+	} else if (!checkcart() && getskilllv("MC_PUSHCART")) setcart;
+	else if (!checkfalcon() && getskilllv("HT_FALCON") && !checkwug()) setfalcon;
+	else if (!checkriding() && !checkdragon() && getskilllv("KN_RIDING")) {
+		if ((eaclass()&EAJ_THIRDMASK)==EAJ_RUNE_KNIGHT) setdragon;
+		else setriding;
+	} else if (!checkmadogear() && getskilllv("NC_MADOLICENCE")) setmadogear;
+	else {
+		message strcharinfo(0),"You do not meet requirements to rent.";
+		end;
+	}
+	specialeffect2 EF_TEIHIT3;
+	end;
+}
+//duplicates
+//m_office,58,32,5	duplicate(Universal Rental NPC)	Universal Rental NPC#office	105 //replaced with autoloot_preferences npc
+payon,166,102,6	duplicate(Universal Rental NPC)	Universal Rental NPC#payon	105
+aldebaran,133,110,6	duplicate(Universal Rental NPC)	Universal Rental NPC#aldebaran	105
+yuno,146,187,5	duplicate(Universal Rental NPC)	Universal Rental NPC#yuno	105
+geffen,103,55,6	duplicate(Universal Rental NPC)	Universal Rental NPC#geffen	105
+rachel,136,106,2	duplicate(Universal Rental NPC)	Universal Rental NPC#rachel	105

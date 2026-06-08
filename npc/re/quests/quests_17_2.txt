@@ -4568,6 +4568,8 @@ prt_cas,325,263,3	script	Nyhill M. Heine#ep172	4_EP17_NIHIL_K,{
 		ep17_2_main = 36;
 		setquest 18020;
 		completequest 18020;
+		getitem 250008,1; // Multi-use Episode 17.2 skip voucher
+		done_with_ep_17_2 = 1;
 		close3;
 	}
 	cutin "ep171_nihil01",2;

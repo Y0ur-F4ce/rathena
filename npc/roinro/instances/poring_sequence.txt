@@ -1,0 +1,307 @@
+-	script	disable on init	-1,{
+OnInit:
+	disablenpc "por seq controller";
+	disablenpc "1#por_seq";
+	disablenpc "2#por_seq";
+	disablenpc "3#por_seq";
+}
+
+//---------------Prontera NPC---------------
+prontera,156,178,4	script	Poring Sequence#Prontera	715,{
+	// Check if it's been at least 45 minutes (2700s) since talking to this NPC. If it has been, reset #por_seq_playcount playcount
+	if(gettimetick(2) - #por_seq_countdown > 2700) {
+		#por_seq_playcount = 0;
+	}
+	#por_seq_countdown = gettimetick(2);
+	mes "[Poring Sequence]";
+	mes "Hey there, friend! Wanna have some fun playing Poring Sequence?";
+	.@remaining_attempts = 2-#por_seq_playcount;
+	mes "Remaining attempts: " + .@remaining_attempts;
+	next;
+	.@user_choice = 3;
+	while(.@user_choice == 3) {
+		.@user_choice = select("Yes","No","What's this?");
+		switch(.@user_choice) {
+			case 1:
+				if(#por_seq_playcount < 2) {
+					if(!checkweight(250000,1)) {
+						clear;
+						mes "[Poring Sequence]";
+						mes "Ope, looks like you're carrying too many items! I'm afraid that's a safety hazard. Come back when you're carrying less items!";
+						close;
+					}
+					if (instance_create("Poring Sequence", IM_CHAR) < 0) {
+						clear;
+						mes "[Poring Rancher]";
+						mes "Unable to create Instance!";
+						close;
+					}
+					if (instance_enter("Poring Sequence",-1,-1,getcharid(0),instance_id(IM_CHAR)) == IE_OK) {
+						end;
+					} else {
+						clear;
+						mes "[Whack-a-poring]";
+						mes "An unknown error occurred!";
+						close;
+					}
+				} else {
+					clear;
+					mes "[Poring Sequence]";
+					mes "Ope, sorry! You already used up your 2 tries. Come back next time this clown's in town!";
+					close;
+				}
+				break;
+			case 2:
+				clear;
+				mes "[Poring Sequence]";
+				mes "Come back if you want to earn Roin Coins!";
+				close;
+				break;
+			case 3:
+				clear;
+				mes "[Poring Sequence]";
+				mes "Go through several rounds of remembering the order that the Porings appear in.", "The more you get right, the more Roin Coins you'll win!";
+				next;
+				mes "[Poring Sequence]";
+				mes "How about it, friend? Try your hand at Poring Sequence?";
+				next;
+				break;
+		}
+	}
+OnInit:
+	hideonnpc strnpcinfo(3);
+	end;
+}
+
+
+//---------------Debug---------------
+/*1@mem_game,52,32,4	script	destroy instance	1904,{
+	warp "prontera",156,180;
+	instance_destroy;
+	end;
+}*/
+
+//---------------Starter---------------
+1@mem_game,1,1,0	script	poring sequence starter	-1,{
+OnInstanceInit:
+	'reward_bonus = 0;
+	'final_reward_bonus = 0;
+	'seq_amount = 4;
+	'turn_count = 0;
+	'number_correct = 0;
+	'round_number = 0;
+	'poring_busy = true;
+	'delay_time = 700;
+	setarray 'sequence_order[0],
+		rand(1,3), rand(1,3), rand(1,3), rand(1,3);
+	enablenpc instance_npcname("por seq controller");
+	cloakonnpc instance_npcname("1#por_seq");
+	cloakonnpc instance_npcname("2#por_seq");
+	cloakonnpc instance_npcname("3#por_seq");
+	end;
+}
+
+//---------------Controller---------------
+1@mem_game,52,37,0	script	por seq controller	-1,1,1,{
+OnTouch_:
+	//playBGM "nature";
+	'rid = getcharid(3);
+	'map1$ = instance_mapname("1@mem_game",instance_id(IM_CHAR));
+	mapannounce 'map1$, "Welcome to Poring Sequence!", bc_map, 0xFFCC;
+	sleep2 3000;
+	mapannounce 'map1$, "Remember the positions in which the Porings appear, and then recreate the order!", bc_map, 0xFFCC;
+	sleep2 4000;
+	mapannounce 'map1$, "The more you get right, the more Roin Coins you win!", bc_map, 0xFFCC;
+	sleep2 3000;
+	mapannounce 'map1$, "Starting in: 5!", bc_map, 0xFFCC;
+	sleep2 1000;
+	mapannounce 'map1$, "Starting in: 4!", bc_map, 0xFFCC;
+	sleep2 1000;
+	mapannounce 'map1$, "Starting in: 3!", bc_map, 0xFFCC;
+	sleep2 1000;
+	mapannounce 'map1$, "Starting in: 2!", bc_map, 0xFFCC;
+	sleep2 1000;
+	mapannounce 'map1$, "Starting in: 1!", bc_map, 0xFFCC;
+	sleep2 1000;
+	mapannounce 'map1$, "BEGIN!", bc_map, 0xFFCC;
+	sleep2 1000;
+	#por_seq_playcount += 1;
+OnGameLoop:
+	attachrid('rid);
+	callfunc "display_sequence",'sequence_order,'delay_time;
+	sleep2 1000;
+	mapannounce 'map1$, "Repeat the sequence! You have 10 seconds to start.", bc_map, 0xFFCC;
+	cloakoffnpc instance_npcname("1#por_seq");
+	cloakoffnpc instance_npcname("2#por_seq");
+	cloakoffnpc instance_npcname("3#por_seq");
+	addtimer 10000, strnpcinfo(3) + "::OnTimesUp";
+	'poring_busy = false;
+	while('turn_count < 'seq_amount) {
+		sleep2 32;
+	}
+	soundeffect "effect\\black_overthrust.wav",0;
+	mapannounce 'map1$, "CORRECT!", bc_map, 0xFFCC;
+	cloakonnpc instance_npcname("1#por_seq");
+	cloakonnpc instance_npcname("2#por_seq");
+	cloakonnpc instance_npcname("3#por_seq");
+	'turn_count = 0;
+	'final_reward_bonus += max('reward_bonus,0);
+	deltimer strnpcinfo(3) + "::OnTimesUp";
+	sleep2 2000;
+	callfunc "create_new_sequence";
+	sleep2 2000;
+	goto OnGameLoop;
+	debugmes "End of game loop. You should never see this appear in the console.";
+	end;
+OnTimesUp:
+	mapannounce 'map1$, "TOO SLOW!", bc_map, 0xFFCC;
+	cloakonnpc instance_npcname("1#por_seq");
+	cloakonnpc instance_npcname("2#por_seq");
+	cloakonnpc instance_npcname("3#por_seq");
+	sleep2 3000;
+	callfunc "create_new_sequence";
+	sleep2 2000;
+	goto OnGameLoop;
+	end;
+OnIncorrect:
+	attachrid('rid);
+	deltimer strnpcinfo(3) + "::OnTimesUp";
+	mapannounce 'map1$, "INCORRECT!", bc_map, 0xFFCC;
+	cloakonnpc instance_npcname("1#por_seq");
+	cloakonnpc instance_npcname("2#por_seq");
+	cloakonnpc instance_npcname("3#por_seq");
+	'turn_count = 0;
+	'seq_amount -= 2;
+	'reward_bonus -= 2;
+	'delay_time += 150;
+	// don't set values lower than defaults
+	if('seq_amount < 4) {'seq_amount = 4;};
+	if('reward_bonus < 0) {'reward_bonus = 0;};
+	if('delay_time > 700) {'delay_time = 700;};
+	sleep2 3000;
+	callfunc "create_new_sequence";
+	sleep2 2000;
+	goto OnGameLoop;
+}
+
+//---------------Functions---------------
+// Create a new sequence, ALSO used for ending the game.
+function	script	create_new_sequence	{
+	'seq_amount += 1;
+	'reward_bonus += 1;
+	'delay_time -= 75;
+	'round_number += 1;
+	if('round_number == 7) {
+		mapannounce 'map1$, "FINISHED!", bc_map, 0xFFCC;
+		sleep2 3000;
+		mapannounce 'map1$, "Here is your reward!", bc_map, 0xFFCC;
+		sleep2 2000;
+		.@final_reward = floor('number_correct/5,1) + 'final_reward_bonus;
+		getitem 250000,.@final_reward;
+		sleep2 1500;
+		warp "prontera",156,180;
+		instance_destroy;
+		end;
+	}
+	cleararray 'sequence_order[0], 0, getarraysize('sequence_order);
+	mapannounce 'map1$, "Next sequence!", bc_map, 0xFFCC;
+	for(.@i = 0; .@i < 'seq_amount; .@i++){
+		'sequence_order[.@i] = rand(1,3);
+	}
+	return;
+}
+
+function	script	display_sequence	{ // Arguments: <sequence array>, <delay time (ms)>
+	//attachrid('rid);
+	'poring_busy = true;
+	copyarray .@sequence[0],getarg(0),getarraysize(getarg(0));
+	for(.@i = 0; .@i < getarraysize(.@sequence); .@i++) {
+		// 0, 121, 147, 223, 344, 417, 603, 778 are good video effects
+		// Tones in order: pink, red, green, purple, yellow, blue
+		specialeffect 223,AREA,instance_npcname(.@sequence[.@i] + "#por_seq");
+		soundeffect "effect\\drop_"+(.@sequence[.@i] == 1 ? "red" : .@sequence[.@i] == 2 ? "purple" : "blue")+".wav",0;
+		cloakoffnpc instance_npcname(.@sequence[.@i] + "#por_seq");
+		sleep2 getarg(1)/3;
+		cloakonnpc instance_npcname(.@sequence[.@i] + "#por_seq");
+		sleep2 getarg(1)*2/3;
+	}
+	return;
+}
+
+//---------------Poring Spots---------------
+1@mem_game,46,44,4	script	1#por_seq	1242,{
+	// Disallow user clicking during sequence showing
+	if('poring_busy){
+		end;
+	}
+	// Selection is in order
+	specialeffect 223;
+	if('sequence_order['turn_count] == 1) {
+		specialeffect 121;
+		soundeffect "effect\\drop_red.wav",0;
+		'turn_count += 1;
+		'number_correct += 1;
+		deltimer instance_npcname("por seq controller") + "::OnTimesUp";
+		addtimer 5000, instance_npcname("por seq controller") + "::OnTimesUp";
+		end;
+	}
+	// Selection is out of order
+	specialeffect 183;
+	donpcevent instance_npcname("por seq controller") + "::OnIncorrect";
+	end;
+}
+1@mem_game,52,44,4	script	2#por_seq	1031,{
+	// Disallow user clicking during sequence showing
+	if('poring_busy){
+		end;
+	}
+	// Selection is in order
+	specialeffect 223;
+	if('sequence_order['turn_count] == 2) {
+		specialeffect 121;
+		soundeffect "effect\\drop_purple.wav",0;
+		'turn_count += 1;
+		'number_correct += 1;
+		deltimer instance_npcname("por seq controller") + "::OnTimesUp";
+		addtimer 5000, instance_npcname("por seq controller") + "::OnTimesUp";
+		end;
+	}
+	// Selection is out of order
+	specialeffect 183;
+	donpcevent instance_npcname("por seq controller") + "::OnIncorrect";
+	end;
+}
+1@mem_game,58,44,4	script	3#por_seq	1002,{
+	// Disallow user clicking during sequence showing
+	if('poring_busy){
+		end;
+	}
+	// Selection is in order
+	specialeffect 223;
+	if('sequence_order['turn_count] == 3) {
+		specialeffect 121;
+		soundeffect "effect\\drop_blue.wav",0;
+		'turn_count += 1;
+		'number_correct += 1;
+		deltimer instance_npcname("por seq controller") + "::OnTimesUp";
+		addtimer 5000, instance_npcname("por seq controller") + "::OnTimesUp";
+		end;
+	}
+	// Selection is out of order
+	specialeffect 183;
+	donpcevent instance_npcname("por seq controller") + "::OnIncorrect";
+	end;
+}
+
+//---------------Mapflags---------------
+1@whackapor	mapflag	NOBRANCH
+1@whackapor	mapflag	NOCOMMAND	99
+1@whackapor	mapflag	NODROP
+1@whackapor	mapflag	NOICEWALL
+1@whackapor	mapflag	NOMEMO
+1@whackapor	mapflag	NOSAVE
+1@whackapor	mapflag	NOSKILL
+1@whackapor	mapflag	NOTELEPORT
+1@whackapor	mapflag	NOVENDING
+1@whackapor	mapflag	NOWARP
+1@whackapor	mapflag	NOWARPTO

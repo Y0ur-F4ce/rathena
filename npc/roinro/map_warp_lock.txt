@@ -1,0 +1,54 @@
+// Copyrights Notice
+// ========================================================
+// This work is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License.
+// To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/4.0/.
+// ========================================================
+// Introduction
+// ========================================================
+// Copyrights 2015-2020 Jordan Lacandula All rights reserved
+// ========================================================
+// Script: Map Warp Lock
+// ========================================================
+// Programmer: Jordan Lacandula
+// Website: For more info, visit http://jordanlacandula.tk/
+// ========================================================
+// Bug Report/Job Request
+// ========================================================
+// Email: jordanlacandula@hotmail.com
+// Skype: jordan.lacandula
+// ========================================================
+// NPC Information
+// ========================================================
+// This NPC will allows the player to warp on maps that are unlocked,
+// add below a mapflag loadevent to the maps you want to be included in the list
+// ========================================================
+// Thanks to neXus, for the idea of this NPC
+// ========================================================
+prontera,145,150,4	script	Benching the Warper	717,{
+
+	mes "Select a Map";
+	set .@arrsize,getarraysize(.maps$);
+	set .@menu$,"[0] ^FF0000 Cancel ^000000";
+	for(set .@i,0; .@i < .@arrsize; set .@i,.@i+1){
+		set .@menu$,.@menu$ +":["+(.@i+1)+"] "+.maps$[.@i];
+	}
+	next;
+	set .@slc, select(.@menu$);
+	if(.@slc == 1) close;
+	warp .maps$[.@slc-2],0,0;
+	
+	OnPCLoadMapEvent:
+		getmapxy(.@mn$,.@mx,.@my,0);
+		if(.@mn$ == "") end;
+		set .@as,getarraysize(.maps$);
+		for(set .@j,0; .@j < .@as; set .@j,.@j+1){
+			if(.@mn$ == .maps$[.@j]){
+				end;
+			}
+		}
+		setarray .maps$[.@as],.@mn$;
+	end;
+}
+//add maps with maplock
+izlude	mapflag	loadevent
+payon	mapflag	loadevent

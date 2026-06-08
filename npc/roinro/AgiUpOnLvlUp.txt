@@ -1,0 +1,7 @@
+-	script	levelupagi	-1,{
+	OnPcBaseLvUpEvent:
+	//3 minute buff
+	sc_start 32, 180000,9; //Increase Agi (status 32) for 180000 miliseconds at skill level 10
+	//specialeffect2 37;
+	end;
+}

@@ -2910,8 +2910,8 @@ OnFinal:
 	mapannounce 'map_2nyr$, "Vault Security Code Reset in Progress!", bc_map, 0xFFCC;
 	disablenpc instance_npcname("#2mstep07");
 	disablenpc instance_npcname("#2mstep08");
-	// enablenpc instance_npcname("#2mstep09");
-	// enablenpc instance_npcname("#2mstep10");
+	enablenpc instance_npcname("#2mstep09");
+	enablenpc instance_npcname("#2mstep10");
 	end;
 }
 

@@ -1,0 +1,94 @@
+// Rideword hat [1] quest, based off of NovaRO
+
+c_tower1,260,27,5	script	Dying Rideword#rw_hat	1195,{
+	setarray .@random_actions$[0], // Used to tell what the Rideword does after coughing sometimes
+		"(It coughs out an old page)",
+		"(It spits out a moldy bookmark)",
+		"(It coughs up dust from its pages)",
+		"(It spits out an someone's finger)",
+		"(It coughs out some hand-written notes)",
+		"(It spits out a decrepit-looking cookie recipe)";
+	mes "[Dying Rideword]";
+	mes "*COUGH*";
+	mes .@random_actions$[rand(0,5)];
+	next;
+	mes "[Dying Rideword]";
+	mes "I suppose you're here to finish me off, huh?";
+	mes "Well perhaps I can strike a deal with you-";
+	mes "*cough COUGH*";
+	next;
+	mes "[Dying Rideword]";
+	mes "How about I make you a " + mesitemlink(5208, false, "Rideword Hat [1]") + ", and in exchange, you let me die in peace?";
+	mes "*COUGH* *AGH*";
+	switch(select("Uh, sure?","No thanks")) {
+		clear;
+		case 1: // Accept offer
+			mes "[Dying Rideword]";
+			mes "Very well. I'm going to need you to gather some items for me to make the hat.";
+			next;
+			mes "[Dying Rideword]";
+			mes "I'll need:";
+			mes "200 " + mesitemlink(7015);
+			mes "100 " + mesitemlink(1097);
+			mes "2 " + mesitemlink(1553);
+			mes "2 " + mesitemlink(1554);
+			mes "1 " + mesitemlink(1555);
+			mes "1 " + mesitemlink(1556);
+			setarray .@items[0],
+				7015, 1097, 1553, 1554, 1555, 1556;
+			setarray .@item_reqs[0],
+				200, 100, 2, 2, 1, 1;
+			set .@has_items$, "I have all the items!";
+			for( .@i = 0 ; .@i < getarraysize(.@items) ; .@i++) {
+				if(countitem(.@items[.@i]) < .@item_reqs[.@i]) {
+					set .@has_items$, "";
+				}
+			}
+			switch(select(.@has_items$, "I'll be back with those items.")) {
+				clear;
+				mes "[Dying Rideword]";
+				case 1: // Has items
+					mes "*cough*";
+					mes "Wonderful. I'll go ahead and take those off your hands then.";
+					switch(select("Create hat","Never mind")) {
+						clear;
+						mes "[Dying Rideword]";
+						case 1: // Create hat
+							if(!checkweight(5208,1)) {
+								mes "Adventurer, you are carrying too much. Get rid of some items and come back to me.";
+								mes "*WHEEZE*";
+								close;
+							}
+							getitem 5208, 1;
+							delitem 7015, 200;
+							delitem 1097, 100;
+							delitem 1553, 2;
+							delitem 1554, 2;
+							delitem 1555, 1;
+							delitem 1556, 1;
+							specialeffect2 EF_REPAIRWEAPON;
+							mes "It is done.";
+							mes "Now leave me to die in peace, adventurer.";
+							mes "*COUGH* *AGH*";
+							mes .@random_actions$[rand(0,5)];
+							close;
+						case 2: // Never mind
+							mes "Ugh, adventurers are so stupid.";
+							mes "*COUGH COUGH*";
+							close;
+							break;
+					}
+				case 2: // Close dialogue (I'll get the items)
+					mes "Return swiftly.";
+					mes "*COUGH*";
+					close;
+			}
+			break;
+		case 2: // Deny offer
+			mes "[Dying Rideword]";
+			mes "Ugh, adventurers are so stupid.";
+			mes "*COUGH COUGH*";
+			close;
+			break;
+	}
+}
