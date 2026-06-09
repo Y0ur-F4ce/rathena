@@ -1,0 +1,155 @@
+// Roin's 131-140 bounty board
+// Last edited 4/21/2025
+
+moc_para01,34,185,3	script	151-160 Mission Board	857,{
+	if (!callfunc("F_HasEdenGroupMark")) {
+		mes "You are not an Eden group member. You are not qualified to access the bulletin board.";
+		close;
+	}
+	
+	//Quest Turn-ins first
+	setarray .@quest_names$[0],
+		// Illusion of Launda
+		//"Ancient Tri Joint Hunting","Ancient Stalactic Golem Hunting","Ancient Megalith Hunting","Ancient Wootan Fighter Hunting",
+		// Illusion of Abyss Turtle Dungeon
+		"Ominous Permeter Hunting","Ominous Solider Hunting","Ominous Freezer Hunting","Ominous Heater Hunting",
+		// Illusion of Teddy Bear
+		"RGY Teddy Bear Hunting","Soul Fragment Hunting","Hardworking Pitman Hunting","Sinister Dwelling Obsidian Hunting",
+		// NM Clock Tower
+		"Big Bell Hunting","Big Ben Hunting","Neo Punk Hunting";
+	setarray .@Exp[0], // https://irowiki.org/wiki/Base_EXP_Chart (amount of exp it takes to level up from 160) / 25 * 1.25
+		// Illusion of Abyss Turtle Dungeon
+		5250000,5250000,5250000,5250000,
+		// Illusion of Teddy Bear
+		5250000,5250000,5250000,5250000,
+		// NM Clock Tower
+		5250000,5250000,5250000;
+	for(set .@i,0; .@i<getarraysize(.@Exp); set .@i,.@i+1)
+		if (checkquest(.all_quest_ids[.@i],HUNTING) == 2) { // Check if the hunting part of the quest is completed
+			mes "[Mission Board]";
+			mes "You have completed the ^4d4dff"+.@quest_names$[.@i]+" ^000000mission.";
+			mes "Would you like to turn it in now?";
+				if (select("Heck yeah!:Not yet") == 2) {close;}
+			erasequest .all_quest_ids[.@i];
+			specialeffect2 EF_STEAL;
+			getexp .@Exp[.@i],.@Exp[.@i];
+			next;
+		}
+		
+	if (BaseLevel < 151 || BaseLevel > 160) {
+		mes "This mission bulletin board is for Lv151~160 adventurers.";
+		close;
+	}
+	mes "[Mission Board]";
+	mes "A bunch of missions are listed on the board.";
+	mes "Choose what location you'd like to hunt at:";
+	next;
+	switch(select("Illusion of Abyss Turtle Dungeon:Illusion of Teddy Bear:Nightmare Clock Tower:Cancel")) {
+	case 1:
+		setarray .@all_quests_in_area[0],
+			100012, 100013, 100014, 100015;
+		switch(select("Ominous Permeter Hunting:Ominous Solider Hunting:Ominous Freezer Hunting:Ominous Heater Hunting:Hunt ALL")) {
+			case 1: callsub Accept_Quest,100012,"Hunt 30 ^4d4dffOminous Permeter^000000:";
+			case 2: callsub Accept_Quest,100013,"Hunt 30 ^4d4dffOminous Solider^000000:";
+			case 3: callsub Accept_Quest,100014,"Hunt 30 ^4d4dffOminous Freezer^000000:";
+			case 4: callsub Accept_Quest,100015,"Hunt 30 ^4d4dffOminous Heater^000000:";
+			case 5:
+				mes "You would like to hunt ALL of these monsters?";
+				switch(select("Yes:Never mind")) {
+					case 1:
+						for(set .@i,0 ; .@i < getarraysize(.@all_quests_in_area) ; set .@i,.@i+1) {
+							if (checkquest(.@all_quests_in_area[.@i]) == -1) {
+								setquest .@all_quests_in_area[.@i];
+							}
+							continue;
+						}
+						mes "You have signed up for all of those quests.";
+						close;
+					case 2:
+						mes "Yeah, maybe it'd be too much.";
+						close;
+				}
+				break;
+		}
+	case 2:
+		setarray .@all_quests_in_area[0],
+			100008, 100009, 100010, 100011;
+		switch(select("RGY Teddy Bear Hunting:Soul Fragment Hunting:Hardworking Pitman Hunting:Sinister Dwelling Obsidian Hunting:Hunt ALL")) {
+			case 1: callsub Accept_Quest,100008,"Hunt 15 ^FF0000Red Teddy Bears^000000","Hunt 15 ^2D8E2DGreen Teddy Bears^000000","Hunt 15 ^A58B18Yellow Teddy Bears^000000:";
+			case 2: callsub Accept_Quest,100009,"Hunt 30 ^4d4dffSoul Fragments^000000:";
+			case 3: callsub Accept_Quest,100010,"Hunt 30 ^4d4dffHardworking Pitmen^000000:";
+			case 4: callsub Accept_Quest,100011,"Hunt 30 ^4d4dffSinister Dwelling Obsidians^000000:";
+			case 5:
+				mes "You would like to hunt ALL of these monsters?";
+				switch(select("Yes:Never mind")) {
+					case 1:
+						for(set .@i,0 ; .@i < getarraysize(.@all_quests_in_area) ; set .@i,.@i+1) {
+							if (checkquest(.@all_quests_in_area[.@i]) == -1) {
+								setquest .@all_quests_in_area[.@i];
+							}
+							continue;
+						}
+						mes "You have signed up for all of those quests.";
+						close;
+					case 2:
+						mes "Yeah, maybe it'd be too much.";
+						close;
+				}
+				break;
+		}
+	case 3:
+		setarray .@all_quests_in_area[0],
+			62892, 62893, 62894;
+		switch(select("Big Bell Hunting:Big Ben Hunting:Neo Punk Hunting:Hunt ALL")) {
+			case 1: callsub Accept_Quest,62892,"Hunt 30 ^4d4dffBig Bells^000000:";
+			case 2: callsub Accept_Quest,62893,"Hunt 30 ^4d4dffBig Bens^000000:";
+			case 3: callsub Accept_Quest,62894,"Hunt 30 ^4d4dffNeo Punks^000000:";
+			case 4:
+				mes "You would like to hunt ALL of these monsters?";
+				switch(select("Yes:Never mind")) {
+					case 1:
+						for(set .@i,0 ; .@i < getarraysize(.@all_quests_in_area) ; set .@i,.@i+1) {
+							if (checkquest(.@all_quests_in_area[.@i]) == -1) {
+								setquest .@all_quests_in_area[.@i];
+							}
+							continue;
+						}
+						mes "You have signed up for all of those quests.";
+						close;
+					case 2:
+						mes "Yeah, maybe it'd be too much.";
+						close;
+				}
+				break;
+		}
+	case 4:
+		end;
+	}
+	end;
+	
+	mes "There is nothing special to do.";
+	close;
+	
+Accept_Quest:
+	clear;
+	mes "[Mission Board]";
+	for ( .@i = 1; .@i < getargcount(); .@i++ )
+		mes getarg(.@i);
+	next;
+	if(select("Accept the mission:Cancel") == 1) {
+		if (checkquest(getarg(0)) > -1) {mes "You are already signed up for this mission!"; close;};
+		mes "[Mission Board]";
+		mes "You have accepted the mission. For more details, please press 'alt + u' keys, you can get information from the Quest Window.";
+		setquest getarg(0);
+	}
+	close;
+	OnInit: {
+		setarray .all_quest_ids[0],
+			// Illusion of Abyss Turtle Dungeon
+			100012,100013,100014,100015,
+			// Illusion of Teddy Bear
+			100008,100009,100010,100011,
+			// NM Clock Tower
+			62892,62893,62894;
+	}
+}

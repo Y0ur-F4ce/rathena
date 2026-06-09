@@ -1,0 +1,125 @@
+// Roin's 131-140 bounty board
+// Last edited 4/21/2025
+
+moc_para01,22,185,3	script	171+ Mission Board	857,{
+	if (!callfunc("F_HasEdenGroupMark")) {
+		mes "You are not an Eden group member. You are not qualified to access the bulletin board.";
+		close;
+	}
+	
+	//Quest Turn-ins first
+	setarray .@quest_names$[0],
+		// Illusion of Labyrinth
+		//"Chaotic Poporing Hunting","Chaotic Mantis Hunting","Chaotic Hunter Fly Hunting","Chaotic Side Winder Hunting","Chaotic Killer Mantis Hunting",
+		// Tomb of the Fallen
+		"GX Eremes Guille Hunting","AB Margaretha Sorin Hunting","Warlock Kathryne Keyron Hunting","Ranger Cecil Damon Hunting",
+		"Mechanic Howard Alt-Eisen Hunting","RK Seyren Windsor Hunting","RG Randel Lawrence Hunting","Genetic Flamel Emure Hunting",
+		"Sorceress Celia Alde Hunting","Sura Chen Lio Hunting","SC Gertie Wie Hunting","Maestro Alphoccio Basil Hunting",
+		"Wanderer Trentini Hunting";
+	setarray .@Exp[0], // https://irowiki.org/wiki/Base_EXP_Chart (amount of exp it takes to level up from 180) / 25 * 0.95
+		// Illusion of Labyrinth
+		//14100000,14100000,14100000,14100000,14100000,
+		// Tomb of the Fallen
+		19000000,19000000,19000000,19000000,
+		19000000,19000000,19000000,19000000,
+		19000000,19000000,19000000,19000000,
+		19000000; // TotF gives more exp
+	for(set .@i,0; .@i<getarraysize(.@Exp); set .@i,.@i+1)
+		if (checkquest(.all_quest_ids[.@i],HUNTING) == 2) { // Check if the hunting part of the quest is completed
+			mes "[Mission Board]";
+			mes "You have completed the ^4d4dff"+.@quest_names$[.@i]+" ^000000mission.";
+			mes "Would you like to turn it in now?";
+				if (select("Heck yeah!:Not yet") == 2) {close;}
+			erasequest .all_quest_ids[.@i];
+			specialeffect2 EF_STEAL;
+			getexp .@Exp[.@i],.@Exp[.@i];
+			next;
+		}
+		
+	if (BaseLevel < 171) {
+		mes "This mission bulletin board is for Lv171+ adventurers.";
+		close;
+	}
+	mes "[Mission Board]";
+	mes "A bunch of missions are listed on the board.";
+	mes "Choose what location you'd like to hunt at:";
+	next;
+	switch(select("Tomb of the Fallen:Cancel")) {
+	/*case :
+		switch(select("Chaotic Poporing Hunting:Chaotic Mantis Hunting:Chaotic Hunter Fly Hunting:Chaotic Side Winder Hunting:Chaotic Killer Mantis Hunting")) {
+			case 1: callsub Accept_Quest,100016,"Hunt 30 ^4d4dffChaotic Poporing^000000:";
+			case 2: callsub Accept_Quest,100017,"Hunt 30 ^4d4dffChaotic Mantis^000000:";
+			case 3: callsub Accept_Quest,100018,"Hunt 30 ^4d4dffChaotic Hunter Fly^000000:";
+			case 4: callsub Accept_Quest,100019,"Hunt 30 ^4d4dffChaotic Side Winder^000000:";
+			case 5: callsub Accept_Quest,100020,"Hunt 30 ^4d4dffChaotic Killer Mantis^000000:";
+		}*/
+	case 1:
+		setarray .@all_quests_in_area[0],
+			100021, 100022, 100023, 100024, 100025, 100026, 100027, 100028, 100029, 100030, 100031, 100032, 100033;
+		switch(select("GX Eremes Guille Hunting","AB Margaretha Sorin Hunting","Warlock Kathryne Keyron Hunting","Ranger Cecil Damon Hunting",
+		"Mechanic Howard Alt-Eisen Hunting","RK Seyren Windsor Hunting","RG Randel Lawrence Hunting","Genetic Flamel Emure Hunting",
+		"Sorceress Celia Alde Hunting","Sura Chen Lio Hunting","SC Gertie Wie Hunting","Maestro Alphoccio Basil Hunting",
+		"Wanderer Trentini Hunting","Hunt ALL")) {
+			case 1: callsub Accept_Quest,100021,"Hunt 30 ^4d4dffGX Eremes Guille^000000:";
+			case 2: callsub Accept_Quest,100022,"Hunt 30 ^4d4dffAB Margaretha Sorin^000000:";
+			case 3: callsub Accept_Quest,100023,"Hunt 30 ^4d4dffWarlock Kathryne Keyron^000000:";
+			case 4: callsub Accept_Quest,100024,"Hunt 30 ^4d4dffRanger Cecil Damon^000000:";
+			case 5: callsub Accept_Quest,100025,"Hunt 30 ^4d4dffMechanic Howard Alt-Eisen^000000:";
+			case 6: callsub Accept_Quest,100026,"Hunt 30 ^4d4dffRK Seyren Windsor^000000:";
+			case 7: callsub Accept_Quest,100027,"Hunt 30 ^4d4dffRG Randel Lawrence^000000:";
+			case 8: callsub Accept_Quest,100028,"Hunt 30 ^4d4dffGenetic Flamel Emure^000000:";
+			case 9: callsub Accept_Quest,100029,"Hunt 30 ^4d4dffSorceress Celia Alde^000000:";
+			case 10: callsub Accept_Quest,100030,"Hunt 30 ^4d4dffSura Chen Lio^000000:";
+			case 11: callsub Accept_Quest,100031,"Hunt 30 ^4d4dffSC Gertie Wie^000000:";
+			case 12: callsub Accept_Quest,100032,"Hunt 30 ^4d4dffMaestro Alphoccio Basil^000000:";
+			case 13: callsub Accept_Quest,100033,"Hunt 30 ^4d4dffWanderer Trentini^000000:";
+			case 14:
+				mes "You would like to hunt ALL of these monsters?";
+				switch(select("Yes:Never mind")) {
+					case 1:
+						for(set .@i,0 ; .@i < getarraysize(.@all_quests_in_area) ; set .@i,.@i+1) {
+							if (checkquest(.@all_quests_in_area[.@i]) == -1) {
+								setquest .@all_quests_in_area[.@i];
+							}
+							continue;
+						}
+						mes "You have signed up for all of those quests.";
+						close;
+					case 2:
+						mes "Yeah, maybe it'd be too much.";
+						close;
+				}
+				break;
+		}
+	case 2:
+		end;
+	}
+	end;
+	
+	mes "There is nothing special to do.";
+	close;
+	
+Accept_Quest:
+	clear;
+	mes "[Mission Board]";
+	for ( .@i = 1; .@i < getargcount(); .@i++ )
+		mes getarg(.@i);
+	next;
+	if(select("Accept the mission:Cancel") == 1) {
+		if (checkquest(getarg(0)) > -1) {mes "You are already signed up for this mission!"; close;};
+		mes "[Mission Board]";
+		mes "You have accepted the mission. For more details, please press 'alt + u' keys, you can get information from the Quest Window.";
+		setquest getarg(0);
+	}
+	close;
+	OnInit: {
+		setarray .all_quest_ids[0],
+			// Illusion of Labyrinth
+			//100016,100017,100018,100019,100020, these monsters don't exist yet
+			// Tomb of the Fallen
+			100021,100022,100023,100024,
+			100025,100026,100027,100028,
+			100029,100030,100031,100032,
+			100033;
+	}
+}

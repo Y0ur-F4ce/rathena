@@ -1,0 +1,122 @@
+// Roin's 131-140 bounty board
+// Last edited 4/21/2025
+
+moc_para01,25,185,3	script	161-170 Mission Board	857,{
+	if (!callfunc("F_HasEdenGroupMark")) {
+		mes "You are not an Eden group member. You are not qualified to access the bulletin board.";
+		close;
+	}
+	
+	//Quest Turn-ins first
+	setarray .@quest_names$[0],
+		// Illusion of Launda
+		"Ancient Tri Joint Hunting","Ancient Stalactic Golem Hunting","Ancient Megalith Hunting","Ancient Wootan Fighter Hunting",
+		// Illusion of Twins
+		"Diligent Ant Hunting","Intrepid Familiar Hunting","Intrepid Giearth Hunting","Diligent Soldier Andre Hunting";
+	setarray .@Exp[0], // https://irowiki.org/wiki/Base_EXP_Chart (amount of exp it takes to level up from 170) / 25 * 1.1
+		// Illusion of Launda
+		10030000,10030000,10030000,10030000,
+		// Illusion of Twins
+		10030000,10030000,10030000,10030000;
+	for(set .@i,0; .@i<getarraysize(.@Exp); set .@i,.@i+1)
+		if (checkquest(.all_quest_ids[.@i],HUNTING) == 2) { // Check if the hunting part of the quest is completed
+			mes "[Mission Board]";
+			mes "You have completed the ^4d4dff"+.@quest_names$[.@i]+" ^000000mission.";
+			mes "Would you like to turn it in now?";
+				if (select("Heck yeah!:Not yet") == 2) {close;}
+			erasequest .all_quest_ids[.@i];
+			specialeffect2 EF_STEAL;
+			getexp .@Exp[.@i],.@Exp[.@i];
+			next;
+		}
+		
+	if (BaseLevel < 161 || BaseLevel > 170) {
+		mes "This mission bulletin board is for Lv161~170 adventurers.";
+		close;
+	}
+	mes "[Mission Board]";
+	mes "A bunch of missions are listed on the board.";
+	mes "Choose what location you'd like to hunt at:";
+	next;
+	switch(select("Illusion of Launda:Illusion of Twins:Cancel")) {
+	case 1:
+		setarray .@all_quests_in_area[0],
+			100000, 100001, 100002, 100003;
+		switch(select("Ancient Tri Joint Hunting:Ancient Stalactic Golem Hunting:Ancient Megalith Hunting:Ancient Wootan Fighter Hunting:Hunt ALL")) {
+			case 1: callsub Accept_Quest,100000,"Hunt 30 ^4d4dffAncient Tri Joint^000000:";
+			case 2: callsub Accept_Quest,100001,"Hunt 30 ^4d4dffAncient Stalactic Golem^000000:";
+			case 3: callsub Accept_Quest,100002,"Hunt 30 ^4d4dffAncient Megalith^000000:";
+			case 4: callsub Accept_Quest,100003,"Hunt 30 ^4d4dffAncient Wootan Fighter^000000:";
+			case 5:
+				mes "You would like to hunt ALL of these monsters?";
+				switch(select("Yes:Never mind")) {
+					case 1:
+						for(set .@i,0 ; .@i < getarraysize(.@all_quests_in_area) ; set .@i,.@i+1) {
+							if (checkquest(.@all_quests_in_area[.@i]) == -1) {
+								setquest .@all_quests_in_area[.@i];
+							}
+							continue;
+						}
+						mes "You have signed up for all of those quests.";
+						close;
+					case 2:
+						mes "Yeah, maybe it'd be too much.";
+						close;
+				}
+				break;
+		}
+	case 2:
+		setarray .@all_quests_in_area[0],
+			100004, 100005, 100006, 100007;
+		switch(select("Diligent Ant Hunting:Intrepid Familiar Hunting:Intrepid Giearth Hunting:Diligent Soldier Andre Hunting:Hunt ALL")) {
+			case 1: callsub Accept_Quest,100004,"Hunt 15 ^4d4dffDiligent Andre^000000","Hunt 15 ^4d4dffDiligent Deniro^000000","Hunt 15 ^4d4dffDiligent Piere^000000:";
+			case 2: callsub Accept_Quest,100005,"Hunt 30 ^4d4dffIntrepid Familiar^000000:";
+			case 3: callsub Accept_Quest,100006,"Hunt 30 ^4d4dffIntrepid Giearth^000000:";
+			case 4: callsub Accept_Quest,100007,"Hunt 30 ^4d4dffDiligent Soldier Andres^000000:";
+			case 5:
+				mes "You would like to hunt ALL of these monsters?";
+				switch(select("Yes:Never mind")) {
+					case 1:
+						for(set .@i,0 ; .@i < getarraysize(.@all_quests_in_area) ; set .@i,.@i+1) {
+							if (checkquest(.@all_quests_in_area[.@i]) == -1) {
+								setquest .@all_quests_in_area[.@i];
+							}
+							continue;
+						}
+						mes "You have signed up for all of those quests.";
+						close;
+					case 2:
+						mes "Yeah, maybe it'd be too much.";
+						close;
+				}
+				break;
+		}
+	case 3:
+		end;
+	}
+	end;
+	
+	mes "There is nothing special to do.";
+	close;
+	
+Accept_Quest:
+	clear;
+	mes "[Mission Board]";
+	for ( .@i = 1; .@i < getargcount(); .@i++ )
+		mes getarg(.@i);
+	next;
+	if(select("Accept the mission:Cancel") == 1) {
+		if (checkquest(getarg(0)) > -1) {mes "You are already signed up for this mission!"; close;};
+		mes "[Mission Board]";
+		mes "You have accepted the mission. For more details, please press 'alt + u' keys, you can get information from the Quest Window.";
+		setquest getarg(0);
+	}
+	close;
+	OnInit: {
+		setarray .all_quest_ids[0],
+			// Illusion of Launda
+			100000,100001,100002,100003,
+			// Illusion of Twins
+			100004,100005,100006,100007;
+	}
+}

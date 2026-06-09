@@ -1,0 +1,232 @@
+// Roin's 131-140 bounty board
+// Last edited 4/21/2025
+
+moc_para01,36,185,3	script	141-150 Mission Board	857,{
+	if (!callfunc("F_HasEdenGroupMark")) {
+		mes "You are not an Eden group member. You are not qualified to access the bulletin board.";
+		close;
+	}
+	
+	//Quest Turn-ins first
+	setarray .@quest_names$[0],
+		// Bio Labs
+		"Kathryne Keyron Hunting","Margaretha Sorin Hunting","Cecil Damon Hunting","Eremes Guile Hunting",
+		"Seyren Windsor Hunting","Howard Alt-Eisen Hunting","Trentini Hunting","Celia Alde Hunting",
+		"Alphoccio Hunting","Gertie Wie Hunting","Chen Lio Hunting","Flamel Emure Hunting","Randel Lawrence Hunting",
+		//Bifrost Tower
+		"Cenere Hunting","Antique Book Hunting","Yellow Lichtern Hunting","Blue Lichtern Hunting","Red Lichtern Hunting","Green Lichtern Hunting",
+		// Eclage Fields
+		"Menblatt Hunting","Petal Hunting",
+		// Hazy Maze Forest
+		"Miming Hunting","Little Fatum Hunting","Angra Mantis Hunting",
+		// NM Clock Tower
+		"Nightmare Mimic Hunting","Nightmare Rideword Hunting";
+	setarray .@Exp[0], // https://irowiki.org/wiki/Base_EXP_Chart (amount of exp it takes to level up from 150) / 25 * 1.4
+		// Bio Labs
+		3100000,3100000,3100000,3100000,
+		3100000,3100000,3100000,3100000,
+		3100000,3100000,3100000,3100000,3100000,
+		// Bifrost Tower
+		2700000,2700000,2700000,2700000,2700000,2700000,
+		// Eclage Fields
+		2700000,2700000,
+		// Hazy Maze Forest
+		2700000,2700000,2700000,
+		// NM Clock Tower
+		2700000,2700000;
+	for(set .@i,0; .@i<getarraysize(.@Exp); set .@i,.@i+1)
+		if (checkquest(.all_quest_ids[.@i],HUNTING) == 2) { // Check if the hunting part of the quest is completed
+			mes "[Mission Board]";
+			mes "You have completed the ^4d4dff"+.@quest_names$[.@i]+" ^000000mission.";
+			mes "Would you like to turn it in now?";
+				if (select("Heck yeah!:Not yet") == 2) {close;}
+			erasequest .all_quest_ids[.@i];
+			specialeffect2 EF_STEAL;
+			getexp .@Exp[.@i],.@Exp[.@i];
+			next;
+		}
+		
+	if (BaseLevel < 141 || BaseLevel > 150) {
+		mes "This mission bulletin board is for Lv141~150 adventurers.";
+		close;
+	}
+	mes "[Mission Board]";
+	mes "A bunch of missions are listed on the board.";
+	mes "Choose what location you'd like to hunt at:";
+	next;
+	switch(select("Bio Labs:Bifrost Tower:Eclage Fields:Hazy Maze Forest:Nightmare Clock Tower:Cancel")) {
+	case 1:
+		setarray .@all_quests_in_area[0],
+			62761, 62762, 62763, 62764, 62765, 62765, 62767, 62768, 62769, 62770, 62771, 62772, 62773;
+		switch(select("Kathryne Keyron Hunting:Margaretha Sorin Hunting:Cecil Damon Hunting:Eremes Guile Hunting:Seyren Windsor Hunting:Howard Alt-Eisen Hunting:Trentini Hunting:Celia Alde Hunting:Alphoccio Hunting:Gertie Wie Hunting:Chen Lio Hunting:Flamel Emure Hunting:Randel Lawrence Hunting:Hunt ALL")) {
+			case 1: callsub Accept_Quest,62761,"Hunt 30 ^4d4dffKathryne Keyron^000000:";
+			case 2: callsub Accept_Quest,62762,"Hunt 30 ^4d4dffMargaretha Sorin^000000:";
+			case 3: callsub Accept_Quest,62763,"Hunt 30 ^4d4dffCecil Damon^000000:";
+			case 4: callsub Accept_Quest,62764,"Hunt 30 ^4d4dffEremes Guile^000000:";
+			case 5: callsub Accept_Quest,62765,"Hunt 30 ^4d4dffSeyren Windsor^000000:";
+			case 6: callsub Accept_Quest,62766,"Hunt 30 ^4d4dffHoward Alt-Eisen^000000:";
+			case 7: callsub Accept_Quest,62767,"Hunt 30 ^4d4dffTrentini^000000:";
+			case 8: callsub Accept_Quest,62768,"Hunt 30 ^4d4dffCelia Alde^000000:";
+			case 9: callsub Accept_Quest,62769,"Hunt 30 ^4d4dffAlphoccio^000000:";
+			case 10: callsub Accept_Quest,62770,"Hunt 30 ^4d4dffGertie Wie^000000:";
+			case 11: callsub Accept_Quest,62771,"Hunt 30 ^4d4dffChen Lio^000000:";
+			case 12: callsub Accept_Quest,62772,"Hunt 30 ^4d4dffFlamel Emure^000000:";
+			case 13: callsub Accept_Quest,62773,"Hunt 30 ^4d4dffRandel Lawrence^000000:";
+			case 14:
+				mes "You would like to hunt ALL of these monsters?";
+				switch(select("Yes:Never mind")) {
+					case 1:
+						for(set .@i,0 ; .@i < getarraysize(.@all_quests_in_area) ; set .@i,.@i+1) {
+							if (checkquest(.@all_quests_in_area[.@i]) == -1) {
+								setquest .@all_quests_in_area[.@i];
+							}
+							continue;
+						}
+						mes "You have signed up for all of those quests.";
+						close;
+					case 2:
+						mes "Yeah, maybe it'd be too much.";
+						close;
+				}
+				break;
+			
+		}
+	case 2:
+		setarray .@all_quests_in_area[0],
+			62823, 62827, 62828, 62829, 62830, 62831;
+		switch(select("Cenere Hunting:Antique Book Hunting:Yellow Lichtern Hunting:Blue Lichtern Hunting:Red Lichtern Hunting:Green Lichtern Hunting:Hunt ALL")) {
+			case 1: callsub Accept_Quest,62823,"Hunt 30 ^4d4dffCenere^000000:";
+			case 2: callsub Accept_Quest,62827,"Hunt 30 ^4d4dffAntique Books^000000:";
+			case 3: callsub Accept_Quest,62828,"Hunt 30 ^4d4dffYellow Lichterns^000000:";
+			case 4: callsub Accept_Quest,62829,"Hunt 30 ^4d4dffBlue Lichterns^000000:";
+			case 5: callsub Accept_Quest,62830,"Hunt 30 ^4d4dffRed Lichterns^000000:";
+			case 6: callsub Accept_Quest,62831,"Hunt 30 ^4d4dffGreen Lichterns^000000:";
+			case 7:
+				mes "You would like to hunt ALL of these monsters?";
+				switch(select("Yes:Never mind")) {
+					case 1:
+						for(set .@i,0 ; .@i < getarraysize(.@all_quests_in_area) ; set .@i,.@i+1) {
+							if (checkquest(.@all_quests_in_area[.@i]) == -1) {
+								setquest .@all_quests_in_area[.@i];
+							}
+							continue;
+						}
+						mes "You have signed up for all of those quests.";
+						close;
+					case 2:
+						mes "Yeah, maybe it'd be too much.";
+						close;
+				}
+				break;
+		}
+	case 3:
+		setarray .@all_quests_in_area[0],
+			62824, 62825;
+		switch(select("Menblatt Hunting:Petal Hunting:Hunt ALL")) {
+			case 1: callsub Accept_Quest,62824,"Hunt 30 ^4d4dffMenblatts^000000:";
+			case 2: callsub Accept_Quest,62825,"Hunt 30 ^4d4dffPetals^000000:";
+			case 3:
+				mes "You would like to hunt ALL of these monsters?";
+				switch(select("Yes:Never mind")) {
+					case 1:
+						for(set .@i,0 ; .@i < getarraysize(.@all_quests_in_area) ; set .@i,.@i+1) {
+							if (checkquest(.@all_quests_in_area[.@i]) == -1) {
+								setquest .@all_quests_in_area[.@i];
+							}
+							continue;
+						}
+						mes "You have signed up for all of those quests.";
+						close;
+					case 2:
+						mes "Yeah, maybe it'd be too much.";
+						close;
+				}
+				break;
+		}
+	case 4:
+		setarray .@all_quests_in_area[0],
+			62821, 62822, 62826;
+		switch(select("Miming Hunting:Little Fatum Hunting:Angra Mantis Hunting:Hunt ALL")) {
+			case 1: callsub Accept_Quest,62821,"Hunt 30 ^4d4dffMiming^000000:";
+			case 2: callsub Accept_Quest,62822,"Hunt 30 ^4d4dffLittle Fatum^000000:";
+			case 3: callsub Accept_Quest,62826,"Hunt 30 ^4d4dffAngra Mantis^000000:";
+			case 4:
+				mes "You would like to hunt ALL of these monsters?";
+				switch(select("Yes:Never mind")) {
+					case 1:
+						for(set .@i,0 ; .@i < getarraysize(.@all_quests_in_area) ; set .@i,.@i+1) {
+							if (checkquest(.@all_quests_in_area[.@i]) == -1) {
+								setquest .@all_quests_in_area[.@i];
+							}
+							continue;
+						}
+						mes "You have signed up for all of those quests.";
+						close;
+					case 2:
+						mes "Yeah, maybe it'd be too much.";
+						close;
+				}
+				break;
+		}
+	case 5:
+		setarray .@all_quests_in_area[0],
+			62890, 62891;
+		switch(select("Nightmare Mimic Hunting:Nightmare Rideword Hunting:Hunt ALL")) {
+			case 1: callsub Accept_Quest,62890,"Hunt 30 ^4d4dff^000000:";
+			case 2: callsub Accept_Quest,62891,"Hunt 30 ^4d4dff^000000:";
+			case 3:
+				mes "You would like to hunt ALL of these monsters?";
+				switch(select("Yes:Never mind")) {
+					case 1:
+						for(set .@i,0 ; .@i < getarraysize(.@all_quests_in_area) ; set .@i,.@i+1) {
+							if (checkquest(.@all_quests_in_area[.@i]) == -1) {
+								setquest .@all_quests_in_area[.@i];
+							}
+							continue;
+						}
+						mes "You have signed up for all of those quests.";
+						close;
+					case 2:
+						mes "Yeah, maybe it'd be too much.";
+						close;
+				}
+				break;
+			//case : callsub Accept_Quest,00000,"Hunt 30 ^4d4dff^000000:";
+		}
+	case 6:
+		end;
+	}
+	end;
+	
+	mes "There is nothing special to do.";
+	close;
+	
+Accept_Quest:
+	clear;
+	mes "[Mission Board]";
+	for ( .@i = 1; .@i < getargcount(); .@i++ )
+		mes getarg(.@i);
+	next;
+	if(select("Accept the mission:Cancel") == 1) {
+		if (checkquest(getarg(0)) > -1) {mes "You are already signed up for this mission!"; close;};
+		mes "[Mission Board]";
+		mes "You have accepted the mission. For more details, please press 'alt + u' keys, you can get information from the Quest Window.";
+		setquest getarg(0);
+	}
+	close;
+	OnInit: {
+		setarray .all_quest_ids[0],
+			// Bio Labs
+			62761,62762,62763,62764,
+			62765,62766,62767,62768,
+			62769,62770,62771,62772,62773,
+			//Bifrost Tower
+			62823,62827,62828,62829,62830,62831,
+			// Eclage Fields
+			62824,62825,
+			// Hazy Maze Forest
+			62821,62822,62826,
+			// NM Clock Tower
+			62890,62891;
+	}
+}
