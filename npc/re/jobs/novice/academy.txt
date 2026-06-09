@@ -18,7 +18,7 @@
 //==============================================================================
 
 // Doram Starting Point (rental halter lead give)
-lasa_fild01,48,297	script	doram_start	-1,3,3,{
+lasa_fild01,48,297,0	script	doram_start	-1,3,3,{
 	end;
 OnTouch:
 	if (rentalcountitem(12622) < 1 && BaseLevel < 10) {

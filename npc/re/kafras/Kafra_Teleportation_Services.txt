@@ -222,6 +222,7 @@ S_Zone:
 	close3;
 }
 
+/*
 //moc_para01,35,23,3	script	Kafra Teleportation#eden	4_F_DRKAFRA01,{
 	cutin "kafra_do01", 2;
 	mes "[Kafra Employee]";
@@ -339,3 +340,4 @@ S_Zone:
 //yuno,143,184,5	script	Kafra Teleportation#yuno	4_F_DRKAFRA01,{
 	callfunc "F_KafTeleDoram",11;
 }
+*/

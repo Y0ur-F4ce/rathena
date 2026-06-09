@@ -76,7 +76,7 @@ epay_dun00m
 emos_dun02h
 emos_dun02l
 emos_dun02m
-m_office//MAIN OFFICE
+m_office
 eabyss_01x
 eabyss_03x
 ebeach_dunx
