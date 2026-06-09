@@ -388,55 +388,7 @@ Body:
     Drops:
       - Item: IllusionStone
         Rate: 6
-  # Illusion of Labyrinth monsters (minus MVP)
-  - Id: 20521
-    Drops:
-      - Item: IllusionStone
-        Rate: 7
-  - Id: 20522
-    Drops:
-      - Item: IllusionStone
-        Rate: 7
-  - Id: 20523
-    Drops:
-      - Item: IllusionStone
-        Rate: 7
-  - Id: 20524
-    Drops:
-      - Item: IllusionStone
-        Rate: 7
-  - Id: 20525
-    Drops:
-      - Item: IllusionStone
-        Rate: 7
-  - Id: 20526
-    Drops:
-      - Item: IllusionStone
-        Rate: 7
-  - Id: 20527
-    Drops:
-      - Item: IllusionStone
-        Rate: 7
-  - Id: 20528
-    Drops:
-      - Item: IllusionStone
-        Rate: 7
-  - Id: 20529
-    Drops:
-      - Item: IllusionStone
-        Rate: 7
-  - Id: 20530
-    Drops:
-      - Item: IllusionStone
-        Rate: 7
-  - Id: 20531
-    Drops:
-      - Item: IllusionStone
-        Rate: 7
-  - Id: 20532
-    Drops:
-      - Item: IllusionStone
-        Rate: 7
+  # Illusion of Labyrinth monsters (minus MVP) has been moved to merge with the monsters' implementations in this file
   # Illusion of Underwater F2 monsters (minus MVP)
   - Id: 20806
     Drops:
@@ -1325,6 +1277,8 @@ Body:
         Rate: 50
       - Item: Seed_Of_Yggdrasil
         Rate: 50
+      - Item: IllusionStone
+        Rate: 7
       - Item: Chaos_Acolyte_Card
         Rate: 1
         StealProtected: true
@@ -1368,6 +1322,8 @@ Body:
         Rate: 50
       - Item: Yggdrasilberry
         Rate: 50
+      - Item: IllusionStone
+        Rate: 7
       - Item: Chaos_Acolyte_Card
         Rate: 1
         StealProtected: true
@@ -1411,6 +1367,8 @@ Body:
         Rate: 50
       - Item: Morpheus's_Shawl
         Rate: 100
+      - Item: IllusionStone
+        Rate: 7
       - Item: Chaos_Acolyte_Card
         Rate: 1
         StealProtected: true
@@ -1454,6 +1412,8 @@ Body:
         Rate: 50
       - Item: Morpheus's_Armlet
         Rate: 100
+      - Item: IllusionStone
+        Rate: 7
       - Item: Chaos_Acolyte_Card
         Rate: 1
         StealProtected: true
@@ -1499,6 +1459,8 @@ Body:
         Rate: 1250
       - Item: Gold_Lux
         Rate: 25
+      - Item: IllusionStone
+        Rate: 7
       - Item: Chaos_Ba_Jr_Card
         Rate: 1
         StealProtected: true
@@ -1544,6 +1506,8 @@ Body:
         Rate: 700
       - Item: Snake_Deadly_Poison
         Rate: 1250
+      - Item: IllusionStone
+        Rate: 7
       - Item: Chaos_S_Winder_Card
         Rate: 1
         StealProtected: true
@@ -1589,6 +1553,8 @@ Body:
         Rate: 1250
       - Item: Rough_Wind
         Rate: 20
+      - Item: IllusionStone
+        Rate: 7
       - Item: Chaos_H_Fly_Card
         Rate: 1
         StealProtected: true
@@ -1636,6 +1602,8 @@ Body:
         Rate: 10
       - Item: Red_Herb
         Rate: 500
+      - Item: IllusionStone
+        Rate: 7
       - Item: Chaos_Mantis_Card
         Rate: 1
         StealProtected: true
@@ -1681,6 +1649,8 @@ Body:
         Rate: 1750
       - Item: Soft_Scarf
         Rate: 1250
+      - Item: IllusionStone
+        Rate: 7
       - Item: Chaos_Goring_Card
         Rate: 1
         StealProtected: true
@@ -1728,6 +1698,8 @@ Body:
         Rate: 25
       - Item: Purple_Solid_Shell
         Rate: 1250
+      - Item: IllusionStone
+        Rate: 7
       - Item: Chaos_K_Mantis_Card
         Rate: 1
         StealProtected: true
@@ -1773,6 +1745,8 @@ Body:
         Rate: 1250
       - Item: Elunium
         Rate: 50
+      - Item: IllusionStone
+        Rate: 7
       - Item: Chaos_Poporing_Card
         Rate: 1
         StealProtected: true
@@ -1818,6 +1792,8 @@ Body:
         Rate: 1250
       - Item: Seed_Of_Yggdrasil
         Rate: 20
+      - Item: IllusionStone
+        Rate: 7
       - Item: Chaos_Stem_W_Card
         Rate: 1
         StealProtected: true
